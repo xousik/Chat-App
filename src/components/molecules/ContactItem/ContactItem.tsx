@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import UserAvatar from '../../atoms/userAvatar/userAvatar';
 import { UserName } from '../../atoms/UserName/Username';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.li`
   width: 100%;
@@ -13,7 +14,7 @@ const Wrapper = styled.li`
 
 const ContactItem = () => {
   return (
-    <Wrapper>
+    <Wrapper as={Link} to="/chat">
       <UserAvatar />
       <UserName>Kaja Olszewska</UserName>
     </Wrapper>
