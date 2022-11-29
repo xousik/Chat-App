@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Header from 'components/molecules/Header/Header';
 import SearchBar from 'components/atoms/SearchBar/SearchBar';
 import ContactItem from 'components/molecules/ContactItem/ContactItem';
+import { useAuth } from 'Hooks/useAuth';
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -18,9 +19,11 @@ const ContactsSection = styled.ul`
 `;
 
 const MainView = () => {
+  const auth = useAuth();
+
   return (
     <MainWrapper>
-      <Header />
+      <Header handleLogOut={auth.handleLogOut} />
       <SearchBar />
       <ContactsSection>
         <ContactItem />
