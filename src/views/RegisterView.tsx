@@ -22,7 +22,6 @@ const StyledForm = styled.form`
   align-items: center;
   justify-content: center;
 `;
-
 const StyledHeading = styled.h1`
   width: 60%;
   text-align: center;

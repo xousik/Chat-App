@@ -5,6 +5,9 @@ import LoginView from './LoginView';
 import RegisterView from './RegisterView';
 import { AuthContext } from 'context/AuthContext';
 import ChatView from './ChatView';
+import LoginView from './LoginView';
+import RegisterView from './RegisterView';
+import { useAuth } from 'Hooks/useAuth';
 
 export type AuthProps = {
   currentUser?: any;
@@ -20,7 +23,6 @@ const App = () => {
     }
     return children;
   };
-
   return (
     <Routes>
       <Route path="/">
@@ -45,6 +47,22 @@ const App = () => {
       </Route>
     </Routes>
   );
+};
+
+const UnathenticatedApp = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<LoginView />} />
+      <Route path="/register" element={<RegisterView />} />
+    </Routes>
+  );
+};
+
+const App = () => {
+  const auth = useAuth();
+  console.log(auth.isLoged);
+
+  return <>{auth.isLoged ? <AuthenticatedApp /> : <UnathenticatedApp />}</>;
 };
 
 export default App;

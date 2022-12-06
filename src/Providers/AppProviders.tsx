@@ -5,6 +5,7 @@ import { theme } from 'styles/theme';
 import { GlobalStyle } from 'styles/global';
 import { AuthContextProvider } from 'context/AuthContext';
 
+
 type Props = {
   children: JSX.Element;
 };

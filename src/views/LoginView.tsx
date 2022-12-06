@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from 'FirebaseApp/firebase';
 
+
 const Wrapper = styled.div`
   width: 100%;
   height: 90vh;
@@ -22,6 +23,7 @@ const StyledHeading = styled.h1`
   position: absolute;
   top: 7%;
 `;
+
 const StyledForm = styled.form`
   width: 100%;
   display: flex;
@@ -29,6 +31,7 @@ const StyledForm = styled.form`
   align-items: center;
   justify-content: center;
 `;
+
 
 const StyledInput = styled.input`
   margin: 10px 0 30px 0;
