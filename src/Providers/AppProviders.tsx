@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { theme } from 'styles/theme';
 import { GlobalStyle } from 'styles/global';
-import { AuthProvider } from 'Hooks/useAuth';
+import { AuthContextProvider } from 'context/AuthContext';
 
 type Props = {
   children: JSX.Element;
@@ -11,12 +11,12 @@ type Props = {
 
 const AppProviders = ({ children }: Props) => (
   <Router>
-    <ThemeProvider theme={theme}>
-      <AuthProvider>
+    <AuthContextProvider>
+      <ThemeProvider theme={theme}>
         <GlobalStyle />
         {children}
-      </AuthProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </AuthContextProvider>
   </Router>
 );
 

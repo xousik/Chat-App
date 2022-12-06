@@ -1,34 +1,50 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import MainView from './MainView';
-import ChatView from './ChatView';
 import LoginView from './LoginView';
 import RegisterView from './RegisterView';
-import { useAuth } from 'Hooks/useAuth';
+import { AuthContext } from 'context/AuthContext';
+import ChatView from './ChatView';
 
-const AuthenticatedApp = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<MainView />} />
-      <Route path="/chat" element={<ChatView />} />
-    </Routes>
-  );
-};
-
-const UnathenticatedApp = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<LoginView />} />
-      <Route path="/register" element={<RegisterView />} />
-    </Routes>
-  );
+export type AuthProps = {
+  currentUser?: {};
+  children?: JSX.Element;
 };
 
 const App = () => {
-  const auth = useAuth();
-  console.log(auth.isLoged);
+  const { currentUser }: AuthProps = useContext(AuthContext);
 
-  return <>{auth.isLoged ? <AuthenticatedApp /> : <UnathenticatedApp />}</>;
+  const ProtectedRoute: any = ({ children }: AuthProps) => {
+    if (!currentUser) {
+      return <Navigate to="/login" />;
+    }
+    return children;
+  };
+
+  return (
+    <Routes>
+      <Route path="/">
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <MainView />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="login" element={<LoginView />} />
+        <Route path="register" element={<RegisterView />} />
+        <Route
+          path="chat"
+          element={
+            <ProtectedRoute>
+              <ChatView />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+    </Routes>
+  );
 };
 
 export default App;

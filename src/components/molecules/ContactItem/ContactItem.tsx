@@ -12,11 +12,16 @@ const Wrapper = styled.li`
   margin-top: 10px;
 `;
 
-const ContactItem = () => {
+type ContactProps = {
+  userImg?: any;
+  name: string;
+};
+
+const ContactItem = ({ userImg, name }: ContactProps) => {
   return (
     <Wrapper as={Link} to="/chat">
-      <UserAvatar />
-      <UserName>Kaja Olszewska</UserName>
+      <UserAvatar userImg={userImg} />
+      <UserName>{name}</UserName>
     </Wrapper>
   );
 };
