@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import UserAvatar from 'components/atoms/userAvatar/userAvatar';
 import { UserName } from 'components/atoms/UserName/Username';
+import { AuthContext } from 'context/AuthContext';
+import { AuthProps } from 'views/App';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -20,11 +22,17 @@ const Logout = styled.button`
   color: black;
 `;
 
-const Header = ({ handleLogOut }: { handleLogOut?: () => void }) => {
+type HeaderProps = {
+  handleLogOut?: () => void;
+};
+
+const Header = ({ handleLogOut }: HeaderProps) => {
+  const { currentUser }: AuthProps = useContext(AuthContext);
+  console.log(currentUser);
   return (
     <Wrapper>
-      <UserAvatar />
-      <UserName>Patryk Glinka</UserName>
+      <UserAvatar userImg={currentUser.photoURL} />
+      <UserName>{currentUser.displayName}</UserName>
       <Logout onClick={handleLogOut}>Logout</Logout>
     </Wrapper>
   );

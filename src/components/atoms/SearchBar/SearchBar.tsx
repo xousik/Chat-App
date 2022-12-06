@@ -1,5 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import ContactItem from 'components/molecules/ContactItem/ContactItem';
+
+const Wrapper = styled.div`
+  position: relative;
+`;
 
 const StyledInput = styled.input`
   display: block;
@@ -17,15 +22,29 @@ const StyledInput = styled.input`
   }
 `;
 
-const SearchBar = () => {
+const SearchResult = styled.ul`
+  position: absolute;
+  width: 100%;
+  min-height: 40px;
+  background-color: #fff;
+`;
+
+const SearchBar = ({ setUserName, handleKey, user }: any) => {
   return (
-    <StyledInput
-      autoComplete="off"
-      type="text"
-      id="text"
-      name="text"
-      placeholder="Search"
-    ></StyledInput>
+    <Wrapper>
+      <StyledInput
+        autoComplete="off"
+        type="text"
+        id="text"
+        name="text"
+        placeholder="Search"
+        onChange={(e) => setUserName(e.target.value)}
+        onKeyDown={(e) => handleKey(e)}
+      ></StyledInput>
+      <SearchResult>
+        <ContactItem userImg={user.photoURL} name={user.name} />
+      </SearchResult>
+    </Wrapper>
   );
 };
 

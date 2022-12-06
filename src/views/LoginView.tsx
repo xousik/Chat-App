@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { useAuth } from 'Hooks/useAuth';
+import { Link, useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from 'FirebaseApp/firebase';
+
 
 const Wrapper = styled.div`
   width: 100%;
@@ -21,6 +23,15 @@ const StyledHeading = styled.h1`
   position: absolute;
   top: 7%;
 `;
+
+const StyledForm = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 
 const StyledInput = styled.input`
   margin: 10px 0 30px 0;
@@ -69,28 +80,43 @@ const StyledRegister = styled(StyledButton)`
 const LoginView = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const auth = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogIn = async (e: any) => {
+    e.preventDefault();
+
+    if (!email || !password) return;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Wrapper>
       <StyledHeading>Welcome in Lulu's Chat App</StyledHeading>
-      <StyledLabel htmlFor="username">Username</StyledLabel>
-      <StyledInput
-        type="text"
-        id="username"
-        name="username"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <StyledLabel htmlFor="password">Password</StyledLabel>
-      <StyledInput
-        type="password"
-        id="password"
-        name="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <StyledButton onClick={() => auth.handleLogIn({ email, password })}>Log in</StyledButton>
+      <StyledForm onSubmit={handleLogIn}>
+        <StyledLabel htmlFor="email">Email</StyledLabel>
+        <StyledInput
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <StyledLabel htmlFor="password">Password</StyledLabel>
+        <StyledInput
+          type="password"
+          id="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <StyledButton type="submit">Log in</StyledButton>
+      </StyledForm>
       <StyledRegisterInfo>
         <p>If you dont have account click:</p> <br />
         <StyledRegister as={Link} to="/register">
