@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from 'FirebaseApp/firebase';
+import { Title } from 'components/atoms/Title/Title';
+import { Label } from 'components/atoms/Label/Label';
+import { Input } from 'components/atoms/Input/Input';
+import { Button } from 'components/atoms/Button/Button';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -10,74 +14,45 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background: url('https://images.unsplash.com/photo-1548802673-380ab8ebc7b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2F0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60');
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
+  backdrop-filter: blur(5px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  ::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 90vh;
+    top: 0;
+    background-color: hsla(100%, 100%, 100% 0.5);
+    backdrop-filter: blur(5px);
+    z-index: -99999;
+  }
 `;
 
-const StyledHeading = styled.h1`
-  width: 390px;
-  text-align: center;
-  line-height: 35px;
-  color: ${({ theme }) => theme.colors.dark};
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  font-weight: ${({ theme }) => theme.fontWeight.semiBold};
-  position: absolute;
-  top: 7%;
-`;
+const StyledTitle = styled(Title)``;
 
 const StyledForm = styled.form`
   width: 100%;
+  margin-bottom: 15%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
 
-const StyledInput = styled.input`
-  margin: 10px 0 30px 0;
-  padding: 20px 10px;
-  border: 2px solid black;
-  border-radius: 10px;
-  height: 4%;
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  font-weight: bold;
+const StyledInput = styled(Input)`
+  margin-bottom: 5%;
 `;
 
-const StyledLabel = styled.label`
-  font-size: ${({ theme }) => theme.fontSize.l};
-  font-weight: bold;
-`;
+const StyledLabel = styled(Label)``;
 
-const StyledButton = styled.button`
-  padding: 10px;
-  font-size: ${({ theme }) => theme.fontSize.l};
-  font-weight: bold;
-  border: 2px solid black;
-  border-radius: 10px;
-`;
-
-const StyledRegisterInfo = styled.span`
-  bottom: 25%;
-  font-size: ${({ theme }) => theme.fontSize.l};
-  font-weight: bold;
-  text-align: center;
-
-  p {
-    margin-top: 50px;
-  }
-`;
-
-const StyledRegister = styled(StyledButton)`
-  border: none;
-  text-decoration: none;
-  color: darkred;
-  font-weight: bold;
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
+const StyledButton = styled(Button)`
+  margin-top: 10%;
 `;
 
 const LoginView = () => {
@@ -100,10 +75,11 @@ const LoginView = () => {
 
   return (
     <Wrapper>
-      <StyledHeading>Welcome in Lulu's Chat App</StyledHeading>
+      <StyledTitle>Welcome in Lulu's Chat App</StyledTitle>
       <StyledForm onSubmit={handleLogIn}>
         <StyledLabel htmlFor="email">Email</StyledLabel>
         <StyledInput
+          autoComplete="off"
           type="email"
           id="email"
           name="email"
@@ -120,12 +96,6 @@ const LoginView = () => {
         />
         <StyledButton type="submit">Log in</StyledButton>
       </StyledForm>
-      <StyledRegisterInfo>
-        <p>If you dont have account click:</p> <br />
-        <StyledRegister as={Link} to="/register">
-          Register
-        </StyledRegister>
-      </StyledRegisterInfo>
     </Wrapper>
   );
 };

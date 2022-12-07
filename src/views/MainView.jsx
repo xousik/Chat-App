@@ -24,9 +24,7 @@ const MainWrapper = styled.div`
   }
 `;
 
-const StyledTitle = styled(Title)`
-  margin-top: 18%;
-`;
+const StyledTitle = styled(Title)``;
 
 const StyledButton = styled(Button)`
   margin-top: 15%;
