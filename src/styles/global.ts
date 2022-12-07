@@ -4,7 +4,7 @@ export const GlobalStyle = createGlobalStyle`
     html {
         box-sizing: border-box;
     }
-
+    
     *, *::after, *::before {
         box-sizing: inherit;
         margin: 0;
@@ -13,5 +13,6 @@ export const GlobalStyle = createGlobalStyle`
     body {
         font-family: sans-serif;
         overflow-y: hidden;
+        font-family: 'Montserrat', sans-serif;
     }
 `;
