@@ -21,7 +21,7 @@ const ContactsSection = styled.ul`
   width: 100%;
 `;
 
-const MainView = () => {
+const LogedMainView = () => {
   const [userName, setUserName] = useState('');
   const [user, setUser]: any = useState([]);
 
@@ -52,4 +52,4 @@ const MainView = () => {
   );
 };
 
-export default MainView;
+export default LogedMainView;
