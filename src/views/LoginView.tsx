@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from 'FirebaseApp/firebase';
 import { Title } from 'components/atoms/Title/Title';
@@ -29,7 +29,7 @@ const Wrapper = styled.div`
     height: 90vh;
     top: 0;
     background-color: hsla(100%, 100%, 100% 0.5);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(7px);
     z-index: -99999;
   }
 `;
@@ -53,6 +53,9 @@ const StyledLabel = styled(Label)``;
 
 const StyledButton = styled(Button)`
   margin-top: 10%;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0px 0px 12px px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
 `;
 
 const LoginView = () => {

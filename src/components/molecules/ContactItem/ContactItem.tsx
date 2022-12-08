@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import UserAvatar from '../../atoms/userAvatar/userAvatar';
+import { UserImage } from '../../atoms/UserImage/UserImage';
 import { UserName } from '../../atoms/UserName/Username';
 import { Link } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ type ContactProps = {
 const ContactItem = ({ userImg, name }: ContactProps) => {
   return (
     <Wrapper as={Link} to="/chat">
-      <UserAvatar userImg={userImg} />
+      <UserImage src={userImg} />
       <UserName>{name}</UserName>
     </Wrapper>
   );

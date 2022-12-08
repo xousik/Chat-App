@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from 'components/molecules/Header/Header';
-import SearchBar from 'components/atoms/SearchBar/SearchBar';
+import SearchBar from 'components/organisms/SearchBar/SearchBar';
 import ContactItem from 'components/molecules/ContactItem/ContactItem';
 import { signOut } from 'firebase/auth';
 import { auth } from 'FirebaseApp/firebase';
@@ -11,9 +11,7 @@ import { db } from 'FirebaseApp/firebase';
 const MainWrapper = styled.div`
   width: 100%;
   height: 90vh;
-  margin: 0;
-  padding: 0;
-  background-color: ${({ theme }) => theme.colors.customBlack};
+  background-color: ${({ theme }) => theme.colors.beige};
 `;
 
 const ContactsSection = styled.ul`

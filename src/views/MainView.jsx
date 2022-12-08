@@ -16,18 +16,44 @@ const MainWrapper = styled.div`
   background-size: cover; /* Resize the background image to cover the entire container */
 
   span {
-    margin-top: 1%;
+    margin-top: 2%;
     font-size: ${({ theme }) => theme.fontSize.xs};
     font-weight: ${({ theme }) => theme.fontWeight.medium};
     color: ${({ theme }) => theme.colors.dark};
+    z-index: 999;
     /* text-decoration: underline; */
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 310px;
+    border-bottom: 15px solid rgba(114, 114, 114, 0.8);
+    filter: blur(5px);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 305px;
+    background: rgba(255, 255, 255, 0.4);
+    /* border-bottom: 10px solid rgba(255, 255, 255, 0.5); */
+    filter: blur(5px);
+    backdrop-filter: blur(10px);
+    /* Note: backdrop-filter has minimal browser support */
   }
 `;
 
-const StyledTitle = styled(Title)``;
+const StyledTitle = styled(Title)`
+  margin-top: 12%;
+  z-index: 999;
+`;
 
 const StyledButton = styled(Button)`
-  margin-top: 15%;
+  margin-top: 13%;
+  z-index: 999;
 `;
 
 const MainView = () => {
