@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import ContactItem from 'components/molecules/ContactItem/ContactItem';
+import SearchResult from 'components/molecules/SearchResult/SearchResult';
+import { UserContext } from 'context/UserContext';
 
 const Wrapper = styled.div`
   position: relative;
@@ -8,28 +9,22 @@ const Wrapper = styled.div`
 
 const StyledInput = styled.input`
   display: block;
-  margin: 10px auto 20px auto;
+  margin: 10px auto;
   padding: 10px;
-  width: 90%;
   height: 35px;
-  border-radius: 10px;
+  border-radius: 50px;
   border: none;
   background-color: lightgrey;
-  font-size: ${({ theme }) => theme.fontSize.l};
+  font-size: ${({ theme }) => theme.fontSize.s};
 
   &:focus {
     outline: none;
   }
 `;
 
-const SearchResult = styled.ul`
-  position: absolute;
-  width: 100%;
-  min-height: 40px;
-  background-color: #fff;
-`;
-
-const SearchBar = ({ setUserName, handleKey, user }: any) => {
+const SearchBar = () => {
+  const { user, setUserName, handleKey }: any = useContext(UserContext);
+  // console.log(`User in search bar ${user.name}`);
   return (
     <Wrapper>
       <StyledInput
@@ -39,11 +34,9 @@ const SearchBar = ({ setUserName, handleKey, user }: any) => {
         name="text"
         placeholder="Search"
         onChange={(e) => setUserName(e.target.value)}
-        onKeyDown={(e) => handleKey(e)}
+        onKeyDown={(e) => handleKey(e.key)}
       ></StyledInput>
-      <SearchResult>
-        <ContactItem userImg={user.photoURL} name={user.name} />
-      </SearchResult>
+      <SearchResult user={user} />
     </Wrapper>
   );
 };

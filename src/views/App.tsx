@@ -9,6 +9,7 @@ import ChatView from './ChatView';
 
 export type AuthProps = {
   currentUser?: {};
+  [photoURL: string]: any;
   children?: JSX.Element;
 };
 

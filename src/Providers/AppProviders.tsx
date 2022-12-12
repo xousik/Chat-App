@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from 'styles/theme';
 import { GlobalStyle } from 'styles/global';
 import { AuthContextProvider } from 'context/AuthContext';
+import { UserContextProvider } from 'context/UserContext';
 
 type Props = {
   children: JSX.Element;
@@ -12,10 +13,12 @@ type Props = {
 const AppProviders = ({ children }: Props) => (
   <Router>
     <AuthContextProvider>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        {children}
-      </ThemeProvider>
+      <UserContextProvider>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          {children}
+        </ThemeProvider>
+      </UserContextProvider>
     </AuthContextProvider>
   </Router>
 );

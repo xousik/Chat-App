@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import SearchBar from 'components/atoms/SearchBar/SearchBar';
+import SearchBar from 'components/organisms/SearchBar/SearchBar';
 import Header from 'components/molecules/Header/Header';
 import { Message } from 'components/atoms/Message/Message';
 
