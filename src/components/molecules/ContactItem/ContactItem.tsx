@@ -9,19 +9,22 @@ const Wrapper = styled.li`
   height: 70px;
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin: 5px 0;
+  text-decoration: none;
 `;
 
 type ContactProps = {
-  userImg?: any;
-  name: string;
+  user: {
+    photoURL: any;
+    name: string;
+  };
 };
 
-const ContactItem = ({ userImg, name }: ContactProps) => {
+const ContactItem = ({ user }: ContactProps) => {
   return (
     <Wrapper as={Link} to="/chat">
-      <UserImage src={userImg} />
-      <UserName>{name}</UserName>
+      <UserImage src={user.photoURL} />
+      <UserName>{user.name}</UserName>
     </Wrapper>
   );
 };

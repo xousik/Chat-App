@@ -38,7 +38,6 @@ const Logout = styled.button`
 
 const Header = ({ handleLogOut }: { handleLogOut?: () => void }) => {
   const { currentUser }: any = useContext(AuthContext);
-  console.log(currentUser);
   return (
     <Wrapper>
       <UserImage src={currentUser.photoURL} />

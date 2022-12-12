@@ -6,5 +6,4 @@ export const UserImage = styled.img`
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  border: 1px solid black;
 `;

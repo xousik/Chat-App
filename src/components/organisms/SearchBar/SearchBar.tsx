@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import SearchResult from 'components/molecules/SearchResult/SearchResult';
+import { UserContext } from 'context/UserContext';
 
 const Wrapper = styled.div`
   position: relative;
@@ -21,7 +22,9 @@ const StyledInput = styled.input`
   }
 `;
 
-const SearchBar = ({ setUserName, handleKey, user }: any) => {
+const SearchBar = () => {
+  const { user, setUserName, handleKey }: any = useContext(UserContext);
+  // console.log(`User in search bar ${user.name}`);
   return (
     <Wrapper>
       <StyledInput
@@ -31,7 +34,7 @@ const SearchBar = ({ setUserName, handleKey, user }: any) => {
         name="text"
         placeholder="Search"
         onChange={(e) => setUserName(e.target.value)}
-        onKeyDown={(e) => handleKey(e)}
+        onKeyDown={(e) => handleKey(e.key)}
       ></StyledInput>
       <SearchResult user={user} />
     </Wrapper>
