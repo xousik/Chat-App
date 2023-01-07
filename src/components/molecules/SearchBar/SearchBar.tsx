@@ -1,13 +1,13 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import SearchResult from 'components/molecules/SearchResult/SearchResult';
+import { Input } from 'components/atoms/Input/Input';
 import { UserContext } from 'context/UserContext';
 
 const Wrapper = styled.div`
   position: relative;
 `;
 
-const StyledInput = styled.input`
+const StyledInput = styled(Input)`
   display: block;
   margin: 10px auto;
   padding: 10px;
@@ -15,7 +15,8 @@ const StyledInput = styled.input`
   border-radius: 50px;
   border: none;
   background-color: lightgrey;
-  font-size: ${({ theme }) => theme.fontSize.s};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
 
   &:focus {
     outline: none;
@@ -23,7 +24,7 @@ const StyledInput = styled.input`
 `;
 
 const SearchBar = () => {
-  const { user, setUserName, handleKey }: any = useContext(UserContext);
+  const { setUserName, handleKey }: any = useContext(UserContext);
   // console.log(`User in search bar ${user.name}`);
   return (
     <Wrapper>
@@ -36,7 +37,6 @@ const SearchBar = () => {
         onChange={(e) => setUserName(e.target.value)}
         onKeyDown={(e) => handleKey(e.key)}
       ></StyledInput>
-      <SearchResult user={user} />
     </Wrapper>
   );
 };

@@ -5,8 +5,11 @@ export const theme = {
     customBlack: '#0D1317',
     dark: '#373636',
     darkRed: '#650000',
+    darkBrown: 'rgba(27, 16, 16, 80%)',
     beige: '#B79D5A',
-    gray: '#D9D9D9'
+    lightGray: '#e3e3e3',
+    gray: '#D9D9D9',
+    darkGray: '#C9C9C9'
   },
   fontSize: {
     xxl: '40px',
@@ -14,7 +17,8 @@ export const theme = {
     l: '30px',
     m: '24px',
     s: '20px',
-    xs: '16px'
+    xs: '16px',
+    xxs: '12px'
   },
   fontWeight: {
     regular: 400,

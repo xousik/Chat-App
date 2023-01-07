@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import ContactItem from '../ContactItem/ContactItem';
+import { UserContext } from 'context/UserContext';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -15,11 +16,12 @@ const Wrapper = styled.div`
 `;
 
 const SearchResult = ({ user }: any) => {
+  const { handleSelect }: any = useContext(UserContext);
   return (
     <>
-      {Object.keys(user).length !== 0 ? (
+      {user ? (
         <Wrapper>
-          <ContactItem user={user} />
+          <ContactItem handleClick={handleSelect} user={user} />
         </Wrapper>
       ) : null}
     </>

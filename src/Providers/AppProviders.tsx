@@ -5,6 +5,7 @@ import { theme } from 'styles/theme';
 import { GlobalStyle } from 'styles/global';
 import { AuthContextProvider } from 'context/AuthContext';
 import { UserContextProvider } from 'context/UserContext';
+import { ChatContextProvider } from 'context/ChatContext';
 
 type Props = {
   children: JSX.Element;
@@ -14,10 +15,12 @@ const AppProviders = ({ children }: Props) => (
   <Router>
     <AuthContextProvider>
       <UserContextProvider>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          {children}
-        </ThemeProvider>
+        <ChatContextProvider>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            {children}
+          </ThemeProvider>
+        </ChatContextProvider>
       </UserContextProvider>
     </AuthContextProvider>
   </Router>

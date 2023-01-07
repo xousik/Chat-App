@@ -1,17 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { UserImage } from 'components/atoms/UserImage/UserImage';
 import { UserName } from 'components/atoms/UserName/Username';
-import { AuthContext } from 'context/AuthContext';
 
 const Wrapper = styled.div`
   width: 100%;
   height: 110px;
   display: flex;
   align-items: center;
-  column-gap: 10px;
-  background-color: ${({ theme }) => theme.colors.gray};
+  column-gap: 15px;
+  background-color: ${({ theme }) => theme.colors.lightGray};
   border-radius: 0 0 20px 20px;
+`;
+
+const StyledUserName = styled(UserName)`
+  font-size: ${({ theme }) => theme.fontSize.m};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  color: ${({ theme }) => theme.colors.customBlack};
 `;
 
 const Logout = styled.button`
@@ -36,16 +41,27 @@ const Logout = styled.button`
   }
 `;
 
-const Header = ({ handleLogOut }: { handleLogOut?: () => void }) => {
-  const { currentUser }: any = useContext(AuthContext);
+interface HeaderProps {
+  handleLogOut?: () => void;
+  user: {
+    photoURL: 'string';
+    displayName: 'string';
+  };
+  hasLogout?: boolean;
+}
+
+const Header = ({ handleLogOut, user, hasLogout }: HeaderProps) => {
+  // const { currentUser }: any = useContext(AuthContext);
   return (
     <Wrapper>
-      <UserImage src={currentUser.photoURL} />
-      <UserName>{currentUser.displayName}</UserName>
-      <Logout onClick={handleLogOut}>
-        <span>Logout</span>
-        <img src="https://www.svgrepo.com/show/318344/logout.svg" alt="logout-icon" />
-      </Logout>
+      <UserImage src={user?.photoURL} />
+      <StyledUserName>{user?.displayName}</StyledUserName>
+      {hasLogout && (
+        <Logout onClick={handleLogOut}>
+          <span>Logout</span>
+          <img src="https://www.svgrepo.com/show/318344/logout.svg" alt="logout-icon" />
+        </Logout>
+      )}
     </Wrapper>
   );
 };

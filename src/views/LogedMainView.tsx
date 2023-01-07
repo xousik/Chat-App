@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Header from 'components/molecules/Header/Header';
-import SearchBar from 'components/organisms/SearchBar/SearchBar';
-import ContactItem from 'components/molecules/ContactItem/ContactItem';
+import SearchBar from 'components/molecules/SearchBar/SearchBar';
 import { signOut } from 'firebase/auth';
 import { auth } from 'FirebaseApp/firebase';
+import SearchResult from 'components/molecules/SearchResult/SearchResult';
+import { UserContext } from 'context/UserContext';
+import UserChats from 'components/organisms/UserChats/UserChats';
+import { AuthContext } from 'context/AuthContext';
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -12,21 +15,15 @@ const MainWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.beige};
 `;
 
-const ContactsSection = styled.ul`
-  height: 80%;
-  width: 100%;
-`;
-
 const LogedMainView = () => {
+  const { user }: any = useContext(UserContext);
+  const { currentUser }: any = useContext(AuthContext);
   return (
     <MainWrapper>
-      <Header handleLogOut={() => signOut(auth)} />
+      <Header handleLogOut={() => signOut(auth)} user={currentUser} hasLogout={true} />
       <SearchBar />
-      {/* {user && (
-        <ContactsSection>
-          <ContactItem key={user.uid} userImg={user.photoURL} name={user.name} />
-        </ContactsSection>
-      )} */}
+      <SearchResult user={user} />
+      <UserChats />
     </MainWrapper>
   );
 };

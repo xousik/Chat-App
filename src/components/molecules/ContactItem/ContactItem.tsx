@@ -2,29 +2,42 @@ import React from 'react';
 import styled from 'styled-components';
 import { UserImage } from '../../atoms/UserImage/UserImage';
 import { UserName } from '../../atoms/UserName/Username';
+import { LastMessage } from 'components/atoms/LastMessage/LastMessage';
 import { Link } from 'react-router-dom';
 
 const Wrapper = styled.li`
   width: 100%;
   height: 70px;
   display: flex;
+  column-gap: 15px;
   align-items: center;
   margin: 5px 0;
   text-decoration: none;
 `;
 
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
 type ContactProps = {
   user: {
-    photoURL: any;
+    photoURL: string;
     name: string;
+    displayName: string;
   };
+  handleClick: () => void;
 };
 
-const ContactItem = ({ user }: ContactProps) => {
+const ContactItem = ({ user, handleClick }: ContactProps) => {
   return (
-    <Wrapper as={Link} to="/chat">
+    <Wrapper onClick={handleClick} as={Link} to="/chat">
       <UserImage src={user.photoURL} />
-      <UserName>{user.name}</UserName>
+      <TextWrapper>
+        <UserName>{user.name || user.displayName}</UserName>
+        <LastMessage>You: Hi, what's up ?</LastMessage>
+      </TextWrapper>
     </Wrapper>
   );
 };
