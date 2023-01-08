@@ -1,4 +1,4 @@
-import { useReducer, createContext, useContext } from 'react';
+import { useReducer, createContext, useContext, useEffect } from 'react';
 import { AuthContext } from './AuthContext';
 
 type Props = {
@@ -18,7 +18,7 @@ export const ChatContextProvider = ({ children }: Props) => {
 
   const currentChatUser = getCurrentChatUser('currentChatId');
 
-  if (currentUser) {
+  if (currentUser && currentChatUser) {
     user = {
       chatId:
         currentUser.uid > currentChatUser.uid
@@ -43,8 +43,6 @@ export const ChatContextProvider = ({ children }: Props) => {
   // };
 
   // const [state, dispatch] = useReducer(chatReducer, INITIAL_STATE);
-
-  console.log(user);
 
   return <ChatContext.Provider value={{ user }}>{children}</ChatContext.Provider>;
 };

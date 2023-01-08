@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 `;
 
 const StyledUserName = styled(UserName)`
-  font-size: ${({ theme }) => theme.fontSize.m};
+  font-size: ${({ theme }) => theme.fontSize.s};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   color: ${({ theme }) => theme.colors.customBlack};
 `;

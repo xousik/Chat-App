@@ -1,9 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Input } from 'components/atoms/Input/Input';
 import { Button } from 'components/atoms/Button/Button';
-import { AuthContext } from 'context/AuthContext';
-import { ChatContext } from 'context/ChatContext';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';
 import { v4 as uuidv4 } from 'uuid';
@@ -43,12 +41,18 @@ const StyledButton = styled(Button)`
   border-radius: 5px;
 `;
 
-const ChatInput = () => {
+interface ChatInputProps {
+  currentUser: {
+    uid: string;
+  };
+  user: {
+    chatId: string;
+  };
+}
+
+const ChatInput = ({ currentUser, user }: ChatInputProps) => {
   const [text, setText] = useState('');
   //   const [image, setImage] = useState(null);
-
-  const { currentUser }: any = useContext(AuthContext);
-  const { user }: any = useContext(ChatContext);
 
   const currentDate = new Date();
 
@@ -62,12 +66,13 @@ const ChatInput = () => {
       })
     });
 
-    // await updateDoc(doc(db, 'userChats', currentUser.uid), {
-    //   [user.chatId + '.lastMessage']:
-    // })
-
     setText('');
   };
+
+  const handleKey = (e: string) => {
+    if (e === 'Enter') handleSend();
+  };
+
   return (
     <Wrapper>
       <StyledInput
@@ -78,7 +83,7 @@ const ChatInput = () => {
         placeholder="Aa"
         onChange={(e) => setText(e.target.value)}
         value={text}
-        // onKeyDown={(e) => handleKey(e.key)}
+        onKeyDown={(e) => handleKey(e.key)}
       ></StyledInput>
       <StyledButton onClick={handleSend}>Send</StyledButton>
     </Wrapper>

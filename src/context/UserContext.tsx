@@ -24,7 +24,6 @@ export const UserContextProvider = ({ children }: Props) => {
   const [userName, setUserName] = useState('');
   const [user, setUser]: any = useState(null);
   const { currentUser }: any = useContext(AuthContext);
-  const { dispatch }: any = useContext(ChatContext);
 
   const handleSearch = async (senderId = null) => {
     if (senderId) {
@@ -76,7 +75,7 @@ export const UserContextProvider = ({ children }: Props) => {
           [combinedId + '.date']: serverTimestamp()
         });
       }
-      dispatch({ type: 'CHANGE_USER', payload: user });
+
       setUser(null);
     } catch (err) {}
   };

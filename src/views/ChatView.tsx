@@ -5,7 +5,6 @@ import ChatInput from 'components/molecules/ChatInput/ChatInput';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';
 import Message from 'components/atoms/Message/Message';
-import { ChatContext } from 'context/ChatContext';
 import { AuthContext } from 'context/AuthContext';
 
 const Wrapper = styled.div`
@@ -19,9 +18,9 @@ const Wrapper = styled.div`
 
 const MessagesWrapper = styled.ul`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   overflow-x: scroll;
 `;
 
@@ -62,13 +61,17 @@ const ChatView = () => {
       <Header user={user.user} />
       <MessagesWrapper>
         {messages.map((message: any) => (
-          <Message senderId={message.senderId} key={message.id}>
+          <Message
+            isOwnerMessage={message.senderId === currentUser.uid}
+            chatUser={user.user}
+            key={message.id}
+          >
             {message.text}
           </Message>
         ))}
         <div ref={bottomRef} />
       </MessagesWrapper>
-      <ChatInput />
+      <ChatInput user={user} currentUser={currentUser} />
     </Wrapper>
   );
 };
