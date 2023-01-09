@@ -12,15 +12,14 @@ import {
 } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';
 import { AuthContext } from './AuthContext';
-import { ChatContext } from './ChatContext';
 
-type Props = {
+type UserContextProps = {
   children: JSX.Element;
 };
 
 export const UserContext = createContext({});
 
-export const UserContextProvider = ({ children }: Props) => {
+export const UserContextProvider = ({ children }: UserContextProps) => {
   const [userName, setUserName] = useState('');
   const [user, setUser]: any = useState(null);
   const { currentUser }: any = useContext(AuthContext);
@@ -40,7 +39,7 @@ export const UserContextProvider = ({ children }: Props) => {
     });
   };
 
-  const handleKey = (e: any) => {
+  const handleKey = (e: string) => {
     if (e === 'Enter') {
       handleSearch();
     }

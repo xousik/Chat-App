@@ -21,15 +21,13 @@ const MessagesWrapper = styled.ul`
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow-x: scroll;
+  overflow-y: scroll;
 `;
 
 const ChatView = () => {
-  // const { user }: any = useContext(ChatContext);
-  // console.log(user);
   const { currentUser }: any = useContext(AuthContext);
   const [messages, setMessages]: any = useState([]);
-  const bottomRef = useRef<null | HTMLDivElement>(null);
+  const messagesRef = useRef<null | HTMLUListElement>(null);
 
   const getCurrentChatUser = (key: string) => {
     const user = localStorage.getItem(key);
@@ -53,14 +51,20 @@ const ChatView = () => {
   }, [user.chatId]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesRef.current?.scrollTo(0, messagesRef.current.scrollHeight);
   }, [messages]);
+
+  interface MessageProps {
+    senderId: string;
+    id: string;
+    text: string;
+  }
 
   return (
     <Wrapper>
       <Header user={user.user} />
-      <MessagesWrapper>
-        {messages.map((message: any) => (
+      <MessagesWrapper ref={messagesRef}>
+        {messages.map((message: MessageProps) => (
           <Message
             isOwnerMessage={message.senderId === currentUser.uid}
             chatUser={user.user}
@@ -69,7 +73,6 @@ const ChatView = () => {
             {message.text}
           </Message>
         ))}
-        <div ref={bottomRef} />
       </MessagesWrapper>
       <ChatInput user={user} currentUser={currentUser} />
     </Wrapper>

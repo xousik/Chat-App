@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { UserImage } from '../UserImage/UserImage';
 
-const Wrapper = styled.li`
+const Wrapper = styled.div`
   display: flex;
 `;
 
@@ -32,7 +32,7 @@ const OwnerMessageContent = styled(MessageContent)`
 `;
 interface MessageProps {
   isOwnerMessage: boolean;
-  children: JSX.Element;
+  children: string;
   chatUser: {
     photoURL: string;
   };

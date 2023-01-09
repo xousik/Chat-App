@@ -23,6 +23,12 @@ const StyledInput = styled(Input)`
   }
 `;
 
+// interface UserContextProps {
+//   setUserName: (e: string) => void;
+//   handleKey: (e: string) => void;
+
+// }
+
 const SearchBar = () => {
   const { setUserName, handleKey }: any = useContext(UserContext);
   // console.log(`User in search bar ${user.name}`);

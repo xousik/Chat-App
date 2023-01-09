@@ -160,7 +160,10 @@ const RegisterView = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <StyledFileLabel htmlFor="userAvatar">
-          <img src="https://www.svgrepo.com/show/12324/cloud-uploading-arrow.svg" />
+          <img
+            src="https://www.svgrepo.com/show/12324/cloud-uploading-arrow.svg"
+            alt="Add-file-icon"
+          />
           <span>Add profile img</span>
         </StyledFileLabel>
         <StyledFileInput
