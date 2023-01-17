@@ -20,7 +20,8 @@ export const theme = {
     xs: '16px',
     xxs: '12px',
     desktop: {
-      xxl: '70px'
+      xxl: '70px',
+      xl: '60px'
     }
   },
   fontWeight: {

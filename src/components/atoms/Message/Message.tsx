@@ -9,17 +9,17 @@ const Wrapper = styled.div`
 const StyledUserImage = styled(UserImage)`
   width: 20px;
   height: 20px;
-  margin: 0 0 2% 1%;
+  margin: 0 0 1px 5px;
   align-self: flex-end;
 `;
 
 const MessageContent = styled.li`
   list-style-type: none;
-  min-width: 15%;
-  max-width: 60%;
+  min-width: 50px;
+  max-width: 300px;
   word-wrap: break-word;
-  padding: 8px;
-  margin: 2% 1%;
+  padding: 5px;
+  margin: 1px 5px;
   border-radius: 15px;
   background-color: ${({ theme }) => theme.colors.gray};
   font-size: ${({ theme }) => theme.fontSize.xs};
@@ -31,7 +31,7 @@ const OwnerMessageContent = styled(MessageContent)`
   align-self: flex-end;
 `;
 interface MessageProps {
-  isOwnerMessage?: boolean;
+  isOwnerMessage: boolean;
   children: string;
   chatUser: {
     photoURL: string;

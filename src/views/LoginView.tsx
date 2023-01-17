@@ -7,6 +7,29 @@ import { Title } from 'components/atoms/Title/Title';
 import { Label } from 'components/atoms/Label/Label';
 import { Input } from 'components/atoms/Input/Input';
 import { Button } from 'components/atoms/Button/Button';
+import background from 'assets/images/background.jpg';
+
+const OuterWrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+  img {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: -99999;
+  }
+
+  @media (min-width: 1250px) {
+    display: flex;
+    height: 100vh;
+
+    img {
+      width: 50vw;
+      height: auto;
+      position: relative;
+    }
+  }
+`;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -14,13 +37,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  background: url('https://images.unsplash.com/photo-1548802673-380ab8ebc7b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2F0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60');
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
   backdrop-filter: blur(5px);
-  /* Note: backdrop-filter has minimal browser support */
 
   ::before {
     content: '';
@@ -32,30 +49,67 @@ const Wrapper = styled.div`
     backdrop-filter: blur(7px);
     z-index: -99999;
   }
-`;
 
-const StyledTitle = styled(Title)``;
+  @media (min-width: 1250px) {
+    position: relative;
+    width: 60vw;
+    height: 100%;
+    background-color: ${({ theme }) => theme.colors.lightGray};
+
+    span {
+      font-size: ${({ theme }) => theme.fontSize.s};
+      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      width: 20px;
+      height: 100vh;
+      border: 10px solid rgba(128, 128, 128, 0.7);
+      filter: blur(5px);
+      z-index: 0;
+      backdrop-filter: none;
+    }
+  }
+`;
 
 const StyledForm = styled.form`
   width: 100%;
-  margin-bottom: 15%;
+  margin-top: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+    margin-top: 100px;
+  }
 `;
 
 const StyledInput = styled(Input)`
-  margin-bottom: 5%;
+  margin-bottom: 20px;
 `;
 
-const StyledLabel = styled(Label)``;
+const StyledLabel = styled(Label)`
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
 
 const StyledButton = styled(Button)`
-  margin-top: 10%;
+  margin-top: 45px;
   background: rgba(255, 255, 255, 0.4);
   box-shadow: inset 0px 0px 12px px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
+
+  @media (min-width: 1250px) {
+    width: 200px;
+    height: 60px;
+    font-size: ${({ theme }) => theme.fontSize.l};
+    background: rgba(255, 255, 255, 0.01);
+    box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.3);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
 `;
 
 const LoginView = () => {
@@ -77,29 +131,32 @@ const LoginView = () => {
   };
 
   return (
-    <Wrapper>
-      <StyledTitle>Welcome to Lulu's Chat App</StyledTitle>
-      <StyledForm onSubmit={handleLogIn}>
-        <StyledLabel htmlFor="email">Email</StyledLabel>
-        <StyledInput
-          autoComplete="off"
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <StyledLabel htmlFor="password">Password</StyledLabel>
-        <StyledInput
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <StyledButton type="submit">Log in</StyledButton>
-      </StyledForm>
-    </Wrapper>
+    <OuterWrapper>
+      <img src={background} alt="background-cat" />
+      <Wrapper>
+        <Title>Welcome to Lulu's Chat App</Title>
+        <StyledForm onSubmit={handleLogIn}>
+          <StyledLabel htmlFor="email">Email</StyledLabel>
+          <StyledInput
+            autoComplete="off"
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <StyledLabel htmlFor="password">Password</StyledLabel>
+          <StyledInput
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <StyledButton type="submit">Log in</StyledButton>
+        </StyledForm>
+      </Wrapper>
+    </OuterWrapper>
   );
 };
 

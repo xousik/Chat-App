@@ -14,6 +14,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.beige};
+
+  @media (min-width: 1250px) {
+    height: 100vh;
+  }
 `;
 
 const MessagesWrapper = styled.ul`
@@ -21,8 +25,10 @@ const MessagesWrapper = styled.ul`
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
-  /* justify-content: flex-end; */
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export interface ICurrentUser {
