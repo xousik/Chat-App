@@ -31,7 +31,7 @@ const OwnerMessageContent = styled(MessageContent)`
   align-self: flex-end;
 `;
 interface MessageProps {
-  isOwnerMessage: boolean;
+  isOwnerMessage?: boolean;
   children: string;
   chatUser: {
     photoURL: string;

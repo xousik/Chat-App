@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
 import { AuthContext } from './AuthContext';
+import { ICurrentUser } from 'views/ChatView';
 
 type Props = {
   children: JSX.Element;
@@ -8,7 +9,7 @@ type Props = {
 export const ChatContext = createContext({});
 
 export const ChatContextProvider = ({ children }: Props) => {
-  const { currentUser }: any = useContext(AuthContext);
+  const { currentUser }: ICurrentUser = useContext(AuthContext);
   let user;
 
   const getCurrentChatUser = (key: string) => {
@@ -28,5 +29,5 @@ export const ChatContextProvider = ({ children }: Props) => {
     };
   }
 
-  return <ChatContext.Provider value={{ user }}>{children}</ChatContext.Provider>;
+  return <ChatContext.Provider value={{ user, currentChatUser }}>{children}</ChatContext.Provider>;
 };

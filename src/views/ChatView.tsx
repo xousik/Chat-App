@@ -22,11 +22,21 @@ const MessagesWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  /* justify-content: flex-end; */
 `;
 
+export interface ICurrentUser {
+  currentUser?: {
+    uid: string;
+    name: string;
+    displayName: string;
+    photoURL: string;
+  };
+}
+
 const ChatView = () => {
-  const { currentUser }: any = useContext(AuthContext);
-  const [messages, setMessages]: any = useState([]);
+  const { currentUser }: ICurrentUser = useContext(AuthContext);
+  const [messages, setMessages] = useState<MessageProps[]>([]);
   const messagesRef = useRef<null | HTMLUListElement>(null);
 
   const getCurrentChatUser = (key: string) => {
@@ -34,15 +44,18 @@ const ChatView = () => {
     if (user) return JSON.parse(user);
   };
   const currentChatUser = getCurrentChatUser('currentChatId');
+
   const user = {
     chatId:
-      currentUser.uid > currentChatUser.uid
+      currentUser &&
+      (currentUser.uid > currentChatUser.uid
         ? currentUser.uid + currentChatUser.uid
-        : currentChatUser.uid + currentUser.uid,
+        : currentChatUser.uid + currentUser.uid),
     user: currentChatUser
   };
 
   useEffect(() => {
+    if (!user.chatId) return;
     const unSub = onSnapshot(doc(db, 'chats', user.chatId), (doc) => {
       doc.exists() && setMessages(doc.data().messages);
     });
@@ -60,7 +73,7 @@ const ChatView = () => {
     text: string;
   }
 
-  return (
+  return currentUser ? (
     <Wrapper>
       <Header user={user.user} />
       <MessagesWrapper ref={messagesRef}>
@@ -76,7 +89,7 @@ const ChatView = () => {
       </MessagesWrapper>
       <ChatInput user={user} currentUser={currentUser} />
     </Wrapper>
-  );
+  ) : null;
 };
 
 export default ChatView;

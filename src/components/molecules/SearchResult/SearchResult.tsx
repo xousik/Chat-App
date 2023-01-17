@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import ContactItem from '../ContactItem/ContactItem';
 import { UserContext } from 'context/UserContext';
+import { IUser } from 'views/LogedMainView';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -15,15 +16,26 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const SearchResult = ({ user }: any) => {
-  const { handleSelect }: any = useContext(UserContext);
+interface IHandleSelect {
+  handleSelect?: () => void;
+  userName?: string;
+  setIsVisible?: (isVisible: boolean) => void;
+  isVisible?: boolean;
+}
+
+const SearchResult = ({ user }: IUser) => {
+  // [state, setState
+  const { handleSelect, userName, setIsVisible, isVisible }: IHandleSelect =
+    useContext(UserContext);
+  if (!handleSelect || !user || !setIsVisible) return null;
+  if (!userName) setIsVisible(false);
   return (
     <>
-      {user ? (
+      {isVisible && (
         <Wrapper>
           <ContactItem handleClick={handleSelect} user={user} />
         </Wrapper>
-      ) : null}
+      )}
     </>
   );
 };

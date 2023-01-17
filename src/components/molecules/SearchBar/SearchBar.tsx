@@ -10,28 +10,28 @@ const Wrapper = styled.div`
 const StyledInput = styled(Input)`
   display: block;
   margin: 10px auto;
-  padding: 10px;
-  height: 35px;
+  padding: 15px;
+  height: 25px;
   border-radius: 50px;
   border: none;
   background-color: lightgrey;
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-size: ${({ theme }) => theme.fontSize.xxs};
+  font-weight: ${({ theme }) => theme.fontWeight.semiBold};
 
   &:focus {
     outline: none;
   }
 `;
 
-// interface UserContextProps {
-//   setUserName: (e: string) => void;
-//   handleKey: (e: string) => void;
-
-// }
+interface UserContextProps {
+  setUserName?: (name: string) => void;
+  handleKey?: (key: string) => void;
+  handleSearch?: () => void;
+}
 
 const SearchBar = () => {
-  const { setUserName, handleKey }: any = useContext(UserContext);
-  // console.log(`User in search bar ${user.name}`);
+  const { setUserName, handleKey, handleSearch }: UserContextProps = useContext(UserContext);
+  if (!setUserName || !handleKey || !handleSearch) return null;
   return (
     <Wrapper>
       <StyledInput

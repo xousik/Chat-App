@@ -89,18 +89,20 @@ const RegisterView = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [image, setImage]: any = useState({});
+  const [image, setImage] = useState<File | null>(null);
   const navigate = useNavigate();
 
-  const handleSetImage = (e: any) => {
-    const image = e.target.files[0];
-    setImage(image);
+  console.log(image);
+
+  const handleSetImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const image = e.target.files[0];
+      setImage(image);
+    }
   };
 
-  const handleRegister = async (e: any) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!name || !email || !password) return;
 
     try {
       // Create user
@@ -110,9 +112,23 @@ const RegisterView = () => {
 
       const storageRef = ref(storage, name);
 
+      if (!image) {
+        await updateProfile(res.user, {
+          displayName: name
+        });
+        setDoc(doc(db, 'users', res.user.uid), {
+          uid: res.user.uid,
+          name: name,
+          email: email
+        });
+        setDoc(doc(db, 'userChats', res.user.uid), {});
+        navigate('/');
+        return;
+      }
+
       uploadBytes(storageRef, image).then(() => {
-        getDownloadURL(storageRef).then((url) => {
-          updateProfile(res.user, {
+        getDownloadURL(storageRef).then(async (url) => {
+          await updateProfile(res.user, {
             displayName: name,
             photoURL: url
           });
@@ -137,6 +153,7 @@ const RegisterView = () => {
       <StyledForm onSubmit={handleRegister}>
         <StyledLabel htmlFor="name">Name</StyledLabel>
         <StyledInput
+          autoComplete="off"
           type="name"
           id="name"
           name="name"
@@ -145,6 +162,7 @@ const RegisterView = () => {
         />
         <StyledLabel htmlFor="email">Email</StyledLabel>
         <StyledInput
+          autoComplete="off"
           type="email"
           id="email"
           name="email"

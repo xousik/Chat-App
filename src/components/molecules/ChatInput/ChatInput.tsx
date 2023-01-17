@@ -46,7 +46,7 @@ interface ChatInputProps {
     uid: string;
   };
   user: {
-    chatId: string;
+    chatId?: string;
   };
 }
 
@@ -57,6 +57,7 @@ const ChatInput = ({ currentUser, user }: ChatInputProps) => {
   const currentDate = new Date();
 
   const handleSend = async () => {
+    if (!user.chatId) return;
     await updateDoc(doc(db, 'chats', user.chatId), {
       messages: arrayUnion({
         id: uuidv4(),

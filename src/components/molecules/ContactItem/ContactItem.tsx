@@ -23,9 +23,9 @@ const TextWrapper = styled.div`
 
 type ContactProps = {
   user: {
-    photoURL: string;
-    name: string;
     displayName: string;
+    name?: string;
+    photoURL: string;
   };
   handleClick: () => void;
 };

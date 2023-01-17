@@ -43,19 +43,19 @@ const Logout = styled.button`
 
 interface HeaderProps {
   handleLogOut?: () => void;
-  user: {
-    photoURL: 'string';
-    displayName: 'string';
+  user?: {
+    photoURL: string;
+    displayName?: string;
+    name: string;
   };
   hasLogout?: boolean;
 }
 
 const Header = ({ handleLogOut, user, hasLogout }: HeaderProps) => {
-  // const { currentUser }: any = useContext(AuthContext);
   return (
     <Wrapper>
       <UserImage src={user?.photoURL} />
-      <StyledUserName>{user?.displayName}</StyledUserName>
+      <StyledUserName>{user?.displayName || user?.name}</StyledUserName>
       {hasLogout && (
         <Logout onClick={handleLogOut}>
           <span>Logout</span>

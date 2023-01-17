@@ -63,7 +63,7 @@ const LoginView = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogIn = async (e: any) => {
+  const handleLogIn = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !password) return;

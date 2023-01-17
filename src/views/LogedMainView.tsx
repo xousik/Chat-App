@@ -8,6 +8,7 @@ import SearchResult from 'components/molecules/SearchResult/SearchResult';
 import { UserContext } from 'context/UserContext';
 import UserChats from 'components/organisms/UserChats/UserChats';
 import { AuthContext } from 'context/AuthContext';
+import { ICurrentUser } from './ChatView';
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -15,9 +16,20 @@ const MainWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.beige};
 `;
 
+export interface IUser {
+  user?: {
+    uid: string;
+    email: string;
+    displayName: string;
+    name: string;
+    photoURL: string;
+  };
+}
+
 const LogedMainView = () => {
-  const { user }: any = useContext(UserContext);
-  const { currentUser }: any = useContext(AuthContext);
+  const { user }: IUser = useContext(UserContext);
+  const { currentUser }: ICurrentUser = useContext(AuthContext);
+  localStorage.removeItem('currentChatId');
   return (
     <MainWrapper>
       <Header handleLogOut={() => signOut(auth)} user={currentUser} hasLogout={true} />

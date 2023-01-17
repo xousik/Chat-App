@@ -12,17 +12,26 @@ import {
 } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';
 import { AuthContext } from './AuthContext';
+import { ICurrentUser } from 'views/ChatView';
 
 type UserContextProps = {
   children: JSX.Element;
 };
 
+interface UserData {
+  uid: string;
+  email: string;
+  name: string;
+  photoURL: string;
+}
+
 export const UserContext = createContext({});
 
 export const UserContextProvider = ({ children }: UserContextProps) => {
   const [userName, setUserName] = useState('');
-  const [user, setUser]: any = useState(null);
-  const { currentUser }: any = useContext(AuthContext);
+  const [user, setUser] = useState<UserData | null>(null);
+  const { currentUser }: ICurrentUser = useContext(AuthContext);
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleSearch = async (senderId = null) => {
     if (senderId) {
@@ -34,22 +43,27 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     }
     const q = query(collection(db, 'users'), where('name', '==', userName));
     const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) setUser(null);
     querySnapshot.forEach((doc) => {
-      setUser(doc.data());
+      setUser(doc.data() as UserData);
     });
   };
 
-  const handleKey = (e: string) => {
+  const handleKey = async (e: string) => {
     if (e === 'Enter') {
-      handleSearch();
+      await handleSearch();
+      setIsVisible(true);
     }
   };
 
   const handleSelect = async () => {
     //Check wether the group(chat in firestore) exists, if not create
+    if (!user || !currentUser) return;
+
     const combinedId =
       currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid;
     try {
+      localStorage.setItem('currentChatId', JSON.stringify(user));
       const res = await getDoc(doc(db, 'chats', combinedId));
       if (!res.exists()) {
         //create a chat in chats collection
@@ -59,16 +73,18 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
         await updateDoc(doc(db, 'userChats', currentUser.uid), {
           [combinedId + '.userInfo']: {
             uid: user.uid,
-            displayName: user.name,
+            name: user.name,
             photoURL: user.photoURL
           },
           [combinedId + '.date']: serverTimestamp()
         });
 
+        console.log(user.uid);
+
         await updateDoc(doc(db, 'userChats', user.uid), {
           [combinedId + '.userInfo']: {
             uid: currentUser.uid,
-            displayName: currentUser.displayName,
+            name: currentUser.displayName,
             photoURL: currentUser.photoURL
           },
           [combinedId + '.date']: serverTimestamp()
@@ -80,7 +96,19 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, setUserName, handleKey, handleSelect, handleSearch }}>
+    <UserContext.Provider
+      value={{
+        setUser,
+        user,
+        setUserName,
+        userName,
+        handleKey,
+        handleSelect,
+        handleSearch,
+        setIsVisible,
+        isVisible
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

@@ -9,7 +9,7 @@ type Props = {
 export const AuthContext = createContext({});
 
 export const AuthContextProvider = ({ children }: Props) => {
-  const [currentUser, setCurrentUser]: any | null = useState({});
+  const [currentUser, setCurrentUser] = useState<{} | null>({});
 
   useEffect(() => {
     const menageCurrentUser = onAuthStateChanged(auth, (user) => {

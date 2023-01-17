@@ -3,17 +3,27 @@ import ContactItem from 'components/molecules/ContactItem/ContactItem';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';
 import { AuthContext } from 'context/AuthContext';
+import { ICurrentUser } from 'views/ChatView';
+
+interface IChat {
+  userInfo: {
+    uid: string;
+    displayName: string;
+    photoURL: string;
+  };
+}
 
 const UserChats = () => {
-  const [chats, setChats]: any = useState([]);
+  const [chats, setChats] = useState<[string, IChat][]>([]);
 
-  const { currentUser }: any = useContext(AuthContext);
+  const { currentUser }: ICurrentUser = useContext(AuthContext);
 
-  const updateChat = (user: any) => {
+  const updateChat = (user: {}) => {
     localStorage.setItem('currentChatId', JSON.stringify(user));
   };
 
   useEffect(() => {
+    if (!currentUser) return;
     const getChats = () => {
       const unsub = onSnapshot(doc(db, 'userChats', currentUser.uid), (doc) => {
         const data = doc.data();
@@ -26,11 +36,11 @@ const UserChats = () => {
     };
 
     currentUser.uid && getChats();
-  }, [currentUser.uid]);
+  }, [currentUser]);
 
   return (
     <>
-      {chats?.map((chat: any) => (
+      {chats?.map((chat) => (
         <ContactItem
           handleClick={() => updateChat(chat[1].userInfo)}
           user={chat[1].userInfo}

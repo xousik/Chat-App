@@ -7,16 +7,23 @@ import LogedMainView from './LogedMainView';
 import { AuthContext } from 'context/AuthContext';
 import ChatView from './ChatView';
 
-export type AuthProps = {
+// export type AuthProps = {
+//   currentUser?: {};
+//   [photoURL: string]: any;
+// };
+
+interface ICurrentUser {
   currentUser?: {};
-  [photoURL: string]: any;
-  children?: JSX.Element;
-};
+}
+
+interface IProtectedRoute {
+  children: JSX.Element;
+}
 
 const App = () => {
-  const { currentUser }: AuthProps = useContext(AuthContext);
+  const { currentUser }: ICurrentUser = useContext(AuthContext);
 
-  const ProtectedRoute: any = ({ children }: AuthProps) => {
+  const ProtectedRoute: React.FC<IProtectedRoute> = ({ children }) => {
     if (!currentUser) {
       return <Navigate to="/main" />;
     }

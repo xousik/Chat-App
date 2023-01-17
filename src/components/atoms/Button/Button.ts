@@ -12,6 +12,6 @@ export const Button = styled.button`
   border-radius: 30px;
   border: none;
   color: ${({ theme }) => theme.colors.darkRed};
-  font-size: ${({ theme }) => theme.fontSize.m};
+  font-size: ${({ theme }) => theme.fontSize.s};
   font-weight: ${({ theme }) => theme.fontWeight.semiBold};
 `;
