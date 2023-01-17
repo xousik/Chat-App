@@ -1,3 +1,13 @@
+# Lulu's Chat App
+
+This project is chat application written in Javascript using React and Typescript, whole backend is handle by Firebase.
+
+# To run app
+
+Clone 
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
