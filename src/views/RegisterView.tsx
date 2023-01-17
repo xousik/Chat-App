@@ -26,7 +26,7 @@ const OuterWrapper = styled.div`
     height: 100vh;
 
     img {
-      width: 40vw;
+      width: 50vw;
       height: auto;
       position: relative;
     }
