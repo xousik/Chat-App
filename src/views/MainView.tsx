@@ -3,25 +3,44 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'components/atoms/Button/Button';
 import { Title } from 'components/atoms/Title/Title';
 import styled from 'styled-components';
+import background from 'assets/images/background.jpg';
+
+const OuterWrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+  img {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+  }
+
+  @media (min-width: 1250px) {
+    display: flex;
+    height: 100vh;
+
+    img {
+      width: 40vw;
+      height: auto;
+      position: relative;
+    }
+  }
+`;
 
 const MainWrapper = styled.div`
   width: 100%;
-  height: 90vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: url('https://images.unsplash.com/photo-1548802673-380ab8ebc7b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2F0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60');
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
 
   span {
+    cursor: pointer;
     margin-top: 2%;
     font-size: ${({ theme }) => theme.fontSize.xs};
     font-weight: ${({ theme }) => theme.fontWeight.medium};
     color: ${({ theme }) => theme.colors.dark};
     z-index: 999;
-    /* text-decoration: underline; */
+    text-decoration: underline;
   }
 
   &::before {
@@ -44,26 +63,71 @@ const MainWrapper = styled.div`
     backdrop-filter: blur(10px);
     /* Note: backdrop-filter has minimal browser support */
   }
+
+  @media (min-width: 1250px) {
+    position: relative;
+    width: 60vw;
+    height: 100%;
+    background-color: ${({ theme }) => theme.colors.lightGrey};
+
+    span {
+      font-size: ${({ theme }) => theme.fontSize.s};
+      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      width: 20px;
+      height: 100vh;
+      border: 10px solid rgba(128, 128, 128, 0.7);
+      filter: blur(5px);
+    }
+    &::after {
+      display: none;
+    }
+  }
 `;
 
 const StyledTitle = styled(Title)`
-  margin-top: 12%;
+  margin-top: 50px;
   z-index: 999;
+
+  @media (min-width: 1250px) {
+    font-size: ${({ theme }) => theme.fontSize.desktop.xxl};
+    font-weight: ${({ theme }) => theme.fontWeight.extraBold};
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    max-width: 55vw;
+  }
 `;
 
 const StyledButton = styled(Button)`
-  margin-top: 13%;
+  margin-top: 50px;
   z-index: 999;
+
+  @media (min-width: 1250px) {
+    margin-top: 100px;
+    width: 250px;
+    height: 100px;
+    font-size: ${({ theme }) => theme.fontSize.xl};
+    background: rgba(255, 255, 255, 0.01);
+    box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.3);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
 `;
 
 const MainView = () => {
   const navigate = useNavigate();
   return (
-    <MainWrapper>
-      <StyledTitle>Welcome in Lulu's Chat App</StyledTitle>
-      <StyledButton onClick={() => navigate('/login')}>Login with Email</StyledButton>
-      <span onClick={() => navigate('/register')}>New User? Sign Up</span>
-    </MainWrapper>
+    <OuterWrapper>
+      <img src={background} alt="background-cat" />
+      <MainWrapper>
+        <StyledTitle>Welcome to Lulu's Chat App</StyledTitle>
+        <StyledButton onClick={() => navigate('/login')}>Login with Email</StyledButton>
+        <span onClick={() => navigate('/register')}>New User? Sign Up</span>
+      </MainWrapper>
+    </OuterWrapper>
   );
 };
 

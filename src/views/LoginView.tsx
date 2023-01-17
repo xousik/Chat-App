@@ -78,7 +78,7 @@ const LoginView = () => {
 
   return (
     <Wrapper>
-      <StyledTitle>Welcome in Lulu's Chat App</StyledTitle>
+      <StyledTitle>Welcome to Lulu's Chat App</StyledTitle>
       <StyledForm onSubmit={handleLogIn}>
         <StyledLabel htmlFor="email">Email</StyledLabel>
         <StyledInput

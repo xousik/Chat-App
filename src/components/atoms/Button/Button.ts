@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  /* width: 260px; */
+  cursor: pointer;
   padding: 10px 20px;
-  /* height: 55px; */
   background: rgba(255, 255, 255, 0.01);
   box-shadow: inset 0px 0px 12px 5px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(25px);

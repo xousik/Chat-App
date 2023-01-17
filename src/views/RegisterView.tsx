@@ -149,7 +149,7 @@ const RegisterView = () => {
 
   return (
     <Wrapper>
-      <StyledTitle>Welcome in Lulu's Chat App</StyledTitle>
+      <StyledTitle>Welcome to Lulu's Chat App</StyledTitle>
       <StyledForm onSubmit={handleRegister}>
         <StyledLabel htmlFor="name">Name</StyledLabel>
         <StyledInput
