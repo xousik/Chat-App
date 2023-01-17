@@ -32,6 +32,7 @@ const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: ${({ theme }) => theme.colors.lightGray};
 
   span {
     cursor: pointer;
@@ -91,15 +92,8 @@ const MainWrapper = styled.div`
 `;
 
 const StyledTitle = styled(Title)`
-  margin-top: 50px;
+  margin-top: 40px;
   z-index: 999;
-
-  @media (min-width: 1250px) {
-    font-size: ${({ theme }) => theme.fontSize.desktop.xxl};
-    font-weight: ${({ theme }) => theme.fontWeight.extraBold};
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    max-width: 55vw;
-  }
 `;
 
 const StyledButton = styled(Button)`
@@ -107,7 +101,7 @@ const StyledButton = styled(Button)`
   z-index: 999;
 
   @media (min-width: 1250px) {
-    margin-top: 100px;
+    margin-top: 200px;
     width: 250px;
     height: 100px;
     font-size: ${({ theme }) => theme.fontSize.xl};

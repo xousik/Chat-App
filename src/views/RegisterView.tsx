@@ -9,40 +9,80 @@ import { Title } from 'components/atoms/Title/Title';
 import { Label } from 'components/atoms/Label/Label';
 import { Input } from 'components/atoms/Input/Input';
 import { Button } from 'components/atoms/Button/Button';
+import background from 'assets/images/background.jpg';
+
+const OuterWrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+  img {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: -99999;
+  }
+
+  @media (min-width: 1250px) {
+    display: flex;
+    height: 100vh;
+
+    img {
+      width: 40vw;
+      height: auto;
+      position: relative;
+    }
+  }
+`;
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 90vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  background: url('https://images.unsplash.com/photo-1548802673-380ab8ebc7b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2F0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60');
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
-  backdrop-filter: blur(5px);
-  /* Note: backdrop-filter has minimal browser support */
 
   ::before {
     content: '';
     position: absolute;
     width: 100%;
-    height: 90vh;
+    height: 100%;
     top: 0;
     background-color: hsla(100%, 100%, 100% 0.5);
     backdrop-filter: blur(7px);
     z-index: -99999;
   }
+
+  @media (min-width: 1250px) {
+    position: relative;
+    width: 60vw;
+    height: 100%;
+    background-color: ${({ theme }) => theme.colors.lightGray};
+
+    span {
+      font-size: ${({ theme }) => theme.fontSize.s};
+      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      width: 20px;
+      height: 100vh;
+      border: 10px solid rgba(128, 128, 128, 0.7);
+      filter: blur(5px);
+      z-index: 0;
+      backdrop-filter: none;
+    }
+  }
 `;
 
 const StyledTitle = styled(Title)`
-  margin-top: 10%;
+  margin-top: 40px;
 `;
 
 const StyledForm = styled.form`
   width: 100%;
-  margin-bottom: 8%;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,25 +90,36 @@ const StyledForm = styled.form`
 `;
 
 const StyledInput = styled(Input)`
-  margin-bottom: 5%;
+  margin-bottom: 20px;
 `;
 
-const StyledLabel = styled(Label)``;
+const StyledLabel = styled(Label)`
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
 
 const StyledButton = styled(Button)`
-  margin-top: 10%;
+  margin-top: 45px;
   background: rgba(255, 255, 255, 0.4);
   box-shadow: inset 0px 0px 12px px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
+
+  @media (min-width: 1250px) {
+    width: 200px;
+    height: 60px;
+    font-size: ${({ theme }) => theme.fontSize.l};
+    background: rgba(255, 255, 255, 0.01);
+    box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.3);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
 `;
 
 const StyledFileLabel = styled.label`
-  margin-top: 5%;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   column-gap: 10px;
 
-  img {
+  svg {
     width: 50px;
     height: 50px;
   }
@@ -148,51 +199,61 @@ const RegisterView = () => {
   };
 
   return (
-    <Wrapper>
-      <StyledTitle>Welcome to Lulu's Chat App</StyledTitle>
-      <StyledForm onSubmit={handleRegister}>
-        <StyledLabel htmlFor="name">Name</StyledLabel>
-        <StyledInput
-          autoComplete="off"
-          type="name"
-          id="name"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <StyledLabel htmlFor="email">Email</StyledLabel>
-        <StyledInput
-          autoComplete="off"
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <StyledLabel htmlFor="password">Password</StyledLabel>
-        <StyledInput
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <StyledFileLabel htmlFor="userAvatar">
-          <img
-            src="https://www.svgrepo.com/show/12324/cloud-uploading-arrow.svg"
-            alt="Add-file-icon"
+    <OuterWrapper>
+      <img src={background} alt="background-cat" />
+      <Wrapper>
+        <StyledTitle>Welcome to Lulu's Chat App</StyledTitle>
+        <StyledForm onSubmit={handleRegister}>
+          <StyledLabel htmlFor="name">Name</StyledLabel>
+          <StyledInput
+            autoComplete="off"
+            type="name"
+            id="name"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
-          <span>Add profile img</span>
-        </StyledFileLabel>
-        <StyledFileInput
-          type="file"
-          id="userAvatar"
-          name="userAvatar"
-          onChange={(e) => handleSetImage(e)}
-        />
-        <StyledButton type="submit">Register</StyledButton>
-      </StyledForm>
-    </Wrapper>
+          <StyledLabel htmlFor="email">Email</StyledLabel>
+          <StyledInput
+            autoComplete="off"
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <StyledLabel htmlFor="password">Password</StyledLabel>
+          <StyledInput
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <StyledFileLabel htmlFor="userAvatar">
+            <svg
+              fill="#000000"
+              width="800px"
+              height="800px"
+              viewBox="0 -1.5 35 35"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>upload1</title>
+              <path d="M29.426 15.535c0 0 0.649-8.743-7.361-9.74-6.865-0.701-8.955 5.679-8.955 5.679s-2.067-1.988-4.872-0.364c-2.511 1.55-2.067 4.388-2.067 4.388s-5.576 1.084-5.576 6.768c0.124 5.677 6.054 5.734 6.054 5.734h9.351v-6h-3l5-5 5 5h-3v6h8.467c0 0 5.52 0.006 6.295-5.395 0.369-5.906-5.336-7.070-5.336-7.070z"></path>
+            </svg>
+            <span>Add profile img</span>
+          </StyledFileLabel>
+          <StyledFileInput
+            type="file"
+            id="userAvatar"
+            name="userAvatar"
+            onChange={(e) => handleSetImage(e)}
+          />
+          <StyledButton type="submit">Register</StyledButton>
+        </StyledForm>
+      </Wrapper>
+    </OuterWrapper>
   );
 };
 

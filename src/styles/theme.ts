@@ -7,7 +7,7 @@ export const theme = {
     darkRed: '#650000',
     darkBrown: 'rgba(27, 16, 16, 80%)',
     beige: '#B79D5A',
-    lightGray: '#e3e3e3',
+    lightGray: '#E3E3E3',
     gray: '#D9D9D9',
     darkGray: '#C9C9C9'
   },
