@@ -93,10 +93,6 @@ const StyledInput = styled(Input)`
   margin-bottom: 20px;
 `;
 
-const StyledLabel = styled(Label)`
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-`;
-
 const StyledButton = styled(Button)`
   margin-top: 45px;
   background: rgba(255, 255, 255, 0.4);
@@ -205,7 +201,7 @@ const RegisterView = () => {
       <Wrapper>
         <Title>Welcome to Lulu's Chat App</Title>
         <StyledForm onSubmit={handleRegister}>
-          <StyledLabel htmlFor="name">Name</StyledLabel>
+          <Label htmlFor="name">Name</Label>
           <StyledInput
             autoComplete="off"
             type="name"
@@ -214,7 +210,7 @@ const RegisterView = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <StyledLabel htmlFor="email">Email</StyledLabel>
+          <Label htmlFor="email">Email</Label>
           <StyledInput
             autoComplete="off"
             type="email"
@@ -223,7 +219,7 @@ const RegisterView = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <StyledLabel htmlFor="password">Password</StyledLabel>
+          <Label htmlFor="password">Password</Label>
           <StyledInput
             type="password"
             id="password"
