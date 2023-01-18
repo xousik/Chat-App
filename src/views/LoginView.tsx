@@ -114,24 +114,13 @@ const StyledForm = styled.form`
 
 const StyledInput = styled(Input)`
   margin-bottom: 20px;
-  margin-bottom: 20px;
 `;
 
 const StyledButton = styled(Button)`
   margin-top: 45px;
-  margin-top: 45px;
   background: rgba(255, 255, 255, 0.4);
   box-shadow: inset 0px 0px 12px px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
-
-  @media (min-width: 1250px) {
-    width: 200px;
-    height: 60px;
-    font-size: ${({ theme }) => theme.fontSize.l};
-    background: rgba(255, 255, 255, 0.01);
-    box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.3);
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
 
   @media (min-width: 1250px) {
     width: 200px;
