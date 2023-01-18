@@ -19,9 +19,16 @@ const OuterWrapper = styled.div`
     z-index: -99999;
   }
 
+  @media (min-width: 320px) and (max-width: 480px) {
+    height: 90vh;
+
+    img {
+      height: 90vh;
+    }
+  }
+
   @media (min-width: 1250px) {
     display: flex;
-    height: 100vh;
 
     img {
       width: 50vw;

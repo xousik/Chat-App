@@ -21,7 +21,7 @@ const MessageContent = styled.li`
   padding: 5px;
   margin: 1px 5px;
   border-radius: 15px;
-  background-color: ${({ theme }) => theme.colors.gray};
+  background-color: ${({ theme }) => theme.colors.lightGray};
   font-size: ${({ theme }) => theme.fontSize.xs};
   text-align: left;
   font-weight: bold;

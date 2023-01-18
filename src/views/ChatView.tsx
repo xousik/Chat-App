@@ -2,21 +2,22 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Header from 'components/molecules/Header/Header';
 import ChatInput from 'components/molecules/ChatInput/ChatInput';
-import { doc, onSnapshot } from 'firebase/firestore';
-import { db } from 'FirebaseApp/firebase';
 import Message from 'components/atoms/Message/Message';
+import { doc, onSnapshot, arrayUnion, updateDoc } from 'firebase/firestore';
+import { db } from 'FirebaseApp/firebase';
 import { AuthContext } from 'context/AuthContext';
+import { v4 as uuidv4 } from 'uuid';
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: ${({ theme }) => theme.colors.beige};
+  background-color: ${({ theme }) => theme.colors.gray};
 
-  @media (min-width: 1250px) {
-    height: 100vh;
+  @media (min-width: 320px) and (max-width: 480px) {
+    height: 90vh;
   }
 `;
 
@@ -42,6 +43,7 @@ export interface ICurrentUser {
 
 const ChatView = () => {
   const { currentUser }: ICurrentUser = useContext(AuthContext);
+  const [text, setText] = useState('');
   const [messages, setMessages] = useState<MessageProps[]>([]);
   const messagesRef = useRef<null | HTMLUListElement>(null);
 
@@ -70,8 +72,25 @@ const ChatView = () => {
   }, [user.chatId]);
 
   useEffect(() => {
-    messagesRef.current?.scrollTo(0, messagesRef.current.scrollHeight);
-  }, [messages]);
+    const unsub = messagesRef.current?.scrollTo(0, messagesRef.current.scrollHeight);
+
+    return () => unsub;
+  }, [messages, text]);
+
+  const currentDate = new Date();
+
+  const handleSend = async () => {
+    setText('');
+    if (!user.chatId || !currentUser) return;
+    await updateDoc(doc(db, 'chats', user.chatId), {
+      messages: arrayUnion({
+        id: uuidv4(),
+        text,
+        senderId: currentUser.uid,
+        date: currentDate
+      })
+    });
+  };
 
   interface MessageProps {
     senderId: string;
@@ -93,7 +112,7 @@ const ChatView = () => {
           </Message>
         ))}
       </MessagesWrapper>
-      <ChatInput user={user} currentUser={currentUser} />
+      <ChatInput user={user} handleSend={handleSend} setText={setText} text={text} />
     </Wrapper>
   ) : null;
 };

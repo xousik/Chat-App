@@ -21,9 +21,16 @@ const OuterWrapper = styled.div`
     z-index: -99999;
   }
 
+  @media (min-width: 320px) and (max-width: 480px) {
+    height: 90vh;
+
+    img {
+      height: 90vh;
+    }
+  }
+
   @media (min-width: 1250px) {
     display: flex;
-    height: 100vh;
 
     img {
       width: 50vw;
@@ -44,7 +51,7 @@ const Wrapper = styled.div`
     content: '';
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 90vh;
     top: 0;
     background-color: hsla(100%, 100%, 100% 0.5);
     backdrop-filter: blur(7px);
@@ -85,16 +92,16 @@ const StyledForm = styled.form`
   justify-content: center;
 
   @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-    margin-top: 40px;
+    margin-top: 80px;
   }
 `;
 
 const StyledInput = styled(Input)`
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 `;
 
 const StyledButton = styled(Button)`
-  margin-top: 45px;
+  margin-top: 25px;
   background: rgba(255, 255, 255, 0.4);
   box-shadow: inset 0px 0px 12px px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
@@ -110,7 +117,7 @@ const StyledButton = styled(Button)`
 `;
 
 const StyledFileLabel = styled.label`
-  margin-top: 20px;
+  margin-top: 15px;
   display: flex;
   align-items: center;
   column-gap: 10px;

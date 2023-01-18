@@ -13,10 +13,10 @@ import { ICurrentUser } from './ChatView';
 const MainWrapper = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: ${({ theme }) => theme.colors.beige};
+  background-color: ${({ theme }) => theme.colors.gray};
 
-  @media (min-width: 1250px) {
-    height: 100vh;
+  @media (min-width: 320px) and (max-width: 480px) {
+    height: 90vh;
   }
 `;
 

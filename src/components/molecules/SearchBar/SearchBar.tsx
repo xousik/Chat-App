@@ -12,6 +12,7 @@ const StyledInput = styled(Input)`
   margin: 10px auto;
   padding: 15px;
   height: 25px;
+  width: 80%;
   border-radius: 50px;
   border: none;
   background-color: lightgrey;
@@ -20,6 +21,11 @@ const StyledInput = styled(Input)`
 
   &:focus {
     outline: none;
+  }
+
+  @media (min-width: 1250px) {
+    font-size: ${({ theme }) => theme.fontSize.xs};
+    font-weight: ${({ theme }) => theme.fontWeight.medium};
   }
 `;
 

@@ -1,26 +1,31 @@
-import React, { useState } from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import { Input } from 'components/atoms/Input/Input';
 import { Button } from 'components/atoms/Button/Button';
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
-import { db } from 'FirebaseApp/firebase';
-import { v4 as uuidv4 } from 'uuid';
 
 const Wrapper = styled.div`
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  margin: 10px 0;
 `;
 
-const StyledInput = styled(Input)`
+const StyledInput = styled.textarea`
   display: block;
-  margin: 10px auto;
-  padding: 10px;
-  height: 35px;
-  border-radius: 50px;
+  width: 250px;
+  min-height: 20px;
+  max-height: 120px;
+  margin: 0 auto;
+  padding: 5px 10px;
+  border-radius: 20px;
   border: none;
   background-color: lightgrey;
   font-size: ${({ theme }) => theme.fontSize.xs};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  text-align: left;
+  line-height: 20px;
+  word-wrap: break-word;
+
+  resize: none;
 
   &:focus {
     outline: none;
@@ -29,6 +34,11 @@ const StyledInput = styled(Input)`
   &::placeholder {
     font-size: ${({ theme }) => theme.fontSize.xs};
     font-weight: ${({ theme }) => theme.fontWeight.medium};
+    line-height: 20px;
+  }
+
+  @media (min-width: 1250px) {
+    width: 400px;
   }
 `;
 
@@ -39,52 +49,46 @@ const StyledButton = styled(Button)`
   margin-right: 10px;
   font-size: ${({ theme }) => theme.fontSize.xs};
   border-radius: 5px;
+  align-self: flex-end;
 `;
 
 interface ChatInputProps {
-  currentUser: {
-    uid: string;
-  };
+  handleSend: () => void;
   user: {
     chatId?: string;
   };
+  setText: (text: string) => void;
+  text: string;
 }
 
-const ChatInput = ({ currentUser, user }: ChatInputProps) => {
-  const [text, setText] = useState('');
+const ChatInput = ({ handleSend, user, setText, text }: ChatInputProps) => {
   //   const [image, setImage] = useState(null);
 
-  const currentDate = new Date();
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSend = async () => {
-    if (!user.chatId) return;
-    await updateDoc(doc(db, 'chats', user.chatId), {
-      messages: arrayUnion({
-        id: uuidv4(),
-        text,
-        senderId: currentUser.uid,
-        date: currentDate
-      })
-    });
+  useLayoutEffect(() => {
+    if (!textAreaRef.current) return;
+    textAreaRef.current.style.height = '20px';
+    textAreaRef.current.style.height = `${Math.max(textAreaRef.current.scrollHeight, 20)}px`;
+  }, [text]);
 
-    setText('');
-  };
-
-  const handleKey = (e: string) => {
-    if (e === 'Enter') handleSend();
+  const handleKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSend();
+    }
   };
 
   return (
     <Wrapper>
       <StyledInput
-        autoComplete="off"
-        type="text"
+        ref={textAreaRef}
         id="text"
         name="text"
         placeholder="Aa"
         onChange={(e) => setText(e.target.value)}
         value={text}
-        onKeyDown={(e) => handleKey(e.key)}
+        onKeyDown={(e) => handleKey(e)}
       ></StyledInput>
       <StyledButton onClick={handleSend}>Send</StyledButton>
     </Wrapper>
