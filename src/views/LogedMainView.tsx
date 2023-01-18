@@ -12,8 +12,12 @@ import { ICurrentUser } from './ChatView';
 
 const MainWrapper = styled.div`
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   background-color: ${({ theme }) => theme.colors.beige};
+
+  @media (min-width: 1250px) {
+    height: 100vh;
+  }
 `;
 
 export interface IUser {

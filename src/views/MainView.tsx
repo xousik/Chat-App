@@ -40,8 +40,8 @@ const MainWrapper = styled.div`
     font-size: ${({ theme }) => theme.fontSize.xs};
     font-weight: ${({ theme }) => theme.fontWeight.medium};
     color: ${({ theme }) => theme.colors.dark};
-    z-index: 999;
     text-decoration: underline;
+    z-index: 999;
   }
 
   &::before {
@@ -59,10 +59,8 @@ const MainWrapper = styled.div`
     width: 100%;
     height: 305px;
     background: rgba(255, 255, 255, 0.4);
-    /* border-bottom: 10px solid rgba(255, 255, 255, 0.5); */
     filter: blur(5px);
     backdrop-filter: blur(10px);
-    /* Note: backdrop-filter has minimal browser support */
   }
 
   @media (min-width: 1250px) {
@@ -92,7 +90,6 @@ const MainWrapper = styled.div`
 `;
 
 const StyledTitle = styled(Title)`
-  margin-top: 40px;
   z-index: 999;
 `;
 
@@ -104,7 +101,7 @@ const StyledButton = styled(Button)`
     margin-top: 200px;
     width: 250px;
     height: 100px;
-    font-size: ${({ theme }) => theme.fontSize.xl};
+    font-size: ${({ theme }) => theme.fontSize.l};
     background: rgba(255, 255, 255, 0.01);
     box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.3);
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

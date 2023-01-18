@@ -76,17 +76,17 @@ const Wrapper = styled.div`
   }
 `;
 
-const StyledTitle = styled(Title)`
-  margin-top: 40px;
-`;
-
 const StyledForm = styled.form`
   width: 100%;
-  margin-top: 40px;
+  margin-top: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+    margin-top: 40px;
+  }
 `;
 
 const StyledInput = styled(Input)`
@@ -160,6 +160,7 @@ const RegisterView = () => {
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
       //TODO: Create unique user name for example with adding date to username
+      console.log(res);
 
       const storageRef = ref(storage, name);
 
@@ -202,7 +203,7 @@ const RegisterView = () => {
     <OuterWrapper>
       <img src={background} alt="background-cat" />
       <Wrapper>
-        <StyledTitle>Welcome to Lulu's Chat App</StyledTitle>
+        <Title>Welcome to Lulu's Chat App</Title>
         <StyledForm onSubmit={handleRegister}>
           <StyledLabel htmlFor="name">Name</StyledLabel>
           <StyledInput
