@@ -7,11 +7,6 @@ import LogedMainView from './LogedMainView';
 import { AuthContext } from 'context/AuthContext';
 import ChatView from './ChatView';
 
-// export type AuthProps = {
-//   currentUser?: {};
-//   [photoURL: string]: any;
-// };
-
 interface ICurrentUser {
   currentUser?: {};
 }

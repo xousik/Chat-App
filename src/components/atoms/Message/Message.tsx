@@ -1,37 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { UserImage } from '../UserImage/UserImage';
+import { Wrapper, StyledUserImage, MessageContent, OwnerMessageContent } from './Message.styles';
 
-const Wrapper = styled.div`
-  display: flex;
-`;
-
-const StyledUserImage = styled(UserImage)`
-  width: 20px;
-  height: 20px;
-  margin: 0 0 1px 5px;
-  align-self: flex-end;
-`;
-
-const MessageContent = styled.li`
-  list-style-type: none;
-  min-width: 50px;
-  max-width: 300px;
-  word-wrap: break-word;
-  padding: 5px;
-  margin: 1px 5px;
-  border-radius: 15px;
-  background-color: ${({ theme }) => theme.colors.lightGray};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  text-align: left;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.darkBrown};
-`;
-const OwnerMessageContent = styled(MessageContent)`
-  align-self: flex-end;
-  background-color: ${({ theme }) => theme.colors.beige};
-  color: ${({ theme }) => theme.colors.darkBrown};
-`;
 interface MessageProps {
   isOwnerMessage: boolean;
   children: string;

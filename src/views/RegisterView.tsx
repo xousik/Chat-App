@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
@@ -7,139 +6,17 @@ import { auth, db, storage } from 'FirebaseApp/firebase';
 import { useNavigate } from 'react-router-dom';
 import { Title } from 'components/atoms/Title/Title';
 import { Label } from 'components/atoms/Label/Label';
-import { Input } from 'components/atoms/Input/Input';
-import { Button } from 'components/atoms/Button/Button';
+import {
+  OuterWrapper,
+  Wrapper,
+  StyledForm,
+  StyledInput,
+  StyledButton,
+  StyledFileLabel,
+  StyledFileInput
+} from './RegisterView.styles';
 import background from 'assets/images/background.jpg';
 import defaultAvatat from 'assets/images/defaultAvatar.png';
-
-const OuterWrapper = styled.div`
-  height: 100vh;
-  width: 100vw;
-  img {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    z-index: -99999;
-  }
-
-  @media (min-width: 320px) and (max-width: 480px) {
-    height: 90vh;
-
-    img {
-      height: 90vh;
-    }
-  }
-
-  @media (min-width: 1250px) {
-    display: flex;
-
-    img {
-      width: 50vw;
-      height: auto;
-      position: relative;
-    }
-  }
-`;
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  ::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    background-color: hsla(100%, 100%, 100% 0.5);
-    backdrop-filter: blur(7px);
-    z-index: -99999;
-  }
-
-  @media (min-width: 1250px) {
-    position: relative;
-    width: 60vw;
-    height: 100%;
-    background-color: ${({ theme }) => theme.colors.lightGray};
-
-    span {
-      font-size: ${({ theme }) => theme.fontSize.s};
-      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      cursor: pointer;
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: -10px;
-      width: 20px;
-      height: 100vh;
-      border: 10px solid rgba(128, 128, 128, 0.7);
-      filter: blur(5px);
-      z-index: 0;
-      backdrop-filter: none;
-    }
-  }
-`;
-
-const StyledForm = styled.form`
-  width: 100%;
-  margin-top: 140px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-    margin-top: 80px;
-  }
-`;
-
-const StyledInput = styled(Input)`
-  margin-bottom: 15px;
-`;
-
-const StyledButton = styled(Button)`
-  margin-top: 25px;
-  background: rgba(255, 255, 255, 0.4);
-  box-shadow: inset 0px 0px 12px px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(5px);
-
-  @media (min-width: 1250px) {
-    width: 200px;
-    height: 60px;
-    font-size: ${({ theme }) => theme.fontSize.l};
-    background: rgba(255, 255, 255, 0.01);
-    box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.3);
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-`;
-
-const StyledFileLabel = styled.label`
-  margin-top: 15px;
-  display: flex;
-  align-items: center;
-  column-gap: 10px;
-
-  svg {
-    width: 50px;
-    height: 50px;
-  }
-
-  span {
-    text-align: center;
-    width: 125px;
-    font-size: ${({ theme }) => theme.fontSize.s};
-    font-weight: ${({ theme }) => theme.fontWeight.bold};
-  }
-`;
-
-const StyledFileInput = styled.input`
-  display: none;
-`;
 
 const RegisterView = () => {
   const [name, setName] = useState('');

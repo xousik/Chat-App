@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import { Wrapper, MessagesWrapper } from './ChatView.styles';
 import Header from 'components/molecules/Header/Header';
 import ChatInput from 'components/molecules/ChatInput/ChatInput';
 import Message from 'components/atoms/Message/Message';
@@ -7,30 +7,6 @@ import { doc, onSnapshot, arrayUnion, updateDoc } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';
 import { AuthContext } from 'context/AuthContext';
 import { v4 as uuidv4 } from 'uuid';
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: ${({ theme }) => theme.colors.gray};
-
-  @media (min-width: 320px) and (max-width: 480px) {
-    height: 90vh;
-  }
-`;
-
-const MessagesWrapper = styled.ul`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
 
 export interface ICurrentUser {
   currentUser?: {

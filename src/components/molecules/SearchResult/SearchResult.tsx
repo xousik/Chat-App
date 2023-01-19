@@ -1,24 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import styled from 'styled-components';
+import { Wrapper } from './SearchResult.styles';
 import ContactItem from '../ContactItem/ContactItem';
 import { UserContext } from 'context/UserContext';
 import { IUser } from 'views/LogedMainView';
-
-const Wrapper = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  background-color: ${({ theme }) => theme.colors.white};
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  @media (min-width: 1250px) {
-    width: 30%;
-  }
-`;
 
 interface IHandleSelect {
   handleSelect?: () => void;
