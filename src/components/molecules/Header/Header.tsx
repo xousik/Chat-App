@@ -6,7 +6,7 @@ import logout from 'assets/images/logoutIcon.svg';
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 110px;
+  height: 90px;
   display: flex;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.beige};
@@ -62,7 +62,7 @@ const Header = ({ handleLogOut, user, hasLogout }: HeaderProps) => {
   return (
     <Wrapper>
       <UserImage src={user?.photoURL} />
-      {!hasLogout && <StyledUserName>{user?.displayName || user?.name}</StyledUserName>}
+      <StyledUserName>{user?.displayName || user?.name}</StyledUserName>
       {hasLogout && <span>Chats</span>}
       {hasLogout && (
         <Logout onClick={handleLogOut}>

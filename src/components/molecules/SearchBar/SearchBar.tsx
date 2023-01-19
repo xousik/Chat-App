@@ -26,6 +26,7 @@ const StyledInput = styled(Input)`
   @media (min-width: 1250px) {
     font-size: ${({ theme }) => theme.fontSize.xs};
     font-weight: ${({ theme }) => theme.fontWeight.medium};
+    width: 30%;
   }
 `;
 
