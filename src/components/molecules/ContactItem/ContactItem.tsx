@@ -1,24 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import { UserImage } from '../../atoms/UserImage/UserImage';
 import { UserName } from '../../atoms/UserName/Username';
 import { LastMessage } from 'components/atoms/LastMessage/LastMessage';
 import { Link } from 'react-router-dom';
-
-const Wrapper = styled.li`
-  width: 100%;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  margin: 5px 0;
-  text-decoration: none;
-`;
-
-const TextWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`;
+import { Wrapper, TextWrapper } from './ContactItem.styles';
 
 type ContactProps = {
   user?: {
