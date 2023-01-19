@@ -14,6 +14,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (min-width: 1250px) {
+    width: 30%;
+  }
 `;
 
 interface IHandleSelect {
