@@ -10,6 +10,7 @@ import { Label } from 'components/atoms/Label/Label';
 import { Input } from 'components/atoms/Input/Input';
 import { Button } from 'components/atoms/Button/Button';
 import background from 'assets/images/background.jpg';
+import defaultAvatat from 'assets/images/defaultAvatar.png';
 
 const OuterWrapper = styled.div`
   height: 100vh;
@@ -51,7 +52,7 @@ const Wrapper = styled.div`
     content: '';
     position: absolute;
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     top: 0;
     background-color: hsla(100%, 100%, 100% 0.5);
     backdrop-filter: blur(7px);
@@ -143,10 +144,8 @@ const RegisterView = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<File | Blob | null>(null);
   const navigate = useNavigate();
-
-  console.log(image);
 
   const handleSetImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -163,40 +162,41 @@ const RegisterView = () => {
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
       //TODO: Create unique user name for example with adding date to username
-      console.log(res);
 
       const storageRef = ref(storage, name);
 
       if (!image) {
         await updateProfile(res.user, {
-          displayName: name
+          displayName: name,
+          photoURL: defaultAvatat
         });
         setDoc(doc(db, 'users', res.user.uid), {
           uid: res.user.uid,
           name: name,
-          email: email
+          email: email,
+          photoURL: defaultAvatat
         });
         setDoc(doc(db, 'userChats', res.user.uid), {});
         navigate('/');
-        return;
-      }
-
-      uploadBytes(storageRef, image).then(() => {
-        getDownloadURL(storageRef).then(async (url) => {
-          await updateProfile(res.user, {
-            displayName: name,
-            photoURL: url
+      } else {
+        await uploadBytes(storageRef, image).then(() => {
+          getDownloadURL(storageRef).then(async (url) => {
+            console.log(url);
+            await updateProfile(res.user, {
+              displayName: name,
+              photoURL: url
+            });
+            setDoc(doc(db, 'users', res.user.uid), {
+              uid: res.user.uid,
+              name: name,
+              email: email,
+              photoURL: url
+            });
+            setDoc(doc(db, 'userChats', res.user.uid), {});
+            navigate('/');
           });
-          setDoc(doc(db, 'users', res.user.uid), {
-            uid: res.user.uid,
-            name: name,
-            email: email,
-            photoURL: url
-          });
-          setDoc(doc(db, 'userChats', res.user.uid), {});
-          navigate('/');
         });
-      });
+      }
     } catch (error) {
       console.log(error);
     }

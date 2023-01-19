@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import ContactItem from '../ContactItem/ContactItem';
 import { UserContext } from 'context/UserContext';
@@ -24,11 +24,15 @@ interface IHandleSelect {
 }
 
 const SearchResult = ({ user }: IUser) => {
-  // [state, setState
   const { handleSelect, userName, setIsVisible, isVisible }: IHandleSelect =
     useContext(UserContext);
-  if (!handleSelect || !user || !setIsVisible) return null;
-  if (!userName) setIsVisible(false);
+
+  useEffect(() => {
+    if (setIsVisible) {
+      if (!userName) setIsVisible(false);
+    }
+  }, [userName, setIsVisible]);
+
   return (
     <>
       {isVisible && (

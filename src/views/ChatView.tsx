@@ -41,6 +41,12 @@ export interface ICurrentUser {
   };
 }
 
+interface MessageProps {
+  senderId: string;
+  id: string;
+  text: string;
+}
+
 const ChatView = () => {
   const { currentUser }: ICurrentUser = useContext(AuthContext);
   const [text, setText] = useState('');
@@ -90,13 +96,21 @@ const ChatView = () => {
         date: currentDate
       })
     });
-  };
 
-  interface MessageProps {
-    senderId: string;
-    id: string;
-    text: string;
-  }
+    await updateDoc(doc(db, 'userChats', currentUser.uid), {
+      [user.chatId + '.lastMessage']: {
+        text
+      },
+      [user.chatId + '.date']: currentDate
+    });
+
+    await updateDoc(doc(db, 'userChats', user.user.uid), {
+      [user.chatId + '.lastMessage']: {
+        text
+      },
+      [user.chatId + '.date']: currentDate
+    });
+  };
 
   return currentUser ? (
     <Wrapper>

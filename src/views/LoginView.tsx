@@ -40,7 +40,7 @@ const OuterWrapper = styled.div`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,7 +50,7 @@ const Wrapper = styled.div`
     content: '';
     position: absolute;
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     top: 0;
     background-color: hsla(100%, 100%, 100% 0.5);
     backdrop-filter: blur(7px);

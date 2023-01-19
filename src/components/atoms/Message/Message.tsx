@@ -29,6 +29,8 @@ const MessageContent = styled.li`
 `;
 const OwnerMessageContent = styled(MessageContent)`
   align-self: flex-end;
+  background-color: ${({ theme }) => theme.colors.beige};
+  color: ${({ theme }) => theme.colors.darkBrown};
 `;
 interface MessageProps {
   isOwnerMessage: boolean;

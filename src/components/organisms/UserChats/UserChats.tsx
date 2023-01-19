@@ -11,6 +11,9 @@ interface IChat {
     displayName: string;
     photoURL: string;
   };
+  lastMessage: {
+    text: string;
+  };
 }
 
 const UserChats = () => {
@@ -45,6 +48,7 @@ const UserChats = () => {
           handleClick={() => updateChat(chat[1].userInfo)}
           user={chat[1].userInfo}
           key={chat[0]}
+          lastMessage={chat[1].lastMessage && chat[1].lastMessage.text}
         />
       ))}
     </>

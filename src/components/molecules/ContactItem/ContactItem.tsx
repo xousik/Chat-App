@@ -9,7 +9,6 @@ const Wrapper = styled.li`
   width: 100%;
   height: 70px;
   display: flex;
-  column-gap: 15px;
   align-items: center;
   margin: 5px 0;
   text-decoration: none;
@@ -22,24 +21,25 @@ const TextWrapper = styled.div`
 `;
 
 type ContactProps = {
-  user: {
+  user?: {
     displayName: string;
     name?: string;
     photoURL: string;
   };
-  handleClick: () => void;
+  handleClick?: () => void;
+  lastMessage?: string;
 };
 
-const ContactItem = ({ user, handleClick }: ContactProps) => {
-  return (
+const ContactItem = ({ user, handleClick, lastMessage }: ContactProps) => {
+  return user ? (
     <Wrapper onClick={handleClick} as={Link} to="/chat">
       <UserImage src={user.photoURL} />
       <TextWrapper>
         <UserName>{user.name || user.displayName}</UserName>
-        <LastMessage>You: Hi, what's up ?</LastMessage>
+        <LastMessage>{lastMessage && lastMessage}</LastMessage>
       </TextWrapper>
     </Wrapper>
-  );
+  ) : null;
 };
 
 export default ContactItem;

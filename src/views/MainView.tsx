@@ -13,6 +13,12 @@ const OuterWrapper = styled.div`
     height: 100vh;
     position: absolute;
   }
+  @media (min-width: 320px) and (max-width: 480px) {
+    height: 90vh;
+    img {
+      height: 90vh;
+    }
+  }
 
   @media (min-width: 1250px) {
     display: flex;
