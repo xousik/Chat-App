@@ -26,6 +26,7 @@ const StyledUserName = styled(UserName)`
 `;
 
 const Logout = styled.button`
+cursor: pointer;
   display: flex;
   align-items: center;
   column-gap: 5px;

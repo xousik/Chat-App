@@ -79,8 +79,6 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
           [combinedId + '.date']: serverTimestamp()
         });
 
-        console.log(user.uid);
-
         await updateDoc(doc(db, 'userChats', user.uid), {
           [combinedId + '.userInfo']: {
             uid: currentUser.uid,
