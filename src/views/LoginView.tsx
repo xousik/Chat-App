@@ -7,22 +7,28 @@ import { Title } from 'components/atoms/Title/Title';
 import { Label } from 'components/atoms/Label/Label';
 import { OuterWrapper, Wrapper, StyledForm, StyledInput, StyledButton } from './LoginView.styles';
 import background from 'assets/images/background.jpg';
+import { useErrorContext } from 'context/ErrorContext';
+import { IErrorContext } from 'views/RegisterView';
+import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
 
 const LoginView = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { error, handleError }: IErrorContext = useErrorContext();
 
   const handleLogIn = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email || !password) return;
+    if (!email || !password || !handleError) return;
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/');
     } catch (error) {
-      console.log(error);
+      handleError('Invalid email or password');
+      setEmail('');
+      setPassword('');
     }
   };
 
@@ -51,6 +57,7 @@ const LoginView = () => {
           />
           <StyledButton type="submit">Log in</StyledButton>
         </StyledForm>
+        {error && <ErrorMessage isLogin message={error} />}
       </Wrapper>
     </OuterWrapper>
   );

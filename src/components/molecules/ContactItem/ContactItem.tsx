@@ -1,6 +1,6 @@
 import React from 'react';
-import { UserImage } from '../../atoms/UserImage/UserImage';
-import { UserName } from '../../atoms/UserName/Username';
+import { UserImage } from 'components/atoms/UserImage/UserImage';
+import { UserName } from 'components/atoms/UserName/UserName';
 import { LastMessage } from 'components/atoms/LastMessage/LastMessage';
 import { Link } from 'react-router-dom';
 import { Wrapper, TextWrapper } from './ContactItem.styles';
