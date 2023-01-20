@@ -49,6 +49,12 @@ export const Wrapper = styled.div`
     z-index: -99999;
   }
 
+  @media (min-width: 320px) and (max-width: 480px) {
+    ::before {
+      height: 90vh;
+    }
+  }
+
   @media (min-width: 1250px) {
     position: relative;
     width: 60vw;
@@ -85,6 +91,9 @@ export const StyledForm = styled.form`
 
   @media only screen and (-webkit-min-device-pixel-ratio: 2) {
     margin-top: 80px;
+  }
+  @media (min-width: 320px) and (max-width: 480px) {
+    margin-top: 25px;
   }
 `;
 
