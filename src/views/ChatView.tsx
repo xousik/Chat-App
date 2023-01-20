@@ -7,9 +7,6 @@ import { doc, onSnapshot, arrayUnion, updateDoc } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';
 import { AuthContext } from 'context/AuthContext';
 import { v4 as uuidv4 } from 'uuid';
-import catLeft from 'assets/images/catLeft.jpg';
-import catRight from 'assets/images/catRight.jpg';
-import { LeftSidebarImg, RightSidebarImg } from './LogedMainView.styles';
 
 export interface ICurrentUser {
   currentUser?: {
@@ -93,7 +90,6 @@ const ChatView = () => {
 
   return currentUser ? (
     <OuterWrapper>
-      <LeftSidebarImg src={catLeft} />
       <Wrapper>
         <Header user={user.user} />
         <MessagesWrapper ref={messagesRef}>
@@ -109,7 +105,6 @@ const ChatView = () => {
         </MessagesWrapper>
         <ChatInput user={user} handleSend={handleSend} setText={setText} text={text} />
       </Wrapper>
-      <RightSidebarImg src={catRight} />
     </OuterWrapper>
   ) : null;
 };
