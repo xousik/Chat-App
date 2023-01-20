@@ -17,13 +17,22 @@ import {
 } from './RegisterView.styles';
 import background from 'assets/images/background.jpg';
 import defaultAvatat from 'assets/images/defaultAvatar.png';
+import { useErrorContext } from 'context/ErrorContext';
+import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
+
+export interface IErrorContext {
+  error?: string;
+  handleError?: (errorMessage: string) => void;
+}
 
 const RegisterView = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [image, setImage] = useState<File | Blob | null>(null);
   const navigate = useNavigate();
+  const { error, handleError }: IErrorContext = useErrorContext();
 
   const handleSetImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -34,6 +43,16 @@ const RegisterView = () => {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      if (!handleError) return;
+      handleError('Passwords do not match');
+      setName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      return;
+    }
 
     try {
       // Create user
@@ -112,6 +131,14 @@ const RegisterView = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <Label htmlFor="confirmPassword">Confirm password</Label>
+          <StyledInput
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
           <StyledFileLabel htmlFor="userAvatar">
             <svg
               fill="#000000"
@@ -135,6 +162,7 @@ const RegisterView = () => {
           <StyledButton type="submit">Register</StyledButton>
         </StyledForm>
       </Wrapper>
+      {error && <ErrorMessage message={error} />}
     </OuterWrapper>
   );
 };
