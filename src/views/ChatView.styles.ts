@@ -4,12 +4,11 @@ export const OuterWrapper = styled.div`
   width: 100%;
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.customBlack};
-  display: flex;
 `;
 
 export const Wrapper = styled.div`
   margin: 0 auto;
-  width: 50%;
+  width: 60%;
   height: 100vh;
   display: flex;
   flex-direction: column;
