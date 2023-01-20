@@ -14,10 +14,11 @@ export const OuterWrapper = styled.div`
   width: 100%;
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.customBlack};
+  display: flex;
 `;
 
 export const MainWrapper = styled.div`
-  width: 60%;
+  width: 50%;
   margin: 0 auto;
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.gray};
