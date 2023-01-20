@@ -6,12 +6,11 @@ import { UserContext } from 'context/UserContext';
 import UserChats from 'components/organisms/UserChats/UserChats';
 import { AuthContext } from 'context/AuthContext';
 import { ICurrentUser } from './ChatView';
-import { LeftSidebarImg, RightSidebarImg, MainWrapper, OuterWrapper } from './LogedMainView.styles';
+import { LeftCatImg, RightCatImg, MainWrapper, OuterWrapper } from './LogedMainView.styles';
 import Header from 'components/molecules/Header/Header';
 import SearchBar from 'components/molecules/SearchBar/SearchBar';
 import catLeft from 'assets/images/catLeft.jpg';
 import catRight from 'assets/images/catRight.jpg';
-
 export interface IUser {
   user?: {
     uid: string;
@@ -28,14 +27,14 @@ const LogedMainView = () => {
   localStorage.removeItem('currentChatId');
   return (
     <OuterWrapper>
-      <LeftSidebarImg src={catLeft} />
+      <LeftCatImg src={catLeft} alt="cat" />
       <MainWrapper>
         <Header handleLogOut={() => signOut(auth)} user={currentUser} hasLogout={true} />
         <SearchBar />
         <SearchResult user={user} />
         <UserChats />
       </MainWrapper>
-      <RightSidebarImg src={catRight} />
+      <RightCatImg src={catRight} alt="cat" />
     </OuterWrapper>
   );
 };
