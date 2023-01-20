@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { UserName } from 'components/atoms/UserName/UserName';
+import { UserName } from 'components/atoms/UserName/UserNamee';
 
 export const Wrapper = styled.div`
   width: 100%;
