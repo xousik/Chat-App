@@ -22,7 +22,7 @@ const slideAnimation = keyframes`
 export const Wrapper = styled.div`
   position: absolute;
   left: 55%;
-  bottom: 31%;
+  bottom: 30%;
   background-color: white;
   padding: 10px;
   color: ${({ theme }) => theme.colors.darkRed};
