@@ -13,7 +13,7 @@ export const StyledInput = styled(Input)`
   width: 80%;
   border-radius: 50px;
   border: none;
-  background-color: lightgrey;
+  background-color: ${({ theme }) => theme.colors.lightGray};
   font-size: ${({ theme }) => theme.fontSize.xxs};
   font-weight: ${({ theme }) => theme.fontWeight.semiBold};
 

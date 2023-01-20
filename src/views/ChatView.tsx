@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import { Wrapper, MessagesWrapper } from './ChatView.styles';
+import { OuterWrapper, Wrapper, MessagesWrapper } from './ChatView.styles';
 import Header from 'components/molecules/Header/Header';
 import ChatInput from 'components/molecules/ChatInput/ChatInput';
 import Message from 'components/atoms/Message/Message';
@@ -89,21 +89,23 @@ const ChatView = () => {
   };
 
   return currentUser ? (
-    <Wrapper>
-      <Header user={user.user} />
-      <MessagesWrapper ref={messagesRef}>
-        {messages.map((message: MessageProps) => (
-          <Message
-            isOwnerMessage={message.senderId === currentUser.uid}
-            chatUser={user.user}
-            key={message.id}
-          >
-            {message.text}
-          </Message>
-        ))}
-      </MessagesWrapper>
-      <ChatInput user={user} handleSend={handleSend} setText={setText} text={text} />
-    </Wrapper>
+    <OuterWrapper>
+      <Wrapper>
+        <Header user={user.user} />
+        <MessagesWrapper ref={messagesRef}>
+          {messages.map((message: MessageProps) => (
+            <Message
+              isOwnerMessage={message.senderId === currentUser.uid}
+              chatUser={user.user}
+              key={message.id}
+            >
+              {message.text}
+            </Message>
+          ))}
+        </MessagesWrapper>
+        <ChatInput user={user} handleSend={handleSend} setText={setText} text={text} />
+      </Wrapper>
+    </OuterWrapper>
   ) : null;
 };
 

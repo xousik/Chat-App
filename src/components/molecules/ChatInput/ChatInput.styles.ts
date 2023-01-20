@@ -17,7 +17,7 @@ export const StyledInput = styled.textarea`
   padding: 5px 10px;
   border-radius: 20px;
   border: none;
-  background-color: lightgrey;
+  background-color: ${({ theme }) => theme.colors.lightGray};
   font-size: ${({ theme }) => theme.fontSize.xs};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   text-align: left;
@@ -34,6 +34,7 @@ export const StyledInput = styled.textarea`
     font-size: ${({ theme }) => theme.fontSize.xs};
     font-weight: ${({ theme }) => theme.fontWeight.medium};
     line-height: 20px;
+    color: ${({ theme }) => theme.colors.darkBrown};
   }
 
   @media (min-width: 1250px) {
