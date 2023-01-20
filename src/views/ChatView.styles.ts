@@ -1,7 +1,14 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const OuterWrapper = styled.div`
   width: 100%;
+  height: 100vh;
+  background-color: ${({ theme }) => theme.colors.customBlack};
+`;
+
+export const Wrapper = styled.div`
+  margin: 0 auto;
+  width: 60%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,6 +17,11 @@ export const Wrapper = styled.div`
 
   @media (min-width: 320px) and (max-width: 480px) {
     height: 90vh;
+  }
+
+  @media (max-width: 700px) {
+    height: 90vh;
+    width: 100%;
   }
 `;
 

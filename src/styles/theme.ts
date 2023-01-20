@@ -4,6 +4,7 @@ export const theme = {
     black: '#000000',
     customBlack: '#0D1317',
     dark: '#373636',
+    lesDark: '#5B5B5B',
     darkRed: '#650000',
     darkBrown: 'rgba(27, 16, 16, 80%)',
     beige: '#B79D5A',

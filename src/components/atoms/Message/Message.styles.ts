@@ -17,10 +17,10 @@ export const MessageContent = styled.li`
   min-width: 50px;
   max-width: 300px;
   word-wrap: break-word;
-  padding: 5px;
+  padding: 5px 10px;
   margin: 1px 5px;
   border-radius: 15px;
-  background-color: ${({ theme }) => theme.colors.lightGray};
+  background-color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSize.xs};
   text-align: left;
   font-weight: bold;

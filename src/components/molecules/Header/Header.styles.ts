@@ -13,13 +13,15 @@ export const Wrapper = styled.div`
     margin: 0 auto;
     font-size: ${({ theme }) => theme.fontSize.m};
     font-weight: ${({ theme }) => theme.fontWeight.bold};
+    color: ${({ theme }) => theme.colors.darkBrown};
   }
 `;
 
 export const StyledUserName = styled(UserName)`
+  cursor: pointer;
   font-size: ${({ theme }) => theme.fontSize.s};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.customBlack};
+  color: ${({ theme }) => theme.colors.darkBrown};
 `;
 
 export const Logout = styled.button`
@@ -39,7 +41,7 @@ export const Logout = styled.button`
 
   span {
     line-height: 25px;
-    color: ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) => theme.colors.darkBrown};
     font-size: ${({ theme }) => theme.fontSize.xs};
     font-weight: ${({ theme }) => theme.fontWeight.bold};
   }

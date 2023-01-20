@@ -44,16 +44,6 @@ const RegisterView = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      if (!handleError) return;
-      handleError('Passwords do not match');
-      setName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-      return;
-    }
-
     try {
       // Create user
       const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -95,7 +85,14 @@ const RegisterView = () => {
         });
       }
     } catch (error) {
-      console.log(error);
+      if (password === confirmPassword && !error) return;
+      if (!handleError) return;
+      handleError('Passwords do not match');
+      setName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      return;
     }
   };
 

@@ -6,7 +6,7 @@ import { UserContext } from 'context/UserContext';
 import UserChats from 'components/organisms/UserChats/UserChats';
 import { AuthContext } from 'context/AuthContext';
 import { ICurrentUser } from './ChatView';
-import { MainWrapper } from './LogedMainView.styles';
+import { MainWrapper, OuterWrapper } from './LogedMainView.styles';
 import Header from 'components/molecules/Header/Header';
 import SearchBar from 'components/molecules/SearchBar/SearchBar';
 
@@ -25,12 +25,14 @@ const LogedMainView = () => {
   const { currentUser }: ICurrentUser = useContext(AuthContext);
   localStorage.removeItem('currentChatId');
   return (
-    <MainWrapper>
-      <Header handleLogOut={() => signOut(auth)} user={currentUser} hasLogout={true} />
-      <SearchBar />
-      <SearchResult user={user} />
-      <UserChats />
-    </MainWrapper>
+    <OuterWrapper>
+      <MainWrapper>
+        <Header handleLogOut={() => signOut(auth)} user={currentUser} hasLogout={true} />
+        <SearchBar />
+        <SearchResult user={user} />
+        <UserChats />
+      </MainWrapper>
+    </OuterWrapper>
   );
 };
 
