@@ -3,8 +3,12 @@ import styled from 'styled-components';
 export const OuterWrapper = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: ${({ theme }) => theme.colors.customBlack};
+  background-color: ${({ theme }) => theme.colors.lightGray};
   display: flex;
+
+  @media (min-width: 320px) and (max-width: 700px) {
+    height: 90vh;
+  }
 `;
 
 export const Wrapper = styled.div`
