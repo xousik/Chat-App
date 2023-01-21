@@ -3,7 +3,7 @@ import { UserName } from 'components/atoms/UserName/UserName';
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 90px;
+  min-height: 90px;
   display: flex;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.beige};
