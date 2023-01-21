@@ -74,6 +74,10 @@ export const Wrapper = styled.div`
   @media (min-width: 1250px) and (max-width: 1600px) {
     left: 50%;
   }
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+    bottom: 25%;
+  }
 `;
 
 export const LoginWrapper = styled(Wrapper)`
