@@ -11,13 +11,16 @@ interface HeaderProps {
     name: string;
   };
   hasLogout?: boolean;
+  setSettingsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Header = ({ handleLogOut, user, hasLogout }: HeaderProps) => {
+const Header = ({ handleLogOut, user, hasLogout, setSettingsOpen }: HeaderProps) => {
   return (
     <Wrapper>
       <UserImage src={user?.photoURL} />
-      <StyledUserName>{user?.displayName || user?.name}</StyledUserName>
+      <StyledUserName onClick={() => setSettingsOpen && setSettingsOpen(true)}>
+        {user?.displayName || user?.name}
+      </StyledUserName>
       {hasLogout && <span>Chats</span>}
       {hasLogout && (
         <Logout onClick={handleLogOut}>

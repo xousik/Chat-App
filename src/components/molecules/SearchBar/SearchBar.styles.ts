@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Input } from 'components/atoms/Input/Input';
 
 export const Wrapper = styled.div`
-  position: relative;
+  /* position: relative; */
 `;
 
 export const StyledInput = styled(Input)`

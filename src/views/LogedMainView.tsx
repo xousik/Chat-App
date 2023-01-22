@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from 'FirebaseApp/firebase';
 import SearchResult from 'components/molecules/SearchResult/SearchResult';
@@ -11,6 +11,7 @@ import Header from 'components/molecules/Header/Header';
 import SearchBar from 'components/molecules/SearchBar/SearchBar';
 import catLeft from 'assets/images/catLeft.jpg';
 import catRight from 'assets/images/catRight.jpg';
+import UserSettingsCard from 'components/organisms/UserSettingsCard/UserSettingsCard';
 export interface IUser {
   user?: {
     uid: string;
@@ -24,12 +25,23 @@ export interface IUser {
 const LogedMainView = () => {
   const { user }: IUser = useContext(UserContext);
   const { currentUser }: ICurrentUser = useContext(AuthContext);
+  const [areSettingsOpen, setSettingsOpen] = useState<boolean>(false);
   localStorage.removeItem('currentChatId');
   return (
     <OuterWrapper>
       <LeftCatImg src={catLeft} alt="cat" />
       <MainWrapper>
-        <Header handleLogOut={() => signOut(auth)} user={currentUser} hasLogout={true} />
+        <UserSettingsCard
+          user={currentUser}
+          isOpen={areSettingsOpen}
+          setSettingsOpen={setSettingsOpen}
+        />
+        <Header
+          handleLogOut={() => signOut(auth)}
+          user={currentUser}
+          hasLogout={true}
+          setSettingsOpen={setSettingsOpen}
+        />
         <SearchBar />
         <SearchResult user={user} />
         <UserChats />

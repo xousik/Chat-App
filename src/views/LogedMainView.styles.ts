@@ -38,10 +38,12 @@ export const OuterWrapper = styled.div`
 `;
 
 export const MainWrapper = styled.div`
+  position: relative;
   width: 50%;
   margin: 0 auto;
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.gray};
+  overflow: hidden;
 
   @media (max-width: 700px) {
     height: 90vh;
