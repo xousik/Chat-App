@@ -1,7 +1,6 @@
 import React from 'react';
-import { Wrapper, StyledUserName, Logout } from './Header.styles';
+import { Wrapper, StyledUserImage, StyledUserName, Logout } from './Header.styles';
 import logout from 'assets/images/logoutIcon.svg';
-import { UserImage } from 'components/atoms/UserImage/UserImage';
 
 interface HeaderProps {
   handleLogOut?: () => void;
@@ -17,7 +16,7 @@ interface HeaderProps {
 const Header = ({ handleLogOut, user, hasLogout, setSettingsOpen }: HeaderProps) => {
   return (
     <Wrapper>
-      <UserImage src={user?.photoURL} />
+      <StyledUserImage src={user?.photoURL} />
       <StyledUserName onClick={() => setSettingsOpen && setSettingsOpen(true)}>
         {user?.displayName || user?.name}
       </StyledUserName>

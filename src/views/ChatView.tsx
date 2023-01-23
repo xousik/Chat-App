@@ -17,6 +17,7 @@ export interface ICurrentUser {
     name: string;
     displayName: string;
     photoURL: string;
+    email: string;
   };
 }
 

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { UserName } from 'components/atoms/UserName/UserName';
+import { UserImage } from 'components/atoms/UserImage/UserImage';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -15,6 +16,10 @@ export const Wrapper = styled.div`
     font-weight: ${({ theme }) => theme.fontWeight.bold};
     color: ${({ theme }) => theme.colors.darkBrown};
   }
+`;
+
+export const StyledUserImage = styled(UserImage)`
+  margin: 0 10px;
 `;
 
 export const StyledUserName = styled(UserName)`
