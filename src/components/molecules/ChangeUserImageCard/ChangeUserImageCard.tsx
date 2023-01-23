@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { auth, storage, db } from 'FirebaseApp/firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { updateProfile } from 'firebase/auth';
+<<<<<<< HEAD
 import { updateDoc, doc } from 'firebase/firestore';
+=======
+import { updateDoc, doc, getDoc } from 'firebase/firestore';
+>>>>>>> main
 
 const Wrapper = styled.div<{ isChangeUserImageCardOpen: boolean }>`
   width: 90%;
@@ -105,6 +109,10 @@ const ChangeUserImageCard = ({
 
   const updateImage = async () => {
     const user: any = auth.currentUser;
+<<<<<<< HEAD
+=======
+    const docSnap = await getDoc(doc(db, 'userChats', user.uid));
+>>>>>>> main
     const storageRef = ref(storage, user.displayName);
     if (!newUserImage) return;
     await uploadBytes(storageRef, newUserImage).then(() => {
@@ -115,6 +123,16 @@ const ChangeUserImageCard = ({
         await updateDoc(doc(db, 'users', user.uid), {
           photoURL: url
         });
+<<<<<<< HEAD
+=======
+        if (docSnap.exists()) {
+          Object.entries(docSnap.data()).forEach((chat) => {
+            updateDoc(doc(db, 'userChats', chat[1].userInfo.uid), {
+              [chat[0] + '.userInfo.photoURL']: url
+            });
+          });
+        }
+>>>>>>> main
       });
     });
     setIsChangeUserImageCardOpen(false);

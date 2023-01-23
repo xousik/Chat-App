@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React from 'react';
+=======
+import React, { useState, useRef } from 'react';
+>>>>>>> main
 import styled from 'styled-components';
 import { auth } from 'FirebaseApp/firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
@@ -33,13 +37,22 @@ const InnerWrapper = styled.div`
   align-items: center;
   position: relative;
 
+<<<<<<< HEAD
   div {
+=======
+  button {
+>>>>>>> main
     cursor: pointer;
     color: ${({ theme }) => theme.colors.black};
     font-size: ${({ theme }) => theme.fontSize.s};
     font-weight: ${({ theme }) => theme.fontWeight.bold};
     width: 70px;
     text-align: center;
+<<<<<<< HEAD
+=======
+    background-color: ${({ theme }) => theme.colors.gray};
+    border: none;
+>>>>>>> main
 
     &:nth-child(4) {
       color: ${({ theme }) => theme.colors.darkRed};
@@ -79,6 +92,7 @@ const ChangeUserPasswordCard = ({
   setIsChangeUserPasswordCardOpen,
   isChangeUserPasswordCardOpen
 }: IChangeUserPasswordCard) => {
+<<<<<<< HEAD
   const updateUserPassword = async () => {
     if (!user) return;
     await sendPasswordResetEmail(auth, user.email)
@@ -93,15 +107,52 @@ const ChangeUserPasswordCard = ({
       </ChangeUserPasswordCardTitle>
       <InnerWrapper>
         <div
+=======
+  const [titleMessage, setTitleMessage] = useState<string>('Send an email to reset your password');
+
+  const sendRef = useRef<HTMLButtonElement>(null);
+
+  const updateUserPassword = async () => {
+    if (!user) return;
+    await sendPasswordResetEmail(auth, user.email)
+      .then(() => setTitleMessage('Email sent! Check your inbox!'))
+      .catch((error) => console.log(error.message));
+    if (!sendRef.current) return;
+    sendRef.current.setAttribute('disabled', 'disabled');
+    sendRef.current.style.cursor = 'not-allowed';
+    sendRef.current.style.opacity = '0.5';
+    setTimeout(() => {
+      if (!sendRef.current) return;
+      sendRef.current?.removeAttribute('disabled');
+      sendRef.current.style.cursor = 'pointer';
+      sendRef.current.style.opacity = '1';
+      setTitleMessage('Send an email to reset your password');
+    }, 60000);
+  };
+  return (
+    <Wrapper isChangeUserPasswordCardOpen={isChangeUserPasswordCardOpen}>
+      <ChangeUserPasswordCardTitle>{titleMessage}</ChangeUserPasswordCardTitle>
+      <InnerWrapper>
+        <button
+>>>>>>> main
           onClick={() => {
             setIsChangeUserPasswordCardOpen(false);
           }}
         >
           Cancel
+<<<<<<< HEAD
         </div>
         <HorizontalLine />
         <VerticalLine />
         <div onClick={updateUserPassword}>Send</div>
+=======
+        </button>
+        <HorizontalLine />
+        <VerticalLine />
+        <button ref={sendRef} onClick={updateUserPassword}>
+          Send
+        </button>
+>>>>>>> main
       </InnerWrapper>
     </Wrapper>
   );
