@@ -33,6 +33,7 @@ export const Wrapper = styled.div`
 export const MessagesWrapper = styled.ul`
   width: 100%;
   height: 100%;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;

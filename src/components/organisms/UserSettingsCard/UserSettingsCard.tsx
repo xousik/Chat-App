@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { UserImage } from 'components/atoms/UserImage/UserImage';
 import { UserName } from 'components/atoms/UserName/UserName';
-import { Input } from 'components/atoms/Input/Input';
+import ChangeUserNameCard from 'components/molecules/ChangeUserNameCard/ChangeUserNameCard';
+import ChangeUserImageCard from 'components/molecules/ChangeUserImageCard/ChangeUserImageCard';
+import ChangeUserPasswordCard from 'components/molecules/ChangeUserPasswordCard/ChangeUserPasswordCard';
 
 const Wrapper = styled.div<ISettingsCard>`
   position: absolute;
@@ -28,13 +30,22 @@ const LogoutButton = styled.button`
   border: none;
   color: ${({ theme }) => theme.colors.darkBrown};
   font-size: ${({ theme }) => theme.fontSize.s};
+  font-weight: ${({ theme }) => theme.fontWeight.semiBold};
 `;
 
 const StyledUserImage = styled(UserImage)`
-  width: 130px;
-  height: 130px;
-  margin-top: 40px;
-  margin-bottom: -70px;
+  width: 100px;
+  height: 100px;
+  margin-top: 50px;
+  margin-bottom: -310px;
+
+  @media (min-width: 480px) and (max-width: 700px) {
+    margin-bottom: -230px;
+  }
+
+  @media (min-width: 320px) and (max-width: 480px) {
+    margin-bottom: -50px;
+  }
 `;
 
 const SettingsWrapper = styled.div`
@@ -47,13 +58,6 @@ const SettingsWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.beige};
   margin-bottom: 30px;
 
-  span {
-    font-size: ${({ theme }) => theme.fontSize.s};
-    color: ${({ theme }) => theme.colors.white};
-    font-weight: ${({ theme }) => theme.fontWeight.semiBold};
-    margin: 10px 0;
-  }
-
   hr {
     width: 90%;
     border: 1px solid ${({ theme }) => theme.colors.darkBrown};
@@ -61,51 +65,12 @@ const SettingsWrapper = styled.div`
   }
 `;
 
-const ChangeUserNameCard = styled.div<{ isChangeUserNameCardOpen: boolean }>`
-  width: 90%;
-  height: 170px;
-  background-color: ${({ theme }) => theme.colors.gray};
-  border-radius: 30px;
-  margin-top: 20px;
-  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-  display: ${({ isChangeUserNameCardOpen }) => (isChangeUserNameCardOpen ? 'flex' : 'none')};
-  flex-direction: column;
-  align-items: center;
-
-  span {
-    color: ${({ theme }) => theme.colors.black};
-    font-size: ${({ theme }) => theme.fontSize.s};
-    font-weight: ${({ theme }) => theme.fontWeight.medium};
-  }
-`;
-
-const ChangeUserNameCardTitle = styled.span`
-  width: 80%;
-  margin: 0 auto;
-  text-align: center;
-`;
-
-const InnerWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: space-around;
-  align-items: center;
-
-  div {
-    color: ${({ theme }) => theme.colors.black};
-    font-size: ${({ theme }) => theme.fontSize.s};
-    font-weight: ${({ theme }) => theme.fontWeight.medium};
-    width: 70px;
-    text-align: center;
-  }
-`;
-
-const VerticalLine = styled.span`
-  position: absolute;
-  height: 30px;
-  border: 1px solid ${({ theme }) => theme.colors.black};
-  /* margin: 0 auto; */
+const Option = styled.span`
+  cursor: pointer;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: ${({ theme }) => theme.fontWeight.semiBold};
+  margin: 10px 0;
 `;
 
 interface ISettingsCard {
@@ -114,14 +79,33 @@ interface ISettingsCard {
   user?: {
     photoURL: string;
     displayName: string;
+    email: string;
   };
 }
 
 const UserSettingsCard = ({ isOpen, setSettingsOpen, user }: ISettingsCard) => {
   const [isChangeUserNameCardOpen, setIsChangeUserNameCardOpen] = useState(false);
-  const [newUserName, setNewUserName] = useState(user?.displayName);
+  const [isChangeUserImageCardOpen, setIsChangeUserImageCardOpen] = useState(false);
+  const [isChangeUserPasswordCardOpen, setIsChangeUserPasswordCardOpen] = useState(false);
 
-  const updateUserName = () => {};
+  const openChangeUserNameCard = () => {
+    setIsChangeUserImageCardOpen(false);
+    setIsChangeUserPasswordCardOpen(false);
+    setIsChangeUserNameCardOpen(true);
+  };
+
+  const openChangeUserImageCard = () => {
+    setIsChangeUserNameCardOpen(false);
+    setIsChangeUserPasswordCardOpen(false);
+    setIsChangeUserImageCardOpen(true);
+  };
+
+  const openChangeUserPasswordCard = () => {
+    setIsChangeUserNameCardOpen(false);
+    setIsChangeUserImageCardOpen(false);
+    setIsChangeUserPasswordCardOpen(true);
+  };
+
   return (
     <Wrapper isOpen={isOpen}>
       <LogoutButton
@@ -135,30 +119,29 @@ const UserSettingsCard = ({ isOpen, setSettingsOpen, user }: ISettingsCard) => {
       <StyledUserImage src={user?.photoURL} />
       <UserName>{user?.displayName}</UserName>
       <SettingsWrapper>
-        <span>Dark mode</span>
+        <Option>Dark mode</Option>
         <hr />
-        <span onClick={() => setIsChangeUserNameCardOpen(true)}>Change user name</span>
+        <Option onClick={openChangeUserNameCard}>Change user name</Option>
         <hr />
-        <span>Change image</span>
+        <Option onClick={openChangeUserImageCard}>Change image</Option>
         <hr />
-        <span>Change password</span>
+        <Option onClick={openChangeUserPasswordCard}>Change password</Option>
         <hr />
-        <ChangeUserNameCard isChangeUserNameCardOpen={isChangeUserNameCardOpen}>
-          <ChangeUserNameCardTitle>Set your new user name</ChangeUserNameCardTitle>
-          <Input value={newUserName} onChange={(e) => setNewUserName(e.target.value)} />
-          <InnerWrapper>
-            <div
-              onClick={() => {
-                setIsChangeUserNameCardOpen(false);
-                setNewUserName(user?.displayName);
-              }}
-            >
-              Cancel
-            </div>
-            <VerticalLine />
-            <div>Save</div>
-          </InnerWrapper>
-        </ChangeUserNameCard>
+        <ChangeUserNameCard
+          isChangeUserNameCardOpen={isChangeUserNameCardOpen}
+          setIsChangeUserNameCardOpen={setIsChangeUserNameCardOpen}
+          user={user}
+        />
+        <ChangeUserImageCard
+          isChangeUserImageCardOpen={isChangeUserImageCardOpen}
+          setIsChangeUserImageCardOpen={setIsChangeUserImageCardOpen}
+          user={user}
+        />
+        <ChangeUserPasswordCard
+          isChangeUserPasswordCardOpen={isChangeUserPasswordCardOpen}
+          setIsChangeUserPasswordCardOpen={setIsChangeUserPasswordCardOpen}
+          user={user}
+        />
       </SettingsWrapper>
     </Wrapper>
   );
