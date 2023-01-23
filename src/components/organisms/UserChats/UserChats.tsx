@@ -41,8 +41,6 @@ const UserChats = () => {
     currentUser.uid && getChats();
   }, [currentUser]);
 
-  console.log(chats);
-
   return (
     <>
       {chats?.map((chat) => (

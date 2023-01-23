@@ -6,7 +6,7 @@ export const Wrapper = styled.li`
   display: flex;
   column-gap: 10px;
   align-items: center;
-  margin: 5px 0;
+  margin: 0 10px;
   text-decoration: none;
 `;
 

@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { updateProfile } from 'firebase/auth';
-import { db } from 'FirebaseApp/firebase';
-<<<<<<< HEAD
-import { doc, updateDoc } from 'firebase/firestore';
-=======
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
->>>>>>> main
-import { auth } from 'FirebaseApp/firebase';
+
+import { db, auth } from 'FirebaseApp/firebase';
 import { Input } from 'components/atoms/Input/Input';
 
 const Wrapper = styled.div<{ isChangeUserNameCardOpen: boolean }>`
@@ -92,10 +88,8 @@ const ChangeUserNameCard = ({
 
   const updateUserName = async () => {
     const user: any = auth.currentUser;
-<<<<<<< HEAD
-=======
     const docSnap = await getDoc(doc(db, 'userChats', user.uid));
->>>>>>> main
+
     if (user.displayName === newUserName) return;
     await updateProfile(user, {
       displayName: newUserName
@@ -103,10 +97,6 @@ const ChangeUserNameCard = ({
     await updateDoc(doc(db, 'users', user.uid), {
       name: newUserName
     });
-<<<<<<< HEAD
-    setIsChangeUserNameCardOpen(false);
-  };
-=======
     if (docSnap.exists()) {
       Object.entries(docSnap.data()).forEach((chat) => {
         updateDoc(doc(db, 'userChats', chat[1].userInfo.uid), {
@@ -116,8 +106,6 @@ const ChangeUserNameCard = ({
     }
     setIsChangeUserNameCardOpen(false);
   };
-
->>>>>>> main
   return (
     <Wrapper isChangeUserNameCardOpen={isChangeUserNameCardOpen}>
       <ChangeUserNameCardTitle>Set your new user name</ChangeUserNameCardTitle>
