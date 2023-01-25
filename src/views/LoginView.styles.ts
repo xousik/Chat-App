@@ -12,13 +12,13 @@ export const OuterWrapper = styled.div`
     z-index: -99999;
   }
 
-  @media (min-width: 320px) and (max-width: 480px) {
+  /* @media (min-width: 320px) and (max-width: 480px) {
     height: 90vh;
 
     img {
       height: 90vh;
     }
-  }
+  } */
 
   @media (min-width: 1250px) {
     display: flex;
@@ -50,11 +50,11 @@ export const Wrapper = styled.div`
     z-index: -99999;
   }
 
-  @media (min-width: 320px) and (max-width: 480px) {
+  /* @media (min-width: 320px) and (max-width: 480px) {
     ::before {
       height: 90vh;
     }
-  }
+  } */
 
   @media (min-width: 1250px) {
     position: relative;
