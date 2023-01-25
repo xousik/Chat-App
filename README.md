@@ -24,7 +24,7 @@ Everyone can create an account with their own user image, they can search for ot
 
 chat with them. 
 
-As for now, the user can only send text messages, however soon I would like to add the option to send pictures and emojis.
+As for now, the user can only send text messages, however soon I would like to add the option to send files, pictures and emojis.
 
 When it comes to plans for upgrades, there is a lot of things to create or improve but I would like to start with:
 
