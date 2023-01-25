@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import catLeft from 'assets/images/catLeft.jpg';
 import catRight from 'assets/images/catRight.jpg';
 import { LeftCatImg, RightCatImg } from './LogedMainView.styles';
+import UserSettingsCard from 'components/organisms/UserSettingsCard/UserSettingsCard';
 
 export interface ICurrentUser {
   currentUser?: {
@@ -32,6 +33,7 @@ const ChatView = () => {
   const [text, setText] = useState('');
   const [messages, setMessages] = useState<MessageProps[]>([]);
   const messagesRef = useRef<null | HTMLUListElement>(null);
+  const [areSettingsOpen, setSettingsOpen] = useState<boolean>(false);
 
   const getCurrentChatUser = (key: string) => {
     const user = localStorage.getItem(key);
@@ -92,15 +94,21 @@ const ChatView = () => {
     });
   };
 
-  return currentUser ? (
+  return (
     <OuterWrapper>
       <LeftCatImg src={catLeft} alt="cat" />
       <Wrapper>
-        <Header user={user.user} />
+        <UserSettingsCard
+          user={currentChatUser}
+          isOpen={areSettingsOpen}
+          setSettingsOpen={setSettingsOpen}
+          areChatSettings={true}
+        />
+        <Header user={user.user} setSettingsOpen={setSettingsOpen} />
         <MessagesWrapper ref={messagesRef}>
           {messages.map((message: MessageProps) => (
             <Message
-              isOwnerMessage={message.senderId === currentUser.uid}
+              isOwnerMessage={message.senderId === currentUser!.uid}
               chatUser={user.user}
               key={message.id}
             >
@@ -112,7 +120,7 @@ const ChatView = () => {
       </Wrapper>
       <RightCatImg src={catRight} alt="cat" />
     </OuterWrapper>
-  ) : null;
+  );
 };
 
 export default ChatView;

@@ -36,7 +36,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="main" element={<MainView />} />
+        <Route path="/main" element={<MainView />} />
         <Route path="login" element={<LoginView />} />
         <Route path="register" element={<RegisterView />} />
         <Route
