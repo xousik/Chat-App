@@ -16,15 +16,15 @@ type ContactProps = {
 };
 
 const ContactItem = ({ user, handleClick, lastMessage }: ContactProps) => {
-  return user ? (
+  return (
     <Wrapper onClick={handleClick} as={Link} to="/chat">
-      <UserImage src={user.photoURL} />
+      <UserImage src={user!.photoURL} />
       <TextWrapper>
-        <UserName>{user.name || user.displayName}</UserName>
+        <UserName>{user!.name || user!.displayName}</UserName>
         <LastMessage>{lastMessage && lastMessage}</LastMessage>
       </TextWrapper>
     </Wrapper>
-  ) : null;
+  );
 };
 
 export default ContactItem;

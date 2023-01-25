@@ -6,12 +6,13 @@ export const OuterWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGray};
   display: flex;
 
-  @media (min-width: 320px) and (max-width: 700px) {
+  /* @media (min-width: 320px) and (max-width: 700px) {
     height: 90vh;
-  }
+  } */
 `;
 
 export const Wrapper = styled.div`
+  position: relative;
   margin: 0 auto;
   width: 50%;
   height: 100vh;
@@ -20,12 +21,12 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.gray};
 
-  @media (min-width: 320px) and (max-width: 480px) {
+  /* @media (min-width: 320px) and (max-width: 480px) {
     height: 90vh;
-  }
+  } */
 
   @media (max-width: 700px) {
-    height: 90vh;
+    /* height: 90vh; */
     width: 100%;
   }
 `;
