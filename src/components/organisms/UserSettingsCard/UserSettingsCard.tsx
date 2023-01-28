@@ -5,6 +5,7 @@ import { UserName } from 'components/atoms/UserName/UserName';
 import ChangeUserNameCard from 'components/molecules/ChangeUserNameCard/ChangeUserNameCard';
 import ChangeUserImageCard from 'components/molecules/ChangeUserImageCard/ChangeUserImageCard';
 import ChangeUserPasswordCard from 'components/molecules/ChangeUserPasswordCard/ChangeUserPasswordCard';
+import ChangeNicknamesCard from 'components/molecules/ChangeNicknamesCard/ChangeNicknamesCard';
 
 const Wrapper = styled.div<ISettingsCard>`
   position: absolute;
@@ -17,6 +18,7 @@ const Wrapper = styled.div<ISettingsCard>`
   justify-content: space-between;
   top: ${({ isOpen }) => (isOpen ? '0' : '100%')};
   transition: top 0.3s ease-in-out;
+  z-index: 9999;
 `;
 
 const LogoutButton = styled.button`
@@ -38,6 +40,10 @@ const StyledUserImage = styled(UserImage)`
   height: 100px;
   margin-top: 50px;
   margin-bottom: -310px;
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+    margin-bottom: -200px;
+  }
 
   @media (min-width: 480px) and (max-width: 700px) {
     margin-bottom: -230px;
@@ -65,12 +71,16 @@ const SettingsWrapper = styled.div`
   }
 `;
 
-const Option = styled.span`
+const Option = styled.span<ISettingsCard>`
   cursor: pointer;
   font-size: ${({ theme }) => theme.fontSize.s};
   color: ${({ theme }) => theme.colors.white};
   font-weight: ${({ theme }) => theme.fontWeight.semiBold};
   margin: 10px 0;
+
+  &:nth-child(5) {
+    color: ${({ theme, areChatSettings }) => areChatSettings && theme.colors.darkRed};
+  }
 `;
 
 interface ISettingsCard {
@@ -80,13 +90,17 @@ interface ISettingsCard {
     photoURL: string;
     displayName: string;
     email: string;
+    name: string;
+    uid: string;
   };
+  areChatSettings?: boolean;
 }
 
-const UserSettingsCard = ({ isOpen, setSettingsOpen, user }: ISettingsCard) => {
+const UserSettingsCard = ({ isOpen, setSettingsOpen, user, areChatSettings }: ISettingsCard) => {
   const [isChangeUserNameCardOpen, setIsChangeUserNameCardOpen] = useState(false);
   const [isChangeUserImageCardOpen, setIsChangeUserImageCardOpen] = useState(false);
   const [isChangeUserPasswordCardOpen, setIsChangeUserPasswordCardOpen] = useState(false);
+  const [isChangeNicknamesCardOpen, setIsChangeNicknamesCardOpen] = useState(false);
 
   const openChangeUserNameCard = () => {
     setIsChangeUserImageCardOpen(false);
@@ -106,27 +120,37 @@ const UserSettingsCard = ({ isOpen, setSettingsOpen, user }: ISettingsCard) => {
     setIsChangeUserPasswordCardOpen(true);
   };
 
+  const openChangeNicknamesCard = () => {
+    setIsChangeNicknamesCardOpen(true);
+  };
+
   return (
     <Wrapper isOpen={isOpen}>
       <LogoutButton
         onClick={() => {
-          setSettingsOpen && setSettingsOpen(false);
+          setSettingsOpen!(false);
           setIsChangeUserNameCardOpen(false);
         }}
       >
         Done
       </LogoutButton>
-      <StyledUserImage src={user?.photoURL} />
-      <UserName>{user?.displayName}</UserName>
+      <StyledUserImage src={user!.photoURL} />
+      <UserName>{user!.displayName || user!.name}</UserName>
       <SettingsWrapper>
-        <Option>Dark mode</Option>
+        <Option>{areChatSettings ? 'Theme' : 'Dark mode'}</Option>
         <hr />
-        <Option onClick={openChangeUserNameCard}>Change user name</Option>
+        <Option onClick={areChatSettings ? openChangeNicknamesCard : openChangeUserNameCard}>
+          {areChatSettings ? 'Nicknames' : 'Change user name'}
+        </Option>
         <hr />
-        <Option onClick={openChangeUserImageCard}>Change image</Option>
+        <Option areChatSettings={areChatSettings} onClick={openChangeUserImageCard}>
+          {areChatSettings ? 'Delete contact' : 'Change image'}
+        </Option>
         <hr />
-        <Option onClick={openChangeUserPasswordCard}>Change password</Option>
-        <hr />
+        <Option onClick={openChangeUserPasswordCard}>
+          {areChatSettings ? null : 'Change password'}
+        </Option>
+        {areChatSettings ? null : <hr />}
         <ChangeUserNameCard
           isChangeUserNameCardOpen={isChangeUserNameCardOpen}
           setIsChangeUserNameCardOpen={setIsChangeUserNameCardOpen}
@@ -140,6 +164,11 @@ const UserSettingsCard = ({ isOpen, setSettingsOpen, user }: ISettingsCard) => {
         <ChangeUserPasswordCard
           isChangeUserPasswordCardOpen={isChangeUserPasswordCardOpen}
           setIsChangeUserPasswordCardOpen={setIsChangeUserPasswordCardOpen}
+          user={user}
+        />
+        <ChangeNicknamesCard
+          isChangeNicknamesCardOpen={isChangeNicknamesCardOpen}
+          setIsChangeNicknamesCardOpen={setIsChangeNicknamesCardOpen}
           user={user}
         />
       </SettingsWrapper>

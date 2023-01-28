@@ -5,12 +5,10 @@ import { UserContext } from 'context/UserContext';
 interface UserContextProps {
   setUserName?: (name: string) => void;
   handleKey?: (key: string) => void;
-  handleSearch?: () => void;
 }
 
 const SearchBar = () => {
-  const { setUserName, handleKey, handleSearch }: UserContextProps = useContext(UserContext);
-  if (!setUserName || !handleKey || !handleSearch) return null;
+  const { setUserName, handleKey }: UserContextProps = useContext(UserContext);
   return (
     <Wrapper>
       <StyledInput
@@ -19,8 +17,8 @@ const SearchBar = () => {
         id="text"
         name="text"
         placeholder="Search"
-        onChange={(e) => setUserName(e.target.value)}
-        onKeyDown={(e) => handleKey(e.key)}
+        onChange={(e) => setUserName!(e.target.value)}
+        onKeyDown={(e) => handleKey!(e.key)}
       ></StyledInput>
     </Wrapper>
   );

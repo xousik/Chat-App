@@ -32,21 +32,20 @@ export const OuterWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGray};
   display: flex;
 
-  @media (min-width: 320px) and (max-width: 700px) {
-    height: 90vh;
-  }
+  /* @media (min-width: 320px) and (max-width: 700px) {
+    min-height: 100vh;
+  } */
 `;
 
 export const MainWrapper = styled.div`
   position: relative;
   width: 50%;
   margin: 0 auto;
-  height: 100vh;
+  height: 100%;
   background-color: ${({ theme }) => theme.colors.gray};
   overflow: hidden;
 
   @media (max-width: 700px) {
-    height: 90vh;
     width: 100%;
   }
 `;
