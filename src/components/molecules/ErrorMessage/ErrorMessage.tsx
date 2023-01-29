@@ -1,4 +1,3 @@
-import React from 'react';
 import { Title } from 'components/atoms/Title/Title';
 import { Wrapper, LoginWrapper } from './ErrorMessage.styles';
 

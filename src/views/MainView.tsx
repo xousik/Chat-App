@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { OuterWrapper, MainWrapper, StyledTitle, StyledButton } from './MainView.styles';
 import background from 'assets/images/background.jpg';

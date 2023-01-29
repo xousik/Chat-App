@@ -5,9 +5,9 @@ import { UserContext } from 'context/UserContext';
 import { IUser } from 'views/LogedMainView';
 
 interface IHandleSelect {
-  handleSelect?: () => void;
+  handleSelect?: () => Promise<void>;
   userName?: string;
-  setIsVisible?: (isVisible: boolean) => void;
+  setIsVisible?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
   isVisible?: boolean;
 }
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Wrapper, StyledUserImage, MessageContent, OwnerMessageContent } from './Message.styles';
 
 interface MessageProps {
