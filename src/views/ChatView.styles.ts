@@ -20,6 +20,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.gray};
+  overflow: hidden;
 
   /* @media (min-width: 320px) and (max-width: 480px) {
     height: 90vh;
