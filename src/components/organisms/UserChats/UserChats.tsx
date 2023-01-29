@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import ContactItem from 'components/molecules/ContactItem/ContactItem';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';

@@ -1,8 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { updateProfile } from 'firebase/auth';
-import { doc, updateDoc, getDoc, setDoc } from 'firebase/firestore';
-import { db, auth } from 'FirebaseApp/firebase';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from 'FirebaseApp/firebase';
 import { Input } from 'components/atoms/Input/Input';
 import { AuthContext } from 'context/AuthContext';
 import { ICurrentUser } from 'views/ChatView';

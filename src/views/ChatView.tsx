@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import { useState, useContext, useEffect, useRef } from 'react';
 import { OuterWrapper, Wrapper, MessagesWrapper } from './ChatView.styles';
 import Header from 'components/molecules/Header/Header';
 import ChatInput from 'components/molecules/ChatInput/ChatInput';

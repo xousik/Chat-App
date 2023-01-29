@@ -69,7 +69,7 @@ interface IChangeThemeCard {
 const ChangeThemeCard = ({ isChangeThemeCardOpen, setIsChangeThemeCardOpen }: IChangeThemeCard) => {
   return (
     <Wrapper isChangeThemeCardOpen={isChangeThemeCardOpen}>
-      <ChangeThemeCardTitle>Set your new profile image</ChangeThemeCardTitle>
+      <ChangeThemeCardTitle>Change Theme</ChangeThemeCardTitle>
       <InnerWrapper>
         <div
           onClick={() => {

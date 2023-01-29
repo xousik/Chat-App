@@ -1,4 +1,3 @@
-import React from 'react';
 import { UserImage } from 'components/atoms/UserImage/UserImage';
 import { UserName } from 'components/atoms/UserName/UserName';
 import { LastMessage } from 'components/atoms/LastMessage/LastMessage';
