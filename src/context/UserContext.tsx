@@ -29,7 +29,7 @@ export const UserContext = createContext({});
 
 export const UserContextProvider = ({ children }: UserContextProps) => {
   const [userName, setUserName] = useState('');
-  const [user, setUser] = useState<UserData | null>(null);
+  const [user, setUser] = useState<UserData | undefined>(undefined);
   const { currentUser }: ICurrentUser = useContext(AuthContext);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -43,16 +43,16 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     }
     const q = query(collection(db, 'users'), where('name', '==', userName));
     const querySnapshot = await getDocs(q);
-    if (querySnapshot.empty) setUser(null);
+    if (querySnapshot.empty) return;
     querySnapshot.forEach((doc) => {
       setUser(doc.data() as UserData);
+      setIsVisible(true);
     });
   };
 
   const handleKey = async (e: string) => {
     if (e === 'Enter') {
       await handleSearch();
-      setIsVisible(true);
     }
   };
 
@@ -89,7 +89,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
         });
       }
 
-      setUser(null);
+      setUser(undefined);
     } catch (err) {}
   };
 

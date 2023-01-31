@@ -80,12 +80,16 @@ interface IChangeNicknamesCard {
   };
   setIsChangeNicknamesCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isChangeNicknamesCardOpen: boolean;
+  ownerNickname?: string;
+  userNickname?: string;
 }
 
 const ChangeNicknamesCard = ({
   user,
   setIsChangeNicknamesCardOpen,
-  isChangeNicknamesCardOpen
+  isChangeNicknamesCardOpen,
+  ownerNickname,
+  userNickname
 }: IChangeNicknamesCard) => {
   const { currentUser }: ICurrentUser = useContext(AuthContext);
   const [currentUserNickname, setCurrentUserNickname] = useState('');
@@ -95,7 +99,12 @@ const ChangeNicknamesCard = ({
     if (!currentUser || !user) return;
     const combinedId =
       currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid;
+    const nicknames = {
+      [currentUser.displayName]: currentUserNickname,
+      [user.name]: chatUserNickname
+    };
     try {
+      localStorage.setItem('nicknames', JSON.stringify(nicknames));
       await updateDoc(doc(db, 'userChats', currentUser!.uid), {
         [combinedId + '.nicknames']: {
           [currentUser.displayName]: currentUserNickname,
@@ -116,12 +125,12 @@ const ChangeNicknamesCard = ({
     <Wrapper isChangeNicknamesCardOpen={isChangeNicknamesCardOpen}>
       <ChangeNicknamesCardTitle>Set your new nicknames</ChangeNicknamesCardTitle>
       <StyledInput
-        placeholder={currentUserNickname || currentUser!.displayName}
+        placeholder={ownerNickname ? ownerNickname : currentUser!.displayName}
         value={currentUserNickname}
         onChange={(e) => setCurrentUserNickname(e.target.value)}
       />
       <StyledInput
-        placeholder={chatUserNickname || user!.name}
+        placeholder={userNickname ? userNickname : user!.name}
         value={chatUserNickname}
         onChange={(e) => setChatUserNickname(e.target.value)}
       />
