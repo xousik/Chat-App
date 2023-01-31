@@ -95,9 +95,18 @@ interface ISettingsCard {
     uid: string;
   };
   areChatSettings?: boolean;
+  userNickname?: string;
+  ownerNickname?: string;
 }
 
-const UserSettingsCard = ({ isOpen, setSettingsOpen, user, areChatSettings }: ISettingsCard) => {
+const UserSettingsCard = ({
+  isOpen,
+  setSettingsOpen,
+  user,
+  areChatSettings,
+  userNickname,
+  ownerNickname
+}: ISettingsCard) => {
   const [isChangeUserNameCardOpen, setIsChangeUserNameCardOpen] = useState(false);
   const [isChangeUserImageCardOpen, setIsChangeUserImageCardOpen] = useState(false);
   const [isChangeUserPasswordCardOpen, setIsChangeUserPasswordCardOpen] = useState(false);
@@ -143,7 +152,7 @@ const UserSettingsCard = ({ isOpen, setSettingsOpen, user, areChatSettings }: IS
         Done
       </LogoutButton>
       <StyledUserImage src={user!.photoURL} />
-      <UserName>{user!.displayName || user!.name}</UserName>
+      <UserName>{userNickname || user!.displayName || user!.name}</UserName>
       <SettingsWrapper>
         <Option onClick={areChatSettings ? openChangeThemeCard : undefined}>
           {areChatSettings ? 'Theme' : 'Dark mode'}
@@ -180,6 +189,8 @@ const UserSettingsCard = ({ isOpen, setSettingsOpen, user, areChatSettings }: IS
           user={user}
         />
         <ChangeNicknamesCard
+          ownerNickname={ownerNickname}
+          userNickname={userNickname}
           isChangeNicknamesCardOpen={isChangeNicknamesCardOpen}
           setIsChangeNicknamesCardOpen={setIsChangeNicknamesCardOpen}
           user={user}
