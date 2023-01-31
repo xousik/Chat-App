@@ -2,17 +2,21 @@ import React, { useContext, useEffect } from 'react';
 import { Wrapper } from './SearchResult.styles';
 import ContactItem from '../ContactItem/ContactItem';
 import { UserContext } from 'context/UserContext';
-import { IUser } from 'views/LogedMainView';
 
 interface IHandleSelect {
-  handleSelect?: () => void;
+  handleSelect?: () => Promise<void>;
   userName?: string;
-  setIsVisible?: (isVisible: boolean) => void;
+  setIsVisible?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
   isVisible?: boolean;
+  user?: {
+    name?: string;
+    photoURL?: string;
+    displayName?: string;
+  };
 }
 
-const SearchResult = ({ user }: IUser) => {
-  const { handleSelect, userName, setIsVisible, isVisible }: IHandleSelect =
+const SearchResult = () => {
+  const { handleSelect, userName, setIsVisible, isVisible, user }: IHandleSelect =
     useContext(UserContext);
 
   useEffect(() => {

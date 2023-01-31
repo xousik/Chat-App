@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Wrapper, StyledInput } from './SearchBar.styles';
 import { UserContext } from 'context/UserContext';
 

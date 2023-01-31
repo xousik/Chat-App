@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import ContactItem from 'components/molecules/ContactItem/ContactItem';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';
 import { AuthContext } from 'context/AuthContext';
 import { ICurrentUser } from 'views/ChatView';
 
+interface INickname {
+  [key: string]: string;
+}
 interface IChat {
   userInfo: {
     uid: string;
@@ -14,6 +17,7 @@ interface IChat {
   lastMessage: {
     text: string;
   };
+  nicknames: INickname;
 }
 
 const UserChats = () => {
@@ -21,8 +25,10 @@ const UserChats = () => {
 
   const { currentUser }: ICurrentUser = useContext(AuthContext);
 
-  const updateChat = (user: {}) => {
+  const updateChat = (user: {}, nicknames: {}) => {
     localStorage.setItem('currentChatId', JSON.stringify(user));
+    if (nicknames === undefined) return;
+    localStorage.setItem('nicknames', JSON.stringify(nicknames));
   };
 
   useEffect(() => {
@@ -45,7 +51,8 @@ const UserChats = () => {
     <>
       {chats?.map((chat) => (
         <ContactItem
-          handleClick={() => updateChat(chat[1].userInfo)}
+          nicknames={chat[1].nicknames}
+          handleClick={() => updateChat(chat[1].userInfo, chat[1].nicknames)}
           user={chat[1].userInfo}
           key={chat[0]}
           lastMessage={chat[1].lastMessage && chat[1].lastMessage.text}

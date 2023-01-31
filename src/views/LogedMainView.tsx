@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from 'FirebaseApp/firebase';
 import SearchResult from 'components/molecules/SearchResult/SearchResult';
-import { UserContext } from 'context/UserContext';
 import UserChats from 'components/organisms/UserChats/UserChats';
 import { AuthContext } from 'context/AuthContext';
 import { ICurrentUser } from './ChatView';
@@ -23,10 +22,10 @@ export interface IUser {
 }
 
 const LogedMainView = () => {
-  const { user }: IUser = useContext(UserContext);
   const { currentUser }: ICurrentUser = useContext(AuthContext);
   const [areSettingsOpen, setSettingsOpen] = useState<boolean>(false);
   localStorage.removeItem('currentChatId');
+  localStorage.removeItem('nicknames');
   return (
     <OuterWrapper>
       <LeftCatImg src={catLeft} alt="cat" />
@@ -43,7 +42,7 @@ const LogedMainView = () => {
           setSettingsOpen={setSettingsOpen}
         />
         <SearchBar />
-        <SearchResult user={user} />
+        <SearchResult />
         <UserChats />
       </MainWrapper>
       <RightCatImg src={catRight} alt="cat" />

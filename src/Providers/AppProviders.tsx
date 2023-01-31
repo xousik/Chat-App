@@ -1,11 +1,9 @@
-import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { theme } from 'styles/theme';
 import { GlobalStyle } from 'styles/global';
 import { AuthContextProvider } from 'context/AuthContext';
 import { UserContextProvider } from 'context/UserContext';
-import { ChatContextProvider } from 'context/ChatContext';
 import { ErrorContextProvider } from 'context/ErrorContext';
 
 type Props = {
@@ -17,12 +15,10 @@ const AppProviders = ({ children }: Props) => (
     <ErrorContextProvider>
       <AuthContextProvider>
         <UserContextProvider>
-          <ChatContextProvider>
-            <ThemeProvider theme={theme}>
-              <GlobalStyle />
-              {children}
-            </ThemeProvider>
-          </ChatContextProvider>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            {children}
+          </ThemeProvider>
         </UserContextProvider>
       </AuthContextProvider>
     </ErrorContextProvider>

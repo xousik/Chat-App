@@ -1,4 +1,6 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable array-callback-return */
+import { useState, useContext, useEffect, useRef } from 'react';
 import { OuterWrapper, Wrapper, MessagesWrapper } from './ChatView.styles';
 import Header from 'components/molecules/Header/Header';
 import ChatInput from 'components/molecules/ChatInput/ChatInput';
@@ -34,40 +36,71 @@ const ChatView = () => {
   const [messages, setMessages] = useState<MessageProps[]>([]);
   const messagesRef = useRef<null | HTMLUListElement>(null);
   const [areSettingsOpen, setSettingsOpen] = useState<boolean>(false);
+  const [userNickname, setUserNickname] = useState('');
 
   const getCurrentChatUser = (key: string) => {
     const user = localStorage.getItem(key);
     if (user) return JSON.parse(user);
   };
+
+  const getNicknames = (key: string) => {
+    const nicknames = localStorage.getItem(key);
+    if (!nicknames) return;
+    const nicknamesObj = nicknames && JSON.parse(nicknames);
+    return {
+      userNickname: nicknamesObj[currentChatUser?.name],
+      ownerNickname: nicknamesObj[currentUser!.displayName]
+    };
+  };
+
   const currentChatUser = getCurrentChatUser('currentChatId');
 
+  const nicknames = getNicknames('nicknames');
+
+  const combinedId =
+    currentUser &&
+    (currentUser.uid > currentChatUser.uid
+      ? currentUser.uid + currentChatUser.uid
+      : currentChatUser.uid + currentUser.uid);
+
   const user = {
-    chatId:
-      currentUser &&
-      (currentUser.uid > currentChatUser.uid
-        ? currentUser.uid + currentChatUser.uid
-        : currentChatUser.uid + currentUser.uid),
+    chatId: combinedId,
     user: currentChatUser
   };
 
   useEffect(() => {
-    if (!user.chatId) return;
-    const unSub = onSnapshot(doc(db, 'chats', user.chatId), (doc) => {
-      doc.exists() && setMessages(doc.data().messages);
+    onSnapshot(doc(db, 'chats', user.chatId!), (doc) => {
+      if (doc.exists()) {
+        setMessages(doc.data().messages);
+      }
     });
 
-    return () => unSub();
-  }, [user.chatId]);
+    // This is necessary to instant update nickname in UserSettingCard and Header
+
+    const getNicknames = () => {
+      onSnapshot(doc(db, 'userChats', currentUser!.uid), (doc) => {
+        if (doc.exists()) {
+          const data = Object.entries(doc.data());
+          data.filter((chat) => {
+            if (chat[0] === combinedId && chat[1].nicknames) {
+              // setOwnerNickname(chat[1].nicknames[currentUser!.displayName]);
+              setUserNickname(chat[1].nicknames[currentChatUser.name]);
+            }
+          });
+        }
+      });
+    };
+    Object.values(currentUser!).length && getNicknames();
+  }, [combinedId]);
 
   useEffect(() => {
     const unsub = messagesRef.current?.scrollTo(0, messagesRef.current.scrollHeight);
 
     return () => unsub;
-  }, [messages, text]);
-
-  const currentDate = new Date();
+  }, [messages]);
 
   const handleSend = async () => {
+    const currentDate = new Date();
     setText('');
     if (!user.chatId || !currentUser) return;
     await updateDoc(doc(db, 'chats', user.chatId), {
@@ -99,12 +132,18 @@ const ChatView = () => {
       <LeftCatImg src={catLeft} alt="cat" />
       <Wrapper>
         <UserSettingsCard
+          userNickname={userNickname || nicknames?.userNickname}
+          ownerNickname={nicknames?.ownerNickname}
           user={currentChatUser}
           isOpen={areSettingsOpen}
           setSettingsOpen={setSettingsOpen}
           areChatSettings={true}
         />
-        <Header user={user.user} setSettingsOpen={setSettingsOpen} />
+        <Header
+          nickname={userNickname || nicknames?.userNickname}
+          user={user.user}
+          setSettingsOpen={setSettingsOpen}
+        />
         <MessagesWrapper ref={messagesRef}>
           {messages.map((message: MessageProps) => (
             <Message
