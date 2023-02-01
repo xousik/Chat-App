@@ -72,11 +72,9 @@ const ChatView = () => {
     onSnapshot(doc(db, 'chats', user.chatId!), (doc) => {
       if (doc.exists()) {
         setMessages(doc.data().messages);
+        console.log('Im setting messages');
       }
     });
-
-    // This is necessary to instant update nickname in UserSettingCard and Header
-
     const getNicknames = () => {
       onSnapshot(doc(db, 'userChats', currentUser!.uid), (doc) => {
         if (doc.exists()) {
@@ -85,6 +83,7 @@ const ChatView = () => {
             if (chat[0] === combinedId && chat[1].nicknames) {
               // setOwnerNickname(chat[1].nicknames[currentUser!.displayName]);
               setUserNickname(chat[1].nicknames[currentChatUser.name]);
+              console.log('Im getting nicknames');
             }
           });
         }
@@ -95,7 +94,7 @@ const ChatView = () => {
 
   useEffect(() => {
     const unsub = messagesRef.current?.scrollTo(0, messagesRef.current.scrollHeight);
-
+    console.log('Im scrolling');
     return () => unsub;
   }, [messages]);
 

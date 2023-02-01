@@ -87,8 +87,22 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
           },
           [combinedId + '.date']: serverTimestamp()
         });
+      } else {
+        const res = await getDoc(doc(db, 'userChats', currentUser.uid));
+        const data = res.data();
+        if (!Object.entries(data!).flat().includes(combinedId)) {
+          await updateDoc(doc(db, 'userChats', currentUser.uid), {
+            [combinedId + '.userInfo']: {
+              uid: user.uid,
+              name: user.name,
+              photoURL: user.photoURL
+            },
+            [combinedId + '.date']: serverTimestamp()
+          });
+        }
       }
 
+      setIsVisible(false);
       setUser(undefined);
     } catch (err) {}
   };
