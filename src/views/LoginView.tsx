@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from 'FirebaseApp/firebase';
@@ -12,23 +11,22 @@ import { IErrorContext } from 'views/RegisterView';
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
 
 const LoginView = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const { error, handleError }: IErrorContext = useErrorContext();
 
   const handleLogIn = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email || !password || !handleError) return;
-
+    if (!emailRef.current || !passwordRef.current || !handleError) return;
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value);
       navigate('/');
     } catch (error) {
       handleError('Invalid email or password');
-      setEmail('');
-      setPassword('');
+      emailRef.current.value = '';
+      passwordRef.current.value = '';
     }
   };
 
@@ -39,22 +37,9 @@ const LoginView = () => {
         <Title>Welcome to Lulu's Chat App</Title>
         <StyledForm onSubmit={handleLogIn}>
           <Label htmlFor="email">Email</Label>
-          <StyledInput
-            autoComplete="off"
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <StyledInput ref={emailRef} autoComplete="off" type="email" id="email" name="email" />
           <Label htmlFor="password">Password</Label>
-          <StyledInput
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <StyledInput ref={passwordRef} type="password" id="password" name="password" />
           <StyledButton type="submit">Log in</StyledButton>
         </StyledForm>
         {error && <ErrorMessage isLogin message={error} />}
