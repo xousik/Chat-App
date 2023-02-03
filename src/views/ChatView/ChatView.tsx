@@ -11,7 +11,7 @@ import { AuthContext } from 'context/AuthContext';
 import { v4 as uuidv4 } from 'uuid';
 import catLeft from 'assets/images/catLeft.jpg';
 import catRight from 'assets/images/catRight.jpg';
-import { LeftCatImg, RightCatImg } from './LogedMainView.styles';
+import { LeftCatImg, RightCatImg } from 'views/LogedMainView/LogedMainView.styles';
 import UserSettingsCard from 'components/organisms/UserSettingsCard/UserSettingsCard';
 
 export interface ICurrentUser {

@@ -7,7 +7,7 @@ import ChangeNicknamesCard from 'components/molecules/ChangeNicknamesCard/Change
 import ChangeThemeCard from 'components/molecules/ChangeThemeCard/ChangeThemeCard';
 import { deleteDoc, deleteField, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';
-import { ICurrentUser } from 'views/ChatView';
+import { ICurrentUser } from 'views/ChatView/ChatView';
 import { AuthContext } from 'context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import {

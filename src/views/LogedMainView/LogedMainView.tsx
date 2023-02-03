@@ -4,7 +4,7 @@ import { auth } from 'FirebaseApp/firebase';
 import SearchResult from 'components/molecules/SearchResult/SearchResult';
 import UserChats from 'components/organisms/UserChats/UserChats';
 import { AuthContext } from 'context/AuthContext';
-import { ICurrentUser } from './ChatView';
+import { ICurrentUser } from 'views/ChatView/ChatView';
 import { LeftCatImg, RightCatImg, MainWrapper, OuterWrapper } from './LogedMainView.styles';
 import Header from 'components/molecules/Header/Header';
 import SearchBar from 'components/molecules/SearchBar/SearchBar';
