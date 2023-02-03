@@ -7,7 +7,7 @@ import { Label } from 'components/atoms/Label/Label';
 import { OuterWrapper, Wrapper, StyledForm, StyledInput, StyledButton } from './LoginView.styles';
 import background from 'assets/images/background.jpg';
 import { useErrorContext } from 'context/ErrorContext';
-import { IErrorContext } from 'views/RegisterView';
+import { IErrorContext } from 'views/RegisterView/RegisterView';
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
 
 const LoginView = () => {

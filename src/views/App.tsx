@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import MainView from './MainView';
-import RegisterView from './RegisterView';
-import LoginView from './LoginView';
-import LogedMainView from './LogedMainView';
+import MainView from './MainView/MainView';
+import RegisterView from './RegisterView/RegisterView';
+import LoginView from './LoginView/LoginView';
+import LogedMainView from './LogedMainView/LogedMainView';
 import { AuthContext } from 'context/AuthContext';
-import ChatView from './ChatView';
+import ChatView from './ChatView/ChatView';
 
 interface ICurrentUser {
   currentUser?: {};

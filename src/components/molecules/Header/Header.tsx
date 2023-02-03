@@ -17,7 +17,7 @@ interface HeaderProps {
 const Header = ({ handleLogOut, user, hasLogout, setSettingsOpen, nickname }: HeaderProps) => {
   return (
     <Wrapper>
-      <StyledUserImage src={user!.photoURL} />
+      <StyledUserImage src={user?.photoURL} />
       <StyledUserName onClick={() => setSettingsOpen!(true)}>
         {nickname || user!.displayName || user!.name}
       </StyledUserName>
