@@ -3,7 +3,7 @@ import ContactItem from 'components/molecules/ContactItem/ContactItem';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';
 import { AuthContext } from 'context/AuthContext';
-import { ICurrentUser } from 'views/ChatView';
+import { ICurrentUser } from 'views/ChatView/ChatView';
 
 interface INickname {
   [key: string]: string;
