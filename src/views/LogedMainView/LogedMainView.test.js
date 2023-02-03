@@ -1,4 +1,4 @@
-import { fireEvent, getByTestId, render, screen } from 'test-utils';
+import { render, screen } from 'test-utils';
 import LogedMainView from './LogedMainView';
 
 test('renders LogedMainView', () => {
