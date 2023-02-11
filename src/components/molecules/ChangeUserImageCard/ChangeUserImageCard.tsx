@@ -12,22 +12,26 @@ import {
   HorizontalLine,
   VerticalLine
 } from './ChangeUserImageCard.styles';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { closeUserImageCard } from 'features/userSettingsCard/userSettingsCardSlice';
 
 interface IChangeUserImageCard {
   user?: {
     photoURL: string;
     displayName: string;
   };
-  setIsChangeUserImageCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isChangeUserImageCardOpen: boolean;
 }
 
-const ChangeUserImageCard = ({
-  user,
-  isChangeUserImageCardOpen,
-  setIsChangeUserImageCardOpen
-}: IChangeUserImageCard) => {
+const ChangeUserImageCard = ({ user }: IChangeUserImageCard) => {
   const [newUserImage, setNewUserImage] = useState<File | Blob | null>(null);
+
+  const isOpen = useAppSelector((state) => state.userSettingsCard.isChangeUserImageCardOpen);
+
+  const dispatch = useAppDispatch();
+
+  const handleClose = () => {
+    dispatch(closeUserImageCard());
+  };
 
   const updateImage = async () => {
     const user: any = auth.currentUser;
@@ -52,11 +56,11 @@ const ChangeUserImageCard = ({
         }
       });
     });
-    setIsChangeUserImageCardOpen(false);
+    handleClose();
   };
 
   return (
-    <Wrapper isChangeUserImageCardOpen={isChangeUserImageCardOpen}>
+    <Wrapper isChangeUserImageCardOpen={isOpen}>
       <ChangeUserImageCardTitle>Set your new profile image</ChangeUserImageCardTitle>
       <StyledFileLabel htmlFor="userAvatar">
         <svg
@@ -79,13 +83,7 @@ const ChangeUserImageCard = ({
         onChange={(e) => e.target.files && setNewUserImage(e.target.files[0])}
       />
       <InnerWrapper>
-        <div
-          onClick={() => {
-            setIsChangeUserImageCardOpen(false);
-          }}
-        >
-          Cancel
-        </div>
+        <div onClick={handleClose}>Cancel</div>
         <HorizontalLine />
         <VerticalLine />
         <div onClick={updateImage}>Save</div>

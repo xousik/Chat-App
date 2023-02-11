@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';
 import { AuthContext } from 'context/AuthContext';
-import { ICurrentUser } from 'views/ChatView';
+import { ICurrentUser } from 'views/ChatView/ChatView';
 import {
   Wrapper,
   ChangeNicknamesCardTitle,
@@ -11,6 +11,8 @@ import {
   HorizontalLine,
   VerticalLine
 } from './ChangeNicknamesCard.styles';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { closeChangeUsersNicknamesCard } from 'features/userSettingsCard/userSettingsCardSlice';
 
 interface IChangeNicknamesCard {
   user?: {
@@ -19,22 +21,22 @@ interface IChangeNicknamesCard {
     name: string;
     uid: string;
   };
-  setIsChangeNicknamesCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isChangeNicknamesCardOpen: boolean;
   ownerNickname?: string;
   userNickname?: string;
 }
 
-const ChangeNicknamesCard = ({
-  user,
-  setIsChangeNicknamesCardOpen,
-  isChangeNicknamesCardOpen,
-  ownerNickname,
-  userNickname
-}: IChangeNicknamesCard) => {
+const ChangeNicknamesCard = ({ user, ownerNickname, userNickname }: IChangeNicknamesCard) => {
   const { currentUser }: ICurrentUser = useContext(AuthContext);
   const [currentUserNickname, setCurrentUserNickname] = useState('');
   const [chatUserNickname, setChatUserNickname] = useState('');
+
+  const isOpen = useAppSelector((state) => state.userSettingsCard.isChangeUsersNicknamesCardOpen);
+
+  const dispatch = useAppDispatch();
+
+  const handleClose = () => {
+    dispatch(closeChangeUsersNicknamesCard());
+  };
 
   const updateNicknames = async () => {
     if (!currentUser || !user) return;
@@ -63,7 +65,7 @@ const ChangeNicknamesCard = ({
     }
   };
   return (
-    <Wrapper isChangeNicknamesCardOpen={isChangeNicknamesCardOpen}>
+    <Wrapper isChangeNicknamesCardOpen={isOpen}>
       <ChangeNicknamesCardTitle>Set your new nicknames</ChangeNicknamesCardTitle>
       <StyledInput
         placeholder={ownerNickname ? ownerNickname : currentUser!.displayName}
@@ -78,7 +80,7 @@ const ChangeNicknamesCard = ({
       <InnerWrapper>
         <div
           onClick={() => {
-            setIsChangeNicknamesCardOpen(false);
+            handleClose();
             setCurrentUserNickname('');
             setChatUserNickname('');
           }}

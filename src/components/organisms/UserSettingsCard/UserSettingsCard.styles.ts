@@ -7,6 +7,8 @@ export const Wrapper = styled.div<ISettingsCard>`
   width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.gray};
+  /* display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')}; */
+  /* transition: display 1s; */
   display: flex;
   flex-direction: column;
   align-items: center;

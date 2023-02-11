@@ -1,6 +1,8 @@
 import React from 'react';
 import { Wrapper, StyledUserImage, StyledUserName, Logout } from './Header.styles';
 import logout from 'assets/images/logoutIcon.svg';
+import { useAppDispatch } from 'app/hooks';
+import { openUserSettingsCard } from 'features/userSettingsCard/userSettingsCardSlice';
 
 interface HeaderProps {
   handleLogOut?: () => void;
@@ -15,10 +17,15 @@ interface HeaderProps {
 }
 
 const Header = ({ handleLogOut, user, hasLogout, setSettingsOpen, nickname }: HeaderProps) => {
+  const dispatch = useAppDispatch();
+
+  const handleOpenSettings = () => {
+    dispatch(openUserSettingsCard());
+  };
   return (
     <Wrapper>
       <StyledUserImage src={user?.photoURL} />
-      <StyledUserName onClick={() => setSettingsOpen!(true)}>
+      <StyledUserName onClick={handleOpenSettings}>
         {nickname || user!.displayName || user!.name}
       </StyledUserName>
       {hasLogout && <span>Chats</span>}

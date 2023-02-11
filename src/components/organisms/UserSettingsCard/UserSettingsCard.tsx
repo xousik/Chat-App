@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { UserName } from 'components/atoms/UserName/UserName';
 import ChangeUserNameCard from 'components/molecules/ChangeUserNameCard/ChangeUserNameCard';
 import ChangeUserImageCard from 'components/molecules/ChangeUserImageCard/ChangeUserImageCard';
@@ -17,6 +17,15 @@ import {
   SettingsWrapper,
   Option
 } from './UserSettingsCard.styles';
+import { useAppSelector, useAppDispatch } from 'app/hooks';
+import {
+  closeUserSettingsCard,
+  openUserNameCard,
+  openUserImageCard,
+  openUserPasswordCard,
+  openChangeThemeCard,
+  openChangeUsersNicknamesCard
+} from 'features/userSettingsCard/userSettingsCardSlice';
 
 export interface ISettingsCard {
   isOpen?: boolean;
@@ -42,40 +51,14 @@ const UserSettingsCard = ({
   ownerNickname
 }: ISettingsCard) => {
   const { currentUser }: ICurrentUser = useContext(AuthContext);
-  const [isChangeUserNameCardOpen, setIsChangeUserNameCardOpen] = useState(false);
-  const [isChangeUserImageCardOpen, setIsChangeUserImageCardOpen] = useState(false);
-  const [isChangeUserPasswordCardOpen, setIsChangeUserPasswordCardOpen] = useState(false);
-  const [isChangeNicknamesCardOpen, setIsChangeNicknamesCardOpen] = useState(false);
-  const [isChangeThemeCardOpen, setIsChangeThemeCardOpen] = useState(false);
+
   const navigate = useNavigate();
 
-  const openChangeUserNameCard = () => {
-    setIsChangeUserImageCardOpen(false);
-    setIsChangeUserPasswordCardOpen(false);
-    setIsChangeUserNameCardOpen(true);
-  };
+  const dispatch = useAppDispatch();
 
-  const openChangeUserImageCard = () => {
-    setIsChangeUserNameCardOpen(false);
-    setIsChangeUserPasswordCardOpen(false);
-    setIsChangeUserImageCardOpen(true);
-  };
-
-  const openChangeUserPasswordCard = () => {
-    setIsChangeUserNameCardOpen(false);
-    setIsChangeUserImageCardOpen(false);
-    setIsChangeUserPasswordCardOpen(true);
-  };
-
-  const openChangeNicknamesCard = () => {
-    setIsChangeThemeCardOpen(false);
-    setIsChangeNicknamesCardOpen(true);
-  };
-
-  const openChangeThemeCard = () => {
-    setIsChangeNicknamesCardOpen(false);
-    setIsChangeThemeCardOpen(true);
-  };
+  const isUserSettingsCardOpen = useAppSelector(
+    (state) => state.userSettingsCard.isUserSettingsCardOpen
+  );
 
   const deleteChat = async () => {
     if (!currentUser || !user) return;
@@ -93,6 +76,7 @@ const UserSettingsCard = ({
         [combinedId]: deleteField()
       });
 
+      handleClose();
       navigate('/');
 
       await getDoc(userChatsRef).then((doc) => {
@@ -105,64 +89,64 @@ const UserSettingsCard = ({
     }
   };
 
+  const handleClose = () => {
+    dispatch(closeUserSettingsCard());
+  };
+
+  const handleOpenUserNameCard = () => {
+    dispatch(openUserNameCard());
+  };
+
+  const handleOpenUserImageCard = () => {
+    dispatch(openUserImageCard());
+  };
+
+  const handleOpenUserPasswordCard = () => {
+    dispatch(openUserPasswordCard());
+  };
+
+  const handleOpenChangeThemeCard = () => {
+    dispatch(openChangeThemeCard());
+  };
+
+  const handleOpenChangeNicknamesCard = () => {
+    dispatch(openChangeUsersNicknamesCard());
+  };
+
   return (
-    <Wrapper isOpen={isOpen}>
-      <LogoutButton
-        onClick={() => {
-          setSettingsOpen!(false);
-          setIsChangeUserNameCardOpen(false);
-        }}
-      >
-        Done
-      </LogoutButton>
+    <Wrapper isOpen={isUserSettingsCardOpen}>
+      <LogoutButton onClick={handleClose}>Done</LogoutButton>
       <StyledUserImage src={user!.photoURL} />
       <UserName>{userNickname || user!.displayName || user!.name}</UserName>
       <SettingsWrapper>
-        <Option onClick={areChatSettings ? openChangeThemeCard : undefined}>
+        <Option onClick={areChatSettings ? handleOpenChangeThemeCard : undefined}>
           {areChatSettings ? 'Theme' : 'Dark mode'}
         </Option>
         <hr />
-        <Option onClick={areChatSettings ? openChangeNicknamesCard : openChangeUserNameCard}>
+        <Option onClick={areChatSettings ? handleOpenChangeNicknamesCard : handleOpenUserNameCard}>
           {areChatSettings ? 'Nicknames' : 'Change user name'}
         </Option>
         <hr />
         <Option
           areChatSettings={areChatSettings}
-          onClick={areChatSettings ? deleteChat : openChangeUserImageCard}
+          onClick={areChatSettings ? deleteChat : handleOpenUserImageCard}
         >
           {areChatSettings ? 'Delete contact' : 'Change image'}
         </Option>
         <hr />
-        <Option onClick={openChangeUserPasswordCard}>
+        <Option onClick={handleOpenUserPasswordCard}>
           {areChatSettings ? null : 'Change password'}
         </Option>
         {areChatSettings ? null : <hr />}
-        <ChangeUserNameCard
-          isChangeUserNameCardOpen={isChangeUserNameCardOpen}
-          setIsChangeUserNameCardOpen={setIsChangeUserNameCardOpen}
-          user={user}
-        />
-        <ChangeUserImageCard
-          isChangeUserImageCardOpen={isChangeUserImageCardOpen}
-          setIsChangeUserImageCardOpen={setIsChangeUserImageCardOpen}
-          user={user}
-        />
-        <ChangeUserPasswordCard
-          isChangeUserPasswordCardOpen={isChangeUserPasswordCardOpen}
-          setIsChangeUserPasswordCardOpen={setIsChangeUserPasswordCardOpen}
-          user={user}
-        />
+        <ChangeUserNameCard user={user} />
+        <ChangeUserImageCard user={user} />
+        <ChangeUserPasswordCard user={user} />
         <ChangeNicknamesCard
           ownerNickname={ownerNickname}
           userNickname={userNickname}
-          isChangeNicknamesCardOpen={isChangeNicknamesCardOpen}
-          setIsChangeNicknamesCardOpen={setIsChangeNicknamesCardOpen}
           user={user}
         />
-        <ChangeThemeCard
-          isChangeThemeCardOpen={isChangeThemeCardOpen}
-          setIsChangeThemeCardOpen={setIsChangeThemeCardOpen}
-        />
+        <ChangeThemeCard />
       </SettingsWrapper>
     </Wrapper>
   );

@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { db } from 'FirebaseApp/firebase';
 import { AuthContext } from './AuthContext';
-import { ICurrentUser } from 'views/ChatView';
+import { ICurrentUser } from 'views/ChatView/ChatView';
 
 type UserContextProps = {
   children: JSX.Element;

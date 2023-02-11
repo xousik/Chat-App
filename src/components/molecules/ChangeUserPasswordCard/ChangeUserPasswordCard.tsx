@@ -8,6 +8,8 @@ import {
   HorizontalLine,
   VerticalLine
 } from './ChangeUserPasswordCard.styles';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { closeUserPasswordCard } from 'features/userSettingsCard/userSettingsCardSlice';
 
 interface IChangeUserPasswordCard {
   user?: {
@@ -15,18 +17,20 @@ interface IChangeUserPasswordCard {
     displayName: string;
     email: string;
   };
-  setIsChangeUserPasswordCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isChangeUserPasswordCardOpen: boolean;
 }
 
-const ChangeUserPasswordCard = ({
-  user,
-  setIsChangeUserPasswordCardOpen,
-  isChangeUserPasswordCardOpen
-}: IChangeUserPasswordCard) => {
+const ChangeUserPasswordCard = ({ user }: IChangeUserPasswordCard) => {
   const [titleMessage, setTitleMessage] = useState<string>('Send an email to reset your password');
 
   const sendRef = useRef<HTMLButtonElement>(null);
+
+  const isOpen = useAppSelector((state) => state.userSettingsCard.isChangeUserPasswordCardOpen);
+
+  const dispatch = useAppDispatch();
+
+  const handleClose = () => {
+    dispatch(closeUserPasswordCard());
+  };
 
   const updateUserPassword = async () => {
     if (!user) return;
@@ -46,16 +50,10 @@ const ChangeUserPasswordCard = ({
     }, 60000);
   };
   return (
-    <Wrapper isChangeUserPasswordCardOpen={isChangeUserPasswordCardOpen}>
+    <Wrapper isChangeUserPasswordCardOpen={isOpen}>
       <ChangeUserPasswordCardTitle>{titleMessage}</ChangeUserPasswordCardTitle>
       <InnerWrapper>
-        <button
-          onClick={() => {
-            setIsChangeUserPasswordCardOpen(false);
-          }}
-        >
-          Cancel
-        </button>
+        <button onClick={handleClose}>Cancel</button>
         <HorizontalLine />
         <VerticalLine />
         <button ref={sendRef} onClick={updateUserPassword}>
