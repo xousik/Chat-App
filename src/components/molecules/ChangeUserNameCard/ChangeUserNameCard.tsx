@@ -10,22 +10,24 @@ import {
   HorizontalLine,
   VerticalLine
 } from './ChangeUserNameCard.styles';
-
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { closeUserNameCard } from 'features/userSettingsCard/userSettingsCardSlice';
 interface IChangeUserNameCard {
   user?: {
     photoURL: string;
     displayName: string;
   };
-  setIsChangeUserNameCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isChangeUserNameCardOpen: boolean;
 }
 
-const ChangeUserNameCard = ({
-  user,
-  setIsChangeUserNameCardOpen,
-  isChangeUserNameCardOpen
-}: IChangeUserNameCard) => {
+const ChangeUserNameCard = ({ user }: IChangeUserNameCard) => {
   const [newUserName, setNewUserName] = useState(user?.displayName);
+
+  const dispatch = useAppDispatch();
+  const isOpen = useAppSelector((state) => state.userSettingsCard.isChangeUserNameCardOpen);
+
+  const handleClose = () => {
+    dispatch(closeUserNameCard());
+  };
 
   const updateUserName = async () => {
     const user: any = auth.currentUser;
@@ -45,21 +47,14 @@ const ChangeUserNameCard = ({
         });
       });
     }
-    setIsChangeUserNameCardOpen(false);
+    handleClose();
   };
   return (
-    <Wrapper isChangeUserNameCardOpen={isChangeUserNameCardOpen}>
+    <Wrapper isChangeUserNameCardOpen={isOpen}>
       <ChangeUserNameCardTitle>Set your new user name</ChangeUserNameCardTitle>
       <StyledInput value={newUserName} onChange={(e) => setNewUserName(e.target.value)} />
       <InnerWrapper>
-        <div
-          onClick={() => {
-            setIsChangeUserNameCardOpen(false);
-            setNewUserName(user?.displayName);
-          }}
-        >
-          Cancel
-        </div>
+        <div onClick={handleClose}>Cancel</div>
         <HorizontalLine />
         <VerticalLine />
         <div onClick={updateUserName}>Save</div>

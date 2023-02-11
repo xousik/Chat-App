@@ -5,6 +5,8 @@ import { GlobalStyle } from 'styles/global';
 import { AuthContextProvider } from 'context/AuthContext';
 import { UserContextProvider } from 'context/UserContext';
 import { ErrorContextProvider } from 'context/ErrorContext';
+import { store } from 'app/store';
+import { Provider } from 'react-redux';
 
 type Props = {
   children: JSX.Element;
@@ -12,16 +14,18 @@ type Props = {
 
 const AppProviders = ({ children }: Props) => (
   <Router>
-    <ErrorContextProvider>
-      <AuthContextProvider>
-        <UserContextProvider>
-          <ThemeProvider theme={theme}>
-            <GlobalStyle />
-            {children}
-          </ThemeProvider>
-        </UserContextProvider>
-      </AuthContextProvider>
-    </ErrorContextProvider>
+    <Provider store={store}>
+      <ErrorContextProvider>
+        <AuthContextProvider>
+          <UserContextProvider>
+            <ThemeProvider theme={theme}>
+              <GlobalStyle />
+              {children}
+            </ThemeProvider>
+          </UserContextProvider>
+        </AuthContextProvider>
+      </ErrorContextProvider>
+    </Provider>
   </Router>
 );
 

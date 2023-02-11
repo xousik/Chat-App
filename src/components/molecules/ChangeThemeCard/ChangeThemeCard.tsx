@@ -6,24 +6,23 @@ import {
   HorizontalLine,
   VerticalLine
 } from './ChangeThemeCard.styles';
+import { useAppSelector, useAppDispatch } from 'app/hooks';
+import { closeChangeThemeCard } from 'features/userSettingsCard/userSettingsCardSlice';
 
-interface IChangeThemeCard {
-  isChangeThemeCardOpen: boolean;
-  setIsChangeThemeCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const ChangeThemeCard = () => {
+  const isOpen = useAppSelector((state) => state.userSettingsCard.isChangeThemeCardOpen);
 
-const ChangeThemeCard = ({ isChangeThemeCardOpen, setIsChangeThemeCardOpen }: IChangeThemeCard) => {
+  const dispatch = useAppDispatch();
+
+  const handleClose = () => {
+    dispatch(closeChangeThemeCard());
+  };
+
   return (
-    <Wrapper isChangeThemeCardOpen={isChangeThemeCardOpen}>
+    <Wrapper isChangeThemeCardOpen={isOpen}>
       <ChangeThemeCardTitle>Change Theme</ChangeThemeCardTitle>
       <InnerWrapper>
-        <div
-          onClick={() => {
-            setIsChangeThemeCardOpen(false);
-          }}
-        >
-          Cancel
-        </div>
+        <div onClick={handleClose}>Cancel</div>
         <HorizontalLine />
         <VerticalLine />
         <div>Save</div>

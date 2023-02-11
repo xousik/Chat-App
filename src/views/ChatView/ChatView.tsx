@@ -35,7 +35,6 @@ const ChatView = () => {
   const [text, setText] = useState('');
   const [messages, setMessages] = useState<MessageProps[]>([]);
   const messagesRef = useRef<null | HTMLUListElement>(null);
-  const [areSettingsOpen, setSettingsOpen] = useState<boolean>(false);
   const [userNickname, setUserNickname] = useState('');
 
   const getCurrentChatUser = (key: string) => {
@@ -134,15 +133,9 @@ const ChatView = () => {
           userNickname={userNickname || nicknames?.userNickname}
           ownerNickname={nicknames?.ownerNickname}
           user={currentChatUser}
-          isOpen={areSettingsOpen}
-          setSettingsOpen={setSettingsOpen}
           areChatSettings={true}
         />
-        <Header
-          nickname={userNickname || nicknames?.userNickname}
-          user={user.user}
-          setSettingsOpen={setSettingsOpen}
-        />
+        <Header nickname={userNickname || nicknames?.userNickname} user={user.user} />
         <MessagesWrapper ref={messagesRef}>
           {messages.map((message: MessageProps) => (
             <Message

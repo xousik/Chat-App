@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from 'FirebaseApp/firebase';
 import SearchResult from 'components/molecules/SearchResult/SearchResult';
@@ -23,30 +23,26 @@ export interface IUser {
 
 const LogedMainView = () => {
   const { currentUser }: ICurrentUser = useContext(AuthContext);
-  const [areSettingsOpen, setSettingsOpen] = useState<boolean>(false);
+
   localStorage.removeItem('currentChatId');
   localStorage.removeItem('nicknames');
+
   return (
-    <OuterWrapper>
-      <LeftCatImg src={catLeft} alt="cat" />
-      <MainWrapper>
-        <UserSettingsCard
-          user={currentUser}
-          isOpen={areSettingsOpen}
-          setSettingsOpen={setSettingsOpen}
-        />
-        <Header
-          handleLogOut={() => signOut(auth)}
-          user={currentUser}
-          hasLogout={true}
-          setSettingsOpen={setSettingsOpen}
-        />
-        <SearchBar />
-        <SearchResult />
-        <UserChats />
-      </MainWrapper>
-      <RightCatImg src={catRight} alt="cat" />
-    </OuterWrapper>
+    <>
+      {Object.keys(currentUser!).length !== 0 && (
+        <OuterWrapper>
+          <LeftCatImg src={catLeft} alt="cat" />
+          <MainWrapper>
+            <UserSettingsCard user={currentUser} />
+            <Header handleLogOut={() => signOut(auth)} user={currentUser} hasLogout={true} />
+            <SearchBar />
+            <SearchResult />
+            <UserChats />
+          </MainWrapper>
+          <RightCatImg src={catRight} alt="cat" />
+        </OuterWrapper>
+      )}
+    </>
   );
 };
 
