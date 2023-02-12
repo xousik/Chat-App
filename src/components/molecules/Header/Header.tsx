@@ -15,7 +15,11 @@ interface HeaderProps {
   nickname?: string;
 }
 
+<<<<<<< HEAD
 const Header = ({ handleLogOut, user, hasLogout, nickname }: HeaderProps) => {
+=======
+const Header = ({ handleLogOut, user, hasLogout, setSettingsOpen, nickname }: HeaderProps) => {
+>>>>>>> 99f04a538eda40397386408144142321c2c3a8ab
   const dispatch = useAppDispatch();
 
   const handleOpenSettings = () => {
