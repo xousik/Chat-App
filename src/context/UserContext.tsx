@@ -104,7 +104,13 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
       setIsVisible(false);
       setUser(undefined);
-    } catch (err) {}
+    } catch (error) {
+      let errorMessage = 'Something went wrong...';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      alert(errorMessage);
+    }
   };
 
   return (

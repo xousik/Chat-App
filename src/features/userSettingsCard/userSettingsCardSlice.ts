@@ -34,17 +34,17 @@ export const userSettingsCardSlice = createSlice({
       state.isChangeUsersNicknamesCardOpen = false;
     },
     openUserNameCard(state) {
-      state.isChangeUserNameCardOpen = true;
       state.isChangeUserImageCardOpen = false;
       state.isChangeUserPasswordCardOpen = false;
+      state.isChangeUserNameCardOpen = true;
     },
     closeUserNameCard(state) {
       state.isChangeUserNameCardOpen = false;
     },
     openUserImageCard(state) {
       state.isChangeUserNameCardOpen = false;
-      state.isChangeUserImageCardOpen = true;
       state.isChangeUserPasswordCardOpen = false;
+      state.isChangeUserImageCardOpen = true;
     },
     closeUserImageCard(state) {
       state.isChangeUserImageCardOpen = false;
@@ -58,15 +58,15 @@ export const userSettingsCardSlice = createSlice({
       state.isChangeUserPasswordCardOpen = false;
     },
     openChangeThemeCard(state) {
-      state.isChangeThemeCardOpen = true;
       state.isChangeUsersNicknamesCardOpen = false;
+      state.isChangeThemeCardOpen = true;
     },
     closeChangeThemeCard(state) {
       state.isChangeThemeCardOpen = false;
     },
     openChangeUsersNicknamesCard(state) {
-      state.isChangeUsersNicknamesCardOpen = true;
       state.isChangeThemeCardOpen = false;
+      state.isChangeUsersNicknamesCardOpen = true;
     },
     closeChangeUsersNicknamesCard(state) {
       state.isChangeUsersNicknamesCardOpen = false;

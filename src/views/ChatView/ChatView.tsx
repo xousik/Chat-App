@@ -100,29 +100,37 @@ const ChatView = () => {
   const handleSend = async () => {
     const currentDate = new Date();
     setText('');
-    if (!user.chatId || !currentUser) return;
-    await updateDoc(doc(db, 'chats', user.chatId), {
-      messages: arrayUnion({
-        id: uuidv4(),
-        text,
-        senderId: currentUser.uid,
-        date: currentDate
-      })
-    });
+    try {
+      if (!user.chatId || !currentUser) return;
+      await updateDoc(doc(db, 'chats', user.chatId), {
+        messages: arrayUnion({
+          id: uuidv4(),
+          text,
+          senderId: currentUser.uid,
+          date: currentDate
+        })
+      });
 
-    await updateDoc(doc(db, 'userChats', currentUser.uid), {
-      [user.chatId + '.lastMessage']: {
-        text
-      },
-      [user.chatId + '.date']: currentDate
-    });
+      await updateDoc(doc(db, 'userChats', currentUser.uid), {
+        [user.chatId + '.lastMessage']: {
+          text
+        },
+        [user.chatId + '.date']: currentDate
+      });
 
-    await updateDoc(doc(db, 'userChats', user.user.uid), {
-      [user.chatId + '.lastMessage']: {
-        text
-      },
-      [user.chatId + '.date']: currentDate
-    });
+      await updateDoc(doc(db, 'userChats', user.user.uid), {
+        [user.chatId + '.lastMessage']: {
+          text
+        },
+        [user.chatId + '.date']: currentDate
+      });
+    } catch (error) {
+      let errorMessage = 'Something went wrong...';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      alert(errorMessage);
+    }
   };
 
   return (

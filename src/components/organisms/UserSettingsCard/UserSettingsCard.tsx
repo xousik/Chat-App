@@ -79,7 +79,11 @@ const UserSettingsCard = ({
         deleteWholeChat();
       });
     } catch (error) {
-      console.log(error);
+      let errorMessage = 'Something went wrong...';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      alert(errorMessage);
     }
   };
 

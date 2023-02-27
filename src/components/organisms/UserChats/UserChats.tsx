@@ -43,8 +43,15 @@ const UserChats = () => {
 
       return () => unsub();
     };
-
-    currentUser.uid && getChats();
+    try {
+      currentUser.uid && getChats();
+    } catch (error) {
+      let errorMessage = 'Something went wrong...';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      alert(errorMessage);
+    }
   }, [currentUser]);
 
   return (

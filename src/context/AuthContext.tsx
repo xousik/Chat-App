@@ -19,7 +19,6 @@ export const AuthContextProvider = ({ children }: Props) => {
     // Cleanup function
     return () => {
       menageCurrentUser();
-      console.log('cleanup');
     };
   }, []);
 
