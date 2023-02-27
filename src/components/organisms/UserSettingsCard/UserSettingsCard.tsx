@@ -47,13 +47,7 @@ const UserSettingsCard = ({
   ownerNickname
 }: ISettingsCard) => {
   const { currentUser }: ICurrentUser = useContext(AuthContext);
-<<<<<<< HEAD
   const navigate = useNavigate();
-=======
-
-  const navigate = useNavigate();
-
->>>>>>> 99f04a538eda40397386408144142321c2c3a8ab
   const dispatch = useAppDispatch();
 
   const isUserSettingsCardOpen = useAppSelector(

@@ -16,7 +16,11 @@ export const AuthContextProvider = ({ children }: Props) => {
       setCurrentUser(user);
     });
 
-    return () => menageCurrentUser();
+    // Cleanup function
+    return () => {
+      menageCurrentUser();
+      console.log('cleanup');
+    };
   }, []);
 
   return <AuthContext.Provider value={{ currentUser }}>{children}</AuthContext.Provider>;
