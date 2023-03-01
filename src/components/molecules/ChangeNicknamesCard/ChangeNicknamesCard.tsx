@@ -27,8 +27,8 @@ interface IChangeNicknamesCard {
 
 const ChangeNicknamesCard = ({ user, ownerNickname, userNickname }: IChangeNicknamesCard) => {
   const { currentUser }: ICurrentUser = useContext(AuthContext);
-  const [currentUserNickname, setCurrentUserNickname] = useState('');
-  const [chatUserNickname, setChatUserNickname] = useState('');
+  const [currentUserNickname, setCurrentUserNickname] = useState(ownerNickname);
+  const [chatUserNickname, setChatUserNickname] = useState(userNickname);
 
   const isOpen = useAppSelector((state) => state.userSettingsCard.isChangeUsersNicknamesCardOpen);
 
@@ -46,6 +46,7 @@ const ChangeNicknamesCard = ({ user, ownerNickname, userNickname }: IChangeNickn
       [currentUser.displayName]: currentUserNickname,
       [user.name]: chatUserNickname
     };
+
     try {
       localStorage.setItem('nicknames', JSON.stringify(nicknames));
       await updateDoc(doc(db, 'userChats', currentUser!.uid), {
@@ -68,12 +69,12 @@ const ChangeNicknamesCard = ({ user, ownerNickname, userNickname }: IChangeNickn
     <Wrapper isChangeNicknamesCardOpen={isOpen}>
       <ChangeNicknamesCardTitle>Set your new nicknames</ChangeNicknamesCardTitle>
       <StyledInput
-        placeholder={ownerNickname ? ownerNickname : currentUser!.displayName}
+        placeholder={currentUser!.displayName}
         value={currentUserNickname}
         onChange={(e) => setCurrentUserNickname(e.target.value)}
       />
       <StyledInput
-        placeholder={userNickname ? userNickname : user!.name}
+        placeholder={user!.name}
         value={chatUserNickname}
         onChange={(e) => setChatUserNickname(e.target.value)}
       />
@@ -81,8 +82,6 @@ const ChangeNicknamesCard = ({ user, ownerNickname, userNickname }: IChangeNickn
         <div
           onClick={() => {
             handleClose();
-            setCurrentUserNickname('');
-            setChatUserNickname('');
           }}
         >
           Cancel
