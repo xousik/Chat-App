@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const OuterWrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  height: ${() => window.innerHeight}px;
   background-color: ${({ theme }) => theme.colors.lightGray};
   display: flex;
 
@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
   position: relative;
   margin: 0 auto;
   width: 50%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

@@ -3,11 +3,11 @@ import { Input } from 'components/atoms/Input/Input';
 import { Button } from 'components/atoms/Button/Button';
 
 export const OuterWrapper = styled.div`
-  height: 100vh;
+  height: ${() => window.innerHeight}px;
   width: 100vw;
   img {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     position: absolute;
     z-index: -99999;
   }
@@ -43,7 +43,7 @@ export const Wrapper = styled.div`
     content: '';
     position: absolute;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     top: 0;
     background-color: hsla(100%, 100%, 100% 0.5);
     backdrop-filter: blur(7px);
@@ -72,7 +72,7 @@ export const Wrapper = styled.div`
       position: absolute;
       left: -10px;
       width: 20px;
-      height: 100vh;
+      height: 100%;
       border: 10px solid rgba(128, 128, 128, 0.7);
       filter: blur(5px);
       z-index: 0;

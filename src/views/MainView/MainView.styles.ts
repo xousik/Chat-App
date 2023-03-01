@@ -3,11 +3,11 @@ import { Title } from 'components/atoms/Title/Title';
 import { Button } from 'components/atoms/Button/Button';
 
 export const OuterWrapper = styled.div`
-  height: 100vh;
+  height: ${() => window.innerHeight}px;
   width: 100vw;
   img {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     position: absolute;
   }
   /* @media (min-width: 320px) and (max-width: 480px) {

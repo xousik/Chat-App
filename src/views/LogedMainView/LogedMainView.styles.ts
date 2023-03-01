@@ -28,7 +28,7 @@ export const RightCatImg = styled.img`
 
 export const OuterWrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  height: ${() => window.innerHeight}px;
   background-color: ${({ theme }) => theme.colors.lightGray};
   display: flex;
 
