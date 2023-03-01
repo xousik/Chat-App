@@ -80,7 +80,6 @@ const ChatView = () => {
           const data = Object.entries(doc.data());
           data.filter((chat) => {
             if (chat[0] === combinedId && chat[1].nicknames) {
-              // setOwnerNickname(chat[1].nicknames[currentUser!.displayName]);
               setUserNickname(chat[1].nicknames[currentChatUser.name]);
               console.log('Im getting nicknames');
             }

@@ -7,6 +7,7 @@ interface UserSettingsCardState {
   isChangeUserPasswordCardOpen: boolean;
   isChangeThemeCardOpen: boolean;
   isChangeUsersNicknamesCardOpen: boolean;
+  isDeleteChatCardOpen: boolean;
 }
 
 const initialState: UserSettingsCardState = {
@@ -15,7 +16,8 @@ const initialState: UserSettingsCardState = {
   isChangeUserImageCardOpen: false,
   isChangeUserPasswordCardOpen: false,
   isChangeThemeCardOpen: false,
-  isChangeUsersNicknamesCardOpen: false
+  isChangeUsersNicknamesCardOpen: false,
+  isDeleteChatCardOpen: false
 };
 
 export const userSettingsCardSlice = createSlice({
@@ -59,6 +61,7 @@ export const userSettingsCardSlice = createSlice({
     },
     openChangeThemeCard(state) {
       state.isChangeUsersNicknamesCardOpen = false;
+      state.isDeleteChatCardOpen = false;
       state.isChangeThemeCardOpen = true;
     },
     closeChangeThemeCard(state) {
@@ -66,10 +69,19 @@ export const userSettingsCardSlice = createSlice({
     },
     openChangeUsersNicknamesCard(state) {
       state.isChangeThemeCardOpen = false;
+      state.isDeleteChatCardOpen = false;
       state.isChangeUsersNicknamesCardOpen = true;
     },
     closeChangeUsersNicknamesCard(state) {
       state.isChangeUsersNicknamesCardOpen = false;
+    },
+    openDeleteChatCard(state) {
+      state.isChangeThemeCardOpen = false;
+      state.isChangeUsersNicknamesCardOpen = false;
+      state.isDeleteChatCardOpen = true;
+    },
+    closeDeleteChatCard(state) {
+      state.isDeleteChatCardOpen = false;
     }
   }
 });
@@ -86,7 +98,9 @@ export const {
   openChangeThemeCard,
   closeChangeThemeCard,
   openChangeUsersNicknamesCard,
-  closeChangeUsersNicknamesCard
+  closeChangeUsersNicknamesCard,
+  openDeleteChatCard,
+  closeDeleteChatCard
 } = userSettingsCardSlice.actions;
 
 export default userSettingsCardSlice.reducer;
