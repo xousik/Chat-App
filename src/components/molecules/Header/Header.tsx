@@ -3,6 +3,7 @@ import { Wrapper, StyledUserImage, StyledUserName, Logout } from './Header.style
 import logout from 'assets/images/logoutIcon.svg';
 import { useAppDispatch } from 'app/hooks';
 import { openUserSettingsCard } from 'features/userSettingsCard/userSettingsCardSlice';
+import defaultAvatar from 'assets/images/defaultAvatar.png';
 
 interface HeaderProps {
   handleLogOut?: () => void;
@@ -23,7 +24,7 @@ const Header = ({ handleLogOut, user, hasLogout, nickname }: HeaderProps) => {
   };
   return (
     <Wrapper>
-      <StyledUserImage src={user?.photoURL} />
+      <StyledUserImage src={user?.photoURL || defaultAvatar} />
       <StyledUserName onClick={handleOpenSettings}>
         {nickname || user!.displayName || user!.name}
       </StyledUserName>

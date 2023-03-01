@@ -3,6 +3,7 @@ import { UserName } from 'components/atoms/UserName/UserName';
 import { LastMessage } from 'components/atoms/LastMessage/LastMessage';
 import { Link } from 'react-router-dom';
 import { Wrapper, TextWrapper } from './ContactItem.styles';
+import defaultAvatar from 'assets/images/defaultAvatar.png';
 
 interface INickname {
   [key: string]: string;
@@ -22,7 +23,7 @@ type ContactProps = {
 const ContactItem = ({ user, handleClick, lastMessage, nicknames }: ContactProps) => {
   return (
     <Wrapper onClick={handleClick} as={Link} to="/chat">
-      <UserImage src={user && user.photoURL} />
+      <UserImage src={(user && user.photoURL) || defaultAvatar} />
       <TextWrapper>
         <UserName>{nicknames ? nicknames[user?.name!] : user?.name || user?.displayName}</UserName>
         <LastMessage>{lastMessage && lastMessage}</LastMessage>

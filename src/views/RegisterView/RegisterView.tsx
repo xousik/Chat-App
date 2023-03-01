@@ -16,7 +16,6 @@ import {
   StyledFileInput
 } from './RegisterView.styles';
 import background from 'assets/images/background.jpg';
-import defaultAvatat from 'assets/images/defaultAvatar.png';
 import { useErrorContext } from 'context/ErrorContext';
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
 
@@ -54,14 +53,13 @@ const RegisterView = () => {
 
       if (!image) {
         await updateProfile(res.user, {
-          displayName: name,
-          photoURL: defaultAvatat
+          displayName: name
         });
         setDoc(doc(db, 'users', res.user.uid), {
           uid: res.user.uid,
           name: name,
           email: email,
-          photoURL: defaultAvatat
+          photoURL: ''
         });
         setDoc(doc(db, 'userChats', res.user.uid), {});
         navigate('/');

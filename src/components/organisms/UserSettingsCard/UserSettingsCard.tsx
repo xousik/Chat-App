@@ -26,6 +26,7 @@ import {
   openChangeThemeCard,
   openChangeUsersNicknamesCard
 } from 'features/userSettingsCard/userSettingsCardSlice';
+import defualtAvatar from 'assets/images/defaultAvatar.png';
 
 export interface ISettingsCard {
   user?: {
@@ -114,7 +115,7 @@ const UserSettingsCard = ({
   return (
     <Wrapper isOpen={isUserSettingsCardOpen}>
       <LogoutButton onClick={handleClose}>Done</LogoutButton>
-      <StyledUserImage src={user!.photoURL} />
+      <StyledUserImage src={user!.photoURL || defualtAvatar} />
       <UserName>{userNickname || user!.displayName || user!.name}</UserName>
       <SettingsWrapper>
         <Option onClick={areChatSettings ? handleOpenChangeThemeCard : undefined}>
