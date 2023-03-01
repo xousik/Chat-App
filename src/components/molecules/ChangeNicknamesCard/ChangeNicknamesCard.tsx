@@ -27,8 +27,8 @@ interface IChangeNicknamesCard {
 
 const ChangeNicknamesCard = ({ user, ownerNickname, userNickname }: IChangeNicknamesCard) => {
   const { currentUser }: ICurrentUser = useContext(AuthContext);
-  const [currentUserNickname, setCurrentUserNickname] = useState(ownerNickname);
-  const [chatUserNickname, setChatUserNickname] = useState(userNickname);
+  const [currentUserNickname, setCurrentUserNickname] = useState(ownerNickname || '');
+  const [chatUserNickname, setChatUserNickname] = useState(userNickname || '');
 
   const isOpen = useAppSelector((state) => state.userSettingsCard.isChangeUsersNicknamesCardOpen);
 

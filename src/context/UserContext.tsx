@@ -71,6 +71,10 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
         // create user chats
         await updateDoc(doc(db, 'userChats', currentUser.uid), {
+          [combinedId + '.nicknames']: {
+            [currentUser.displayName]: '',
+            [user.name]: ''
+          },
           [combinedId + '.userInfo']: {
             uid: user.uid,
             name: user.name,
@@ -80,6 +84,10 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
         });
 
         await updateDoc(doc(db, 'userChats', user.uid), {
+          [combinedId + '.nicknames']: {
+            [user.name]: '',
+            [currentUser.displayName]: ''
+          },
           [combinedId + '.userInfo']: {
             uid: currentUser.uid,
             name: currentUser.displayName,
@@ -92,6 +100,10 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
         const data = res.data();
         if (!Object.entries(data!).flat().includes(combinedId)) {
           await updateDoc(doc(db, 'userChats', currentUser.uid), {
+            [combinedId + '.nicknames']: {
+              [currentUser.displayName]: '',
+              [user.name]: ''
+            },
             [combinedId + '.userInfo']: {
               uid: user.uid,
               name: user.name,

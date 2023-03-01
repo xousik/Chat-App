@@ -79,7 +79,7 @@ const DeleteChatCard = ({ user }: User) => {
         <div onClick={() => dispatch(closeDeleteChatCard())}>Cancel</div>
         <HorizontalLine />
         <VerticalLine />
-        <div onClick={deleteChat}>Save</div>
+        <div onClick={deleteChat}>Yes</div>
       </InnerWrapper>
     </Wrapper>
   );
