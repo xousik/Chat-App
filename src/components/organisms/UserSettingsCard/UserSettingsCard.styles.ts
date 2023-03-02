@@ -78,4 +78,9 @@ export const Option = styled.span<ISettingsCard>`
   &:nth-child(5) {
     color: ${({ theme, areChatSettings }) => areChatSettings && theme.colors.darkRed};
   }
+
+  &:nth-child(1) {
+    color: ${({ theme }) => theme.colors.darkGray};
+    pointer-events: none;
+  }
 `;
