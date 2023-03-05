@@ -13,6 +13,7 @@ import catLeft from 'assets/images/catLeft.jpg';
 import catRight from 'assets/images/catRight.jpg';
 import { LeftCatImg, RightCatImg } from 'views/LogedMainView/LogedMainView.styles';
 import UserSettingsCard from 'components/organisms/UserSettingsCard/UserSettingsCard';
+import { useWindowHeight } from 'hooks/useWindowHeight';
 
 export interface ICurrentUser {
   currentUser?: {
@@ -36,6 +37,8 @@ const ChatView = () => {
   const [messages, setMessages] = useState<MessageProps[]>([]);
   const messagesRef = useRef<null | HTMLUListElement>(null);
   const [userNickname, setUserNickname] = useState('');
+
+  const windowHeight = useWindowHeight();
 
   const getCurrentChatUser = (key: string) => {
     const user = localStorage.getItem(key);
@@ -133,7 +136,7 @@ const ChatView = () => {
   };
 
   return (
-    <OuterWrapper>
+    <OuterWrapper windowHeight={windowHeight}>
       <LeftCatImg src={catLeft} alt="cat" />
       <Wrapper>
         <UserSettingsCard

@@ -1,14 +1,10 @@
 import styled from 'styled-components';
 
-export const OuterWrapper = styled.div`
+export const OuterWrapper = styled.div<{ windowHeight: number }>`
   width: 100%;
-  height: ${() => window.innerHeight}px;
+  height: ${({ windowHeight }) => windowHeight}px;
   background-color: ${({ theme }) => theme.colors.lightGray};
   display: flex;
-
-  /* @media (min-width: 320px) and (max-width: 700px) {
-    height: 90vh;
-  } */
 `;
 
 export const Wrapper = styled.div`
@@ -22,12 +18,7 @@ export const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.gray};
   overflow: hidden;
 
-  /* @media (min-width: 320px) and (max-width: 480px) {
-    height: 90vh;
-  } */
-
   @media (max-width: 700px) {
-    /* height: 90vh; */
     width: 100%;
   }
 `;

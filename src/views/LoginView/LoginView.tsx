@@ -9,12 +9,15 @@ import background from 'assets/images/background.jpg';
 import { useErrorContext } from 'context/ErrorContext';
 import { IErrorContext } from 'views/RegisterView/RegisterView';
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
+import { useWindowHeight } from 'hooks/useWindowHeight';
 
 const LoginView = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const { error, handleError }: IErrorContext = useErrorContext();
+
+  const windowHeight = useWindowHeight();
 
   const handleLogIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +34,7 @@ const LoginView = () => {
   };
 
   return (
-    <OuterWrapper>
+    <OuterWrapper windowHeight={windowHeight}>
       <img src={background} alt="background-cat" />
       <Wrapper>
         <Title>Welcome to Lulu's Chat App</Title>

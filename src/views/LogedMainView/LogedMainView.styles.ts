@@ -26,15 +26,11 @@ export const RightCatImg = styled.img`
   }
 `;
 
-export const OuterWrapper = styled.div`
+export const OuterWrapper = styled.div<{ windowHeight: number }>`
   width: 100%;
-  height: ${() => window.innerHeight}px;
+  height: ${({ windowHeight }) => windowHeight}px;
   background-color: ${({ theme }) => theme.colors.lightGray};
   display: flex;
-
-  /* @media (min-width: 320px) and (max-width: 700px) {
-    min-height: 100vh;
-  } */
 `;
 
 export const MainWrapper = styled.div`

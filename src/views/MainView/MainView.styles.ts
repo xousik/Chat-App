@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Title } from 'components/atoms/Title/Title';
 import { Button } from 'components/atoms/Button/Button';
 
-export const OuterWrapper = styled.div`
-  height: ${() => window.innerHeight}px;
+export const OuterWrapper = styled.div<{ windowHeight: number }>`
+  height: ${({ windowHeight }) => windowHeight}px;
   width: 100vw;
   img {
     width: 100vw;
