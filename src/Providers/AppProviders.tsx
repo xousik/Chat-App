@@ -9,7 +9,7 @@ import { store } from 'app/store';
 import { Provider } from 'react-redux';
 
 type Props = {
-  children: JSX.Element;
+  children: React.ReactNode;
 };
 
 const AppProviders = ({ children }: Props) => (
