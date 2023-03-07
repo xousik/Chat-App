@@ -11,6 +11,7 @@ import SearchBar from 'components/molecules/SearchBar/SearchBar';
 import catLeft from 'assets/images/catLeft.jpg';
 import catRight from 'assets/images/catRight.jpg';
 import UserSettingsCard from 'components/organisms/UserSettingsCard/UserSettingsCard';
+import { useWindowHeight } from 'hooks/useWindowHeight';
 export interface IUser {
   user?: {
     uid: string;
@@ -24,13 +25,15 @@ export interface IUser {
 const LogedMainView = () => {
   const { currentUser }: ICurrentUser = useContext(AuthContext);
 
+  const windowHeight = useWindowHeight();
+
   localStorage.removeItem('currentChatId');
   localStorage.removeItem('nicknames');
 
   return (
     <>
       {Object.keys(currentUser!).length !== 0 && (
-        <OuterWrapper>
+        <OuterWrapper windowHeight={windowHeight}>
           <LeftCatImg src={catLeft} alt="cat" />
           <MainWrapper>
             <UserSettingsCard user={currentUser} />

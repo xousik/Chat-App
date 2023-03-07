@@ -18,6 +18,7 @@ import {
 import background from 'assets/images/background.jpg';
 import { useErrorContext } from 'context/ErrorContext';
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
+import { useWindowHeight } from 'hooks/useWindowHeight';
 
 export interface IErrorContext {
   error?: string;
@@ -32,6 +33,8 @@ const RegisterView = () => {
   const [image, setImage] = useState<File | Blob | null>(null);
   const navigate = useNavigate();
   const { error, handleError }: IErrorContext = useErrorContext();
+
+  const windowHeight = useWindowHeight();
 
   const handleSetImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -95,7 +98,7 @@ const RegisterView = () => {
   };
 
   return (
-    <OuterWrapper>
+    <OuterWrapper windowHeight={windowHeight}>
       <img src={background} alt="background-cat" />
       <Wrapper>
         <Title>Welcome to Lulu's Chat App</Title>

@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Button } from 'components/atoms/Button/Button';
 import { Input } from 'components/atoms/Input/Input';
 
-export const OuterWrapper = styled.div`
-  height: ${() => window.innerHeight}px;
+export const OuterWrapper = styled.div<{ windowHeight: number }>`
+  height: ${({ windowHeight }) => windowHeight}px;
   width: 100vw;
   img {
     width: 100vw;
@@ -11,14 +11,6 @@ export const OuterWrapper = styled.div`
     position: absolute;
     z-index: -99999;
   }
-
-  /* @media (min-width: 320px) and (max-width: 480px) {
-    height: 90vh;
-
-    img {
-      height: 90vh;
-    }
-  } */
 
   @media (min-width: 1250px) {
     display: flex;
@@ -48,12 +40,6 @@ export const Wrapper = styled.div`
     backdrop-filter: blur(7px);
     z-index: -99999;
   }
-
-  /* @media (min-width: 320px) and (max-width: 480px) {
-    ::before {
-      height: 90vh;
-    }
-  } */
 
   @media (min-width: 1250px) {
     position: relative;
