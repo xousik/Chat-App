@@ -21,7 +21,8 @@ import {
   openUserPasswordCard,
   openChangeThemeCard,
   openChangeUsersNicknamesCard,
-  openDeleteChatCard
+  openDeleteChatCard,
+  handleVisible
 } from 'features/userSettingsCard/userSettingsCardSlice';
 import defualtAvatar from 'assets/images/defaultAvatar.png';
 
@@ -46,12 +47,17 @@ const UserSettingsCard = ({
 }: ISettingsCard) => {
   const dispatch = useAppDispatch();
 
+  const isVisible = useAppSelector((state) => state.userSettingsCard.isVisible);
+
   const isUserSettingsCardOpen = useAppSelector(
     (state) => state.userSettingsCard.isUserSettingsCardOpen
   );
 
   const handleClose = () => {
     dispatch(closeUserSettingsCard());
+    setTimeout(() => {
+      dispatch(handleVisible());
+    }, 300);
   };
 
   const handleOpenUserNameCard = () => {
@@ -79,7 +85,7 @@ const UserSettingsCard = ({
   };
 
   return (
-    <Wrapper isOpen={isUserSettingsCardOpen}>
+    <Wrapper isOpen={isUserSettingsCardOpen} isVisible={isVisible}>
       <LogoutButton onClick={handleClose}>Done</LogoutButton>
       <StyledUserImage src={user!.photoURL || defualtAvatar} />
       <UserName>{userNickname || user!.displayName || user!.name}</UserName>

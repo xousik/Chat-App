@@ -1,16 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface UserSettingsCardState {
-  isUserSettingsCardOpen: boolean;
-  isChangeUserNameCardOpen: boolean;
-  isChangeUserImageCardOpen: boolean;
-  isChangeUserPasswordCardOpen: boolean;
-  isChangeThemeCardOpen: boolean;
-  isChangeUsersNicknamesCardOpen: boolean;
-  isDeleteChatCardOpen: boolean;
+  [key: string]: boolean;
 }
 
 const initialState: UserSettingsCardState = {
+  isVisible: false,
   isUserSettingsCardOpen: false,
   isChangeUserNameCardOpen: false,
   isChangeUserImageCardOpen: false,
@@ -24,8 +19,12 @@ export const userSettingsCardSlice = createSlice({
   name: 'userSettingsCard',
   initialState: initialState,
   reducers: {
+    handleVisible(state) {
+      state.isVisible = false;
+    },
     openUserSettingsCard(state) {
       state.isUserSettingsCardOpen = true;
+      state.isVisible = true;
     },
     closeUserSettingsCard(state) {
       state.isUserSettingsCardOpen = false;
@@ -87,6 +86,7 @@ export const userSettingsCardSlice = createSlice({
 });
 
 export const {
+  handleVisible,
   openUserSettingsCard,
   closeUserSettingsCard,
   openUserNameCard,

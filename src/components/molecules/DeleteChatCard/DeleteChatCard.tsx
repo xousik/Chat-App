@@ -9,7 +9,8 @@ import {
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 import {
   closeDeleteChatCard,
-  closeUserSettingsCard
+  closeUserSettingsCard,
+  handleVisible
 } from 'features/userSettingsCard/userSettingsCardSlice';
 import { ICurrentUser } from 'views/ChatView/ChatView';
 import { AuthContext } from 'context/AuthContext';
@@ -37,6 +38,9 @@ const DeleteChatCard = ({ user }: User) => {
   const handleClose = () => {
     dispatch(closeDeleteChatCard());
     dispatch(closeUserSettingsCard());
+    setTimeout(() => {
+      dispatch(handleVisible());
+    }, 300);
   };
 
   const deleteChat = async () => {

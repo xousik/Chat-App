@@ -2,13 +2,15 @@ import styled from 'styled-components';
 import { UserImage } from 'components/atoms/UserImage/UserImage';
 import { ISettingsCard } from './UserSettingsCard';
 
-export const Wrapper = styled.div<{ isOpen: boolean }>`
+export const Wrapper = styled.div<{
+  isOpen: boolean;
+  isVisible: boolean;
+}>`
   position: absolute;
   width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.gray};
-  /* display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')}; */
-  /* transition: display 1s; */
+  visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
   display: flex;
   flex-direction: column;
   align-items: center;

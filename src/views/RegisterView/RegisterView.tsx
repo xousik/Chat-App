@@ -105,6 +105,7 @@ const RegisterView = () => {
         <StyledForm onSubmit={handleRegister}>
           <Label htmlFor="name">Name</Label>
           <StyledInput
+            required
             autoComplete="off"
             type="name"
             id="name"
@@ -114,6 +115,7 @@ const RegisterView = () => {
           />
           <Label htmlFor="email">Email</Label>
           <StyledInput
+            required
             autoComplete="off"
             type="email"
             id="email"
@@ -123,6 +125,7 @@ const RegisterView = () => {
           />
           <Label htmlFor="password">Password</Label>
           <StyledInput
+            required
             type="password"
             id="password"
             name="password"
@@ -131,6 +134,7 @@ const RegisterView = () => {
           />
           <Label htmlFor="confirmPassword">Confirm password</Label>
           <StyledInput
+            required
             type="password"
             id="confirmPassword"
             name="confirmPassword"
