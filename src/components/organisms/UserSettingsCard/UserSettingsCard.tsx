@@ -87,8 +87,8 @@ const UserSettingsCard = ({
   return (
     <Wrapper isOpen={isUserSettingsCardOpen} isVisible={isVisible}>
       <LogoutButton onClick={handleClose}>Done</LogoutButton>
-      <StyledUserImage src={user!.photoURL || defualtAvatar} />
-      <UserName>{userNickname || user!.displayName || user!.name}</UserName>
+      <StyledUserImage src={user?.photoURL || defualtAvatar} />
+      <UserName>{userNickname || user?.displayName || user?.name}</UserName>
       <SettingsWrapper>
         <Option onClick={areChatSettings ? handleOpenChangeThemeCard : undefined}>
           {areChatSettings ? 'Theme' : 'Dark mode'}

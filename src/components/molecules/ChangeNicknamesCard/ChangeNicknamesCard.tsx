@@ -69,12 +69,12 @@ const ChangeNicknamesCard = ({ user, ownerNickname, userNickname }: IChangeNickn
     <Wrapper isChangeNicknamesCardOpen={isOpen}>
       <ChangeNicknamesCardTitle>Set your new nicknames</ChangeNicknamesCardTitle>
       <StyledInput
-        placeholder={currentUser!.displayName}
+        placeholder={currentUser?.displayName}
         value={currentUserNickname}
         onChange={(e) => setCurrentUserNickname(e.target.value)}
       />
       <StyledInput
-        placeholder={user!.name}
+        placeholder={user?.name}
         value={chatUserNickname}
         onChange={(e) => setChatUserNickname(e.target.value)}
       />

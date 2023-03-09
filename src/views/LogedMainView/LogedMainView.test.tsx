@@ -16,8 +16,9 @@ beforeAll(async () => {
 test('renders LogedMainView', async () => {
   render(<LogedMainView />);
   await waitFor(() => {
-    expect(screen.getByDisplayValue(`Lulu`));
-    expect(screen.getByText(`Chats`));
+    expect(screen.getByDisplayValue('Lulu'));
+    expect(screen.getByText('Chats'));
+    expect(screen.getByText('Logout'));
   });
 });
 
@@ -42,17 +43,30 @@ test('Show user settings card when user clicks on user name', async () => {
   });
 });
 
-// This should be in UserSettingsCard test file
-
-test('User settings options cards should not be visible by default', async () => {
+test('Hide user settings card when user clicks on "Done"', async () => {
   render(<LogedMainView />);
   await waitFor(() => {
     const userSettingsButton = screen.getByDisplayValue('Lulu');
     userSettingsButton.click();
-  });
-  waitFor(() => {
-    expect(screen.getByText('Set your new user name')).not.toBeVisible();
-    expect(screen.getByText('Set your new profile image')).not.toBeVisible();
-    expect(screen.getByText('Send an email to reset your password')).not.toBeVisible();
+    waitFor(() => {
+      expect(screen.getByText('Done')).toBeVisible();
+      expect(screen.getByText('Change user name')).toBeVisible();
+      expect(screen.getByText('Change image')).toBeVisible();
+      expect(screen.getByText('Change password')).toBeVisible();
+      const closeUserSettingsButton = screen.getByText('Done');
+      closeUserSettingsButton.click();
+      expect(screen.getByText('Done')).not.toBeVisible();
+      expect(screen.getByText('Change user name')).not.toBeVisible();
+      expect(screen.getByText('Change image')).not.toBeVisible();
+      expect(screen.getByText('Change password')).not.toBeVisible();
+    });
   });
 });
+
+//TODO: Test search bar functionality
+
+//TODO: Test chat list functionality
+
+//TODO: Test logout functionality
+
+//TODO: Create tests for ChatView
