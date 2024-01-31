@@ -1,4 +1,3 @@
-import React from 'react';
 import { Wrapper, StyledUserImage, StyledUserName, Logout } from './Header.styles';
 import logout from 'assets/images/logoutIcon.svg';
 import { useAppDispatch } from 'app/hooks';

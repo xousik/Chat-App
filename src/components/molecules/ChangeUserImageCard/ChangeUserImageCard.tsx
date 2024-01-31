@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { auth, storage, db } from 'FirebaseApp/firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { updateProfile } from 'firebase/auth';
@@ -34,17 +34,17 @@ const ChangeUserImageCard = ({ user }: IChangeUserImageCard) => {
   };
 
   const updateImage = async () => {
-    const user: any = auth.currentUser;
-    const docSnap = await getDoc(doc(db, 'userChats', user.uid));
+    const user = auth.currentUser;
+    const docSnap = await getDoc(doc(db, 'userChats', user!.uid));
 
-    const storageRef = ref(storage, user.displayName);
+    const storageRef = ref(storage, user!.displayName!);
     if (!newUserImage) return;
     await uploadBytes(storageRef, newUserImage).then(() => {
       getDownloadURL(storageRef).then(async (url) => {
-        await updateProfile(user, {
+        await updateProfile(user!, {
           photoURL: url
         });
-        await updateDoc(doc(db, 'users', user.uid), {
+        await updateDoc(doc(db, 'users', user!.uid), {
           photoURL: url
         });
         if (docSnap.exists()) {

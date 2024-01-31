@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { updateProfile } from 'firebase/auth';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import { db, auth } from 'FirebaseApp/firebase';
@@ -30,14 +30,14 @@ const ChangeUserNameCard = ({ user }: IChangeUserNameCard) => {
   };
 
   const updateUserName = async () => {
-    const user: any = auth.currentUser;
-    const docSnap = await getDoc(doc(db, 'userChats', user.uid));
+    const user = auth.currentUser;
+    const docSnap = await getDoc(doc(db, 'userChats', user!.uid));
 
-    if (user.displayName === newUserName) return;
-    await updateProfile(user, {
+    if (user!.displayName === newUserName) return;
+    await updateProfile(user!, {
       displayName: newUserName
     });
-    await updateDoc(doc(db, 'users', user.uid), {
+    await updateDoc(doc(db, 'users', user!.uid), {
       name: newUserName
     });
     if (docSnap.exists()) {

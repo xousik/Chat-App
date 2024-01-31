@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 import { Input } from 'components/atoms/Input/Input';
 
-export const Wrapper = styled.div`
-  /* position: relative; */
-`;
-
 export const StyledInput = styled(Input)`
   display: block;
   margin: 10px auto;

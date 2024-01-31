@@ -6,9 +6,7 @@ import { waitFor } from 'test-utils';
 
 beforeAll(async () => {
   const user = auth.currentUser;
-  if (user) {
-    console.log('User is logged in');
-  } else {
+  if (!user) {
     await signInWithEmailAndPassword(auth, 'lulu@gmail.com', 'Test123');
   }
 });

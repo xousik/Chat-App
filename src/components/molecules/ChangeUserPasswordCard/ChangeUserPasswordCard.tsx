@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { auth } from 'FirebaseApp/firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import {

@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from 'test-utils';
+import { render, screen, waitFor, fireEvent } from 'test-utils';
 import UserSettingsCard from './UserSettingsCard';
 
 test('User settings options cards should not be visible by default', async () => {
@@ -22,6 +22,20 @@ test('Should show Change user name card when user clicks on that option and ony 
 });
 
 //TODO: Test changing user name functionality
+
+test('Schould correctly change user name when user clicks on "Change user name" button', async () => {
+  render(<UserSettingsCard />);
+  await waitFor(() => {
+    const changeUserNameButton = screen.getByText('Change user name');
+    changeUserNameButton.click();
+  });
+  waitFor(() => {
+    const changeUserNameInput = screen.getByPlaceholderText('Set your new user name');
+    const changeUserNameButton = screen.getByRole('button');
+    fireEvent.change(changeUserNameInput, 'xousik');
+    changeUserNameButton.click();
+  });
+});
 
 test('Schould close Change user name card when user clicks on "Cancel"', async () => {
   render(<UserSettingsCard />);

@@ -16,7 +16,7 @@ test('correctly displays error message when email is not valid', async () => {
   fireEvent.change(passwordInput, { target: { value: 'Test123' } });
   fireEvent.click(submitButton);
   await waitFor(() => {
-    expect(screen.getByText('Oops!')).toBeInTheDocument();
+    expect(screen.getByText('Oops!')).toBeVisible();
   });
 });
 

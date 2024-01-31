@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Wrapper, StyledInput } from './SearchBar.styles';
+import { StyledInput } from './SearchBar.styles';
 import { UserContext } from 'context/UserContext';
 
 interface UserContextProps {
@@ -10,7 +10,7 @@ interface UserContextProps {
 const SearchBar = () => {
   const { setUserName, handleKey }: UserContextProps = useContext(UserContext);
   return (
-    <Wrapper>
+    <div>
       <StyledInput
         autoComplete="off"
         type="text"
@@ -20,7 +20,7 @@ const SearchBar = () => {
         onChange={(e) => setUserName!(e.target.value)}
         onKeyDown={(e) => handleKey!(e.key)}
       ></StyledInput>
-    </Wrapper>
+    </div>
   );
 };
 

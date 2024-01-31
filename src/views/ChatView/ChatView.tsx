@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable array-callback-return */
 import { useState, useContext, useEffect, useRef } from 'react';
 import { OuterWrapper, Wrapper, MessagesWrapper } from './ChatView.styles';
 import Header from 'components/molecules/Header/Header';
@@ -86,6 +85,7 @@ const ChatView = () => {
               setUserNickname(chat[1].nicknames[currentChatUser.name]);
               console.log('Im getting nicknames');
             }
+            return chat;
           });
         }
       });
