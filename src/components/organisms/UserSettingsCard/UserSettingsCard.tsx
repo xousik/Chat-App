@@ -1,4 +1,3 @@
-import React from 'react';
 import { UserName } from 'components/atoms/UserName/UserName';
 import ChangeUserNameCard from 'components/molecules/ChangeUserNameCard/ChangeUserNameCard';
 import ChangeUserImageCard from 'components/molecules/ChangeUserImageCard/ChangeUserImageCard';

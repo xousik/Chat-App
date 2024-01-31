@@ -10,9 +10,7 @@ interface ChatInputProps {
   text: string;
 }
 
-const ChatInput = ({ handleSend, user, setText, text }: ChatInputProps) => {
-  //   const [image, setImage] = useState(null);
-
+const ChatInput = ({ handleSend, setText, text }: ChatInputProps) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useLayoutEffect(() => {

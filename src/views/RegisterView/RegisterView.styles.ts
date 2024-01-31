@@ -26,6 +26,7 @@ export const OuterWrapper = styled.div<{ windowHeight: number }>`
 export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
+  /* Check height: 100vh on windows notebooks screen size */
   display: flex;
   flex-direction: column;
   align-items: center;

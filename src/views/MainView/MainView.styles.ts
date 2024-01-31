@@ -5,21 +5,14 @@ import { Button } from 'components/atoms/Button/Button';
 export const OuterWrapper = styled.div<{ windowHeight: number }>`
   height: ${({ windowHeight }) => windowHeight}px;
   width: 100vw;
+
   img {
     width: 100vw;
     height: 100%;
     position: absolute;
   }
-  /* @media (min-width: 320px) and (max-width: 480px) {
-    height: 90vh;
-    img {
-      height: 90vh;
-    }
-  } */
-
   @media (min-width: 1250px) {
     display: flex;
-    /* height: 100vh; */
 
     img {
       width: 50vw;
